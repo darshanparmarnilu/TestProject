@@ -67,26 +67,36 @@ class changepassViewController: UIViewController {
     
     @IBAction func update(_ sender: UIButton) {
         
-        if(txtoldpass.text == "" || txtnewpass.text == "" || txtconfirmpass.text == ""){
-            Alertmsg(strMsgAlert: "Please Enter Valid Detial", strtitle:"Alert" )
-        }else if(txtnewpass.text?.passvalid)==false{
-            Alertmsg(strMsgAlert: "Please Enter Valid New Password", strtitle: "Alert")
-        }else if(txtconfirmpass.text?.passvalid) == false{
-            Alertmsg(strMsgAlert: "Invalid Confirm Password", strtitle: "Alert")
-        }else {
-            let result = DatabaseManager.shared.checkpass(password: txtoldpass.text!)
-              if result == true{
-                  if(txtnewpass.text == txtconfirmpass.text) {
-                      print("Password Updated")
-                      DatabaseManager.shared.updatepass(strPass: txtconfirmpass.text!, strID:u_Id)
-                     
-                      self.dismiss(animated: true)
-                  }else{
-                      self.Alertmsg(strMsgAlert: "Password Miss Match, Try Again....", strtitle: "Alert")
-                  }
-              }else if result == false{
-                  self.Alertmsg(strMsgAlert: "Not Found Data", strtitle: "Alert")
-              }
+        let loader = self.loader()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.45){
+            self.stopLoad(loader: loader)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5){
+            if(self.txtoldpass.text == "" || self.txtnewpass.text == "" || self.txtconfirmpass.text == ""){
+                self.Alertmsg(strMsgAlert: "Please Enter Valid Detial", strtitle:"Alert" )
+            }else if(self.txtnewpass.text?.passvalid)==false{
+                self.Alertmsg(strMsgAlert: "Please Enter Valid New Password", strtitle: "Alert")
+            }else if(self.txtconfirmpass.text?.passvalid) == false{
+                self.Alertmsg(strMsgAlert: "Invalid Confirm Password", strtitle: "Alert")
+            }else {
+                
+                
+                
+                let result = DatabaseManager.shared.checkpass(password: self.txtoldpass.text!)
+                if result == true{
+                    if(self.txtnewpass.text == self.txtconfirmpass.text) {
+                        print("Password Updated")
+                        DatabaseManager.shared.updatepass(strPass: self.txtconfirmpass.text!, strID:self.u_Id)
+                        
+                        self.dismiss(animated: true)
+                    }else{
+                        self.Alertmsg(strMsgAlert: "Password Miss Match, Try Again....", strtitle: "Alert")
+                    }
+                }else if result == false{
+                    self.Alertmsg(strMsgAlert: "Not Found Data", strtitle: "Alert")
+                }
+            }
         }
         
     }
@@ -118,3 +128,29 @@ extension UITextField{
 
 
 
+extension changepassViewController{
+    func loader()->UIAlertController{
+        let alert = UIAlertController(title: "\t"+"\t"+"Updating your Password...", message: "\t"+"Please Wait..", preferredStyle: .alert)
+        alert.view.tintColor = .red
+        let attributedString = NSAttributedString(string: "\t"+"\t"+"Updating Password...", attributes: [
+            NSAttributedString.Key.foregroundColor : UIColor(red: 10/256, green: 88/256, blue: 246/256, alpha: 1)
+        ])
+        alert.setValue(attributedString, forKey: "attributedTitle")
+        let indicator = UIActivityIndicatorView(frame: CGRect(x: 25, y: 15, width: 50, height: 50))
+        indicator.color = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
+//        indicator.backgroundColor = .darkGray
+        indicator.hidesWhenStopped = true
+        indicator.style = UIActivityIndicatorView.Style.large
+        indicator.startAnimating()
+        alert.view.addSubview(indicator)
+        present(alert, animated: true, completion: nil)
+        return alert
+        
+    }
+    
+    func stopLoad(loader:UIAlertController) {
+        DispatchQueue.main.async {
+            loader.dismiss(animated: true, completion: nil)
+        }
+    }
+}
