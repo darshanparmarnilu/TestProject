@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "1CEE729A-2B46-4259-A7E2-3085A3ADF77C"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FAD33A65-FFC5-4F55-B1D1-5D7AEB0A9F7D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Signup &amp; SignIn/SignUpViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
+            landmarkName = "btncreateaccount(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "FAD33A65-FFC5-4F55-B1D1-5D7AEB0A9F7D - b9f3c38d0a295e94"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool, Swift.String) -&gt; () in Signup___SignIn.SignUpViewController.btncreateaccount(__C.UIButton) -&gt; ()"
+                  moduleName = "Signup &amp; SignIn"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/macbookair_16/Downloads/Signup%20&amp;%20SignIn/Signup%20&amp;%20SignIn/SignUpViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "189"
+                  endingLineNumber = "189"
+                  offsetFromSymbolStart = "85">
+               </Location>
+               <Location
+                  uuid = "FAD33A65-FFC5-4F55-B1D1-5D7AEB0A9F7D - 5691d0692abd6c7a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool, Swift.String) -&gt; () in closure #1 (Swift.Bool, Swift.String) -&gt; () in Signup___SignIn.SignUpViewController.btncreateaccount(__C.UIButton) -&gt; ()"
+                  moduleName = "Signup &amp; SignIn"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/macbookair_16/Downloads/Signup%20&amp;%20SignIn/Signup%20&amp;%20SignIn/SignUpViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "38">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
