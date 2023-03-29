@@ -125,9 +125,6 @@ extension UITextField{
         }
 }
 
-
-
-
 extension changepassViewController{
     func loader()->UIAlertController{
         let alert = UIAlertController(title: "\t"+"\t"+"Updating your Password...", message: "\t"+"Please Wait..", preferredStyle: .alert)
