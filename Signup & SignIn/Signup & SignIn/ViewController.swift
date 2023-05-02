@@ -7,7 +7,7 @@
 
 import UIKit
 import SQLite3
-
+import Toast_Swift
 class ViewController: UIViewController {
     
     // MARK :- Variables
@@ -16,9 +16,10 @@ class ViewController: UIViewController {
     var checkbtn:Bool! = false
     var txtEmail:UITextField!
     var email = ""
+    
     // MARK :- IBOutlet
-    @IBOutlet var lbldonot: UILabel!
-    @IBOutlet var lblremember: UILabel!
+    //@IBOutlet var lbldonot: UILabel!
+    //@IBOutlet var lblremember: UILabel!
     @IBOutlet var lblsignin: UILabel!
     @IBOutlet var btnsignup: UIButton!
     @IBOutlet var btnlogin: UIButton!
@@ -67,10 +68,10 @@ class ViewController: UIViewController {
         //btnsignup.titleLabel?.font = UIFont(name: "Inter-Medium", size: 19)
         //btnsignup.titleLabel?.textColor = UIColor(red: 0/256, green: 26/256, blue: 255/256, alpha: 1)
         
-        lblremember.textColor = UIColor(red: 0.5/256, green: 0.5/256, blue: 0.5/256, alpha: 0.5)
+        //lblremember.textColor = UIColor(red: 0.5/256, green: 0.5/256, blue: 0.5/256, alpha: 0.5)
         
-        lbldonot.textColor = UIColor(red: 0.5/256, green: 0.5/256, blue: 0.5/256, alpha: 0.5)
-        lbldonot.font = UIFont(name: "Inter-Medium", size: 19)
+       // lbldonot.textColor = UIColor(red: 0.5/256, green: 0.5/256, blue: 0.5/256, alpha: 0.5)
+        //lbldonot.font = UIFont(name: "Inter-Medium", size: 19)
         
         btncheck.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
         
@@ -80,7 +81,8 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
+        txtemail.text = ""
+        txtpass.text = ""
     }
     
     
@@ -112,11 +114,18 @@ class ViewController: UIViewController {
     }
     
     @IBAction func login(_ sender: UIButton) {
-        if(txtemail.text == "" || txtpass.text == ""){
+        let result = DatabaseManager.shared.checkemail(email: txtemail.text!)
+         if(txtemail.text == "" || txtpass.text == ""){
             Alert(strmessage: "Please Enter Valid Email And Password")
         }
         else if(txtemail.text?.isValidEmail) == false {
+            self.txtemail.text = ""
+            self.txtpass.text = ""
             Alert(strmessage: "Invalid Email And Password")
+        }
+        else if result == false{
+            
+            Alert(strmessage: "User Not Found")
         }
         else if(txtpass.text?.isPasswordValid) == false{
             Alert(strmessage: "Invalid Password...Try Again")
@@ -124,15 +133,30 @@ class ViewController: UIViewController {
         else{
           let result = DatabaseManager.shared.login(email:txtemail.text!,pass:txtpass.text!)
             if result{
-                            let nextVC = self.storyboard?.instantiateViewController(identifier: "profileViewController") as! profileViewController
-                            self.navigationController?.pushViewController(nextVC, animated: true)
+//                            let nextVC = self.storyboard?.instantiateViewController(identifier: "profileViewController") as! profileViewController
+//                            self.navigationController?.pushViewController(nextVC, animated: true)
+                
+//                let myTabbar = self.storyboard?.instantiateViewController(withIdentifier: "myTabbar") as! UITabBarController
+//
+//                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//
+//                appDelegate.window?.rootViewController = myTabbar\
+                let myTabbar = self.storyboard?.instantiateViewController(withIdentifier: "myTabbar") as! UITabBarController
+
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                    let appDelegate = windowScene.delegate as? SceneDelegate {
+                    appDelegate.window?.rootViewController = myTabbar
+                }
+                
+                
             }else if result == false{
                 self.Alert(strmessage: "Password Does Not Match")
                 txtpass.text = ""
+                
             }
-
         }
     }
+
     @IBAction func signup(_ sender: UIButton) {
         
         let detail:SignUpViewController = self.storyboard?.instantiateViewController(identifier: "SignUpViewController") as! SignUpViewController
@@ -174,8 +198,15 @@ extension ViewController{
 
             if user_Defaults.bool(forKey: "rememberMe") {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let profileVC = storyboard.instantiateViewController(withIdentifier: "profileViewController") as! profileViewController
-                navigationController?.pushViewController(profileVC, animated: false)
+//                let homeVC = storyboard.instantiateViewController(withIdentifier: "profileViewController") as! profileViewController
+//                navigationController?.pushViewController(profileVC, animated: false)
+                
+                let myTabbar = self.storyboard?.instantiateViewController(withIdentifier: "myTabbar") as! UITabBarController
+
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                    let appDelegate = windowScene.delegate as? SceneDelegate {
+                    appDelegate.window?.rootViewController = myTabbar
+                }
             }
     }
     
