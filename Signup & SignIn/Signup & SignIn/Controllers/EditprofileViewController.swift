@@ -46,7 +46,7 @@ class EditprofileViewController: UIViewController {
     @IBOutlet var txtlast: UITextField!
     
     @IBOutlet var btnupdate: UIButton!
-    @IBOutlet var btnchange: UIButton!
+   
     
     var user_id = ""
     var image_path = ""
@@ -91,6 +91,13 @@ class EditprofileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
+        
+        
+        //self.tabBarController?.tabBar.isHidden = true
+       // self.tabBarController?.tabBar.layer.zPosition = -1
+        txtfirst.delegate = self
+        txtlast.delegate = self
+        txtmobile.delegate = self
         txtdateofbirth.delegate = self
         txtbirthtime.delegate = self
         txtcountry.delegate = self
@@ -156,10 +163,6 @@ class EditprofileViewController: UIViewController {
         btnupdate.layer.borderColor = UIColor.black.cgColor
         btnupdate.layer.borderWidth = 1
         btnupdate.backgroundColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
-        
-        btnchange.titleLabel?.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
-        
-        
     }
     @objc func imageTapped(tapGestureRecognizer:UITapGestureRecognizer){
         openGalary()
@@ -237,9 +240,6 @@ class EditprofileViewController: UIViewController {
     
     // Mark:- Button Action
     
-    @IBAction func back(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
-    }
     
     @IBAction func btnmale(_ sender: UIButton) {
         gender = "Male"
@@ -264,7 +264,7 @@ class EditprofileViewController: UIViewController {
     }
     
     @IBAction func country(_ sender: UIButton) {
-        openpicker(tag: 1)
+        self.openpicker(tag: 1)
     }
     
     @IBAction func state(_ sender: UIButton) {
@@ -284,39 +284,38 @@ class EditprofileViewController: UIViewController {
             self.openpicker(tag: 3)
         }
     }
-    @IBAction func changepass(_ sender: UIButton) {
-//        let present = self.storyboard?.instantiateViewController(withIdentifier:"changepassViewController")as! changepassViewController
-//        self.present(present,animated: true)
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let viewController = storyboard.instantiateViewController(withIdentifier: "changepassViewController") as! changepassViewController
-            viewController.modalPresentationStyle = .overCurrentContext
-            viewController.modalTransitionStyle = .crossDissolve
-            viewController.u_Id = self.user_id
-            self.present(viewController, animated: true, completion: nil)
-            
-//        let blurEffect = UIBlurEffect(style: .light)
-//       var blurview = UIVisualEffectView(effect: blurEffect)
-//        blurview.frame = view.bounds
-//       self.view.addSubview(blurview)
 
-    }
-    
-    
-    
     @IBAction func update(_ sender: UIButton) {
         
 
-        if(txtfirst.text == "" || txtlast.text == "" || txtemail.text == "" || txtmobile.text == "" || txtabout.text == "" || txtdateofbirth.text == "" || txtbirthtime.text == "" || txtcountry.text == "" || txtstate.text == "" || txtcity.text == "" || self.gender == "" ){
-            Alertmsg(strMsgAlert: "Please Fill All Valid Detail",strtitle: "Alert")
-
+        if(txtfirst.text == ""){
+            Alertmsg(strMsgAlert: "Please Enter First Name",strtitle: "Alert")
+        } else if(txtlast.text == ""){
+            Alertmsg(strMsgAlert: "Please Enter Last Name",strtitle: "Alert")
+        }else if(txtemail.text == ""){
+            Alertmsg(strMsgAlert: "Please Enter Email",strtitle: "Alert")
+        }else if(txtmobile.text == ""){
+            Alertmsg(strMsgAlert: "Please Enter Mobile No",strtitle: "Alert")
+        }else if(txtabout.text == ""){
+            Alertmsg(strMsgAlert: "Please Fill About Me Detial",strtitle: "Alert")
+        }else if(txtdateofbirth.text == ""){
+            Alertmsg(strMsgAlert: "Please Enter Date Of Birth",strtitle: "Alert")
+        }else if(txtbirthtime.text == ""){
+            Alertmsg(strMsgAlert: "Please Enter Birth Time",strtitle: "Alert")
+        }else if(txtcountry.text == ""){
+            Alertmsg(strMsgAlert: "Please Enter Country",strtitle: "Alert")
+        }else if(txtstate.text == ""){
+            Alertmsg(strMsgAlert: "Please Enter State",strtitle: "Alert")
+        }else if(txtcity.text == ""){
+            Alertmsg(strMsgAlert: "Please Enter City",strtitle: "Alert")
+        }else if(gender == ""){
+            Alertmsg(strMsgAlert: "Please Enter Gender",strtitle: "Alert")
         }else if(txtfirst.text?.firstnamevalid) == false{
             Alertmsg(strMsgAlert: "Please Enter Valid FirstName",strtitle: "Alert")
         }else if(txtlast.text?.lastnamevalid) == false{
             Alertmsg(strMsgAlert: "Please Enter Valid LastName",strtitle: "Alert")
         }else if(txtemail.text?.emailvalid) == false{
             Alertmsg(strMsgAlert: "Please Enter Valid Email",strtitle: "Alert")
-    
         }else if(txtmobile.text?.phonevalid) == false{
             Alertmsg(strMsgAlert: "Please Enter Valid Mobile-No",strtitle: "Alert")
         }else if(txtabout.text?.aboutmevalid) == false{
@@ -343,6 +342,10 @@ class EditprofileViewController: UIViewController {
         //self.navigationController?.popViewController(animated: true)
     }
     
+    
+    @IBAction func back(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
     
 }
 
@@ -448,6 +451,30 @@ extension EditprofileViewController:UITextFieldDelegate{
             self.openpicker(tag: 3)
         }
         
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == txtfirst{
+            let maxLength = 24
+            let currentString: NSString = txtfirst.text! as NSString
+            let newString: NSString =
+            currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        }else if textField == txtlast{
+            let maxLength = 24
+            let currentString: NSString = txtlast.text! as NSString
+            let newString: NSString =
+            currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        }else if textField == txtmobile{
+            let maxLength = 10
+            let currentString: NSString = txtmobile.text! as NSString
+            let newString: NSString =
+            currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        }
+        return true
+    
     }
     
 }

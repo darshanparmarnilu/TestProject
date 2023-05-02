@@ -32,6 +32,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        txtemail.delegate = self
+        txtpass.delegate = self
+        
         sendprofile()
 
         self.view.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
@@ -115,17 +118,21 @@ class ViewController: UIViewController {
     
     @IBAction func login(_ sender: UIButton) {
         let result = DatabaseManager.shared.checkemail(email: txtemail.text!)
-         if(txtemail.text == "" || txtpass.text == ""){
-            Alert(strmessage: "Please Enter Valid Email And Password")
-        }
+         if(txtemail.text == ""){
+            Alert(strmessage: "Please Enter Email")
+         }else if(txtpass.text == ""){
+             Alert(strmessage: "Please Enter Password")
+         }
         else if(txtemail.text?.isValidEmail) == false {
             self.txtemail.text = ""
             self.txtpass.text = ""
-            Alert(strmessage: "Invalid Email And Password")
+            Alert(strmessage: "Invalid Email, Try Again...")
         }
         else if result == false{
             
             Alert(strmessage: "User Not Found")
+            txtpass.text = ""
+            txtemail.text = ""
         }
         else if(txtpass.text?.isPasswordValid) == false{
             Alert(strmessage: "Invalid Password...Try Again")
@@ -150,7 +157,7 @@ class ViewController: UIViewController {
                 
                 
             }else if result == false{
-                self.Alert(strmessage: "Password Does Not Match")
+                self.Alert(strmessage: "Incorrect Password...")
                 txtpass.text = ""
                 
             }
@@ -170,7 +177,7 @@ class ViewController: UIViewController {
 
 extension String{
     var isPasswordValid:Bool{
-        let passRegEx = "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{1,64}$"
+        let passRegEx = "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{6,8}$"
         let passPred = NSPredicate(format:"SELF MATCHES %@", passRegEx)
         return passPred.evaluate(with: self)
     }
@@ -229,7 +236,9 @@ extension ViewController{
             
             if self.txtemail!.text == ""
             {
-                self.Alert(strmessage: "Please Enter Data")
+                self.Alert(strmessage: "Please Enter Email")
+            }else if(txtemail.text?.isValidEmail) == false {
+                Alert(strmessage: "Invalid Email, Try Again...")
             }
             //else if (testStr: (txtemail?.text!)! ) ==  false
 //            else if (isValidEmail:txtemail.text!) ==  false{
@@ -306,4 +315,30 @@ extension ViewController{
             loader.dismiss(animated: true, completion: nil)
         }
     }
+}
+
+extension ViewController:UITextFieldDelegate{
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        if txtpass.text!.count >= 8{
+//        return false
+//        }else if txtemail.text!.count >= 16{
+//            return false
+//        }
+//        return true
+//    }
+    
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
+//                           replacementString string: String) -> Bool
+//    {
+//        if textField == txtpass{
+//            let maxLength = 8
+//            let currentString: NSString = txtpass.text! as NSString
+//            let newString: NSString =
+//            currentString.replacingCharacters(in: range, with: string) as NSString
+//            return newString.length <= maxLength
+//        }else{
+//            return true
+//        }
+//    }
+    
 }

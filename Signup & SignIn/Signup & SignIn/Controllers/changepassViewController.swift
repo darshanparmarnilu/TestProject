@@ -9,7 +9,7 @@ import UIKit
 import Toast_Swift
 
 class changepassViewController: UIViewController {
-//Mark:- IBOutlets
+    //Mark:- IBOutlets
     
     var u_Id = ""
     
@@ -40,7 +40,7 @@ class changepassViewController: UIViewController {
         
         subview.layer.masksToBounds = true
         subview.layer.cornerRadius = 25
-
+        
         txtoldpass.underline()
         txtnewpass.underline()
         txtconfirmpass.underline()
@@ -56,9 +56,13 @@ class changepassViewController: UIViewController {
         btnupdate.layer.masksToBounds = true
         btnupdate.layer.cornerRadius = 16
         
+        txtoldpass.delegate = self
+        txtnewpass.delegate = self
+        txtconfirmpass.delegate = self
+        
     }
     override func viewWillAppear(_ animated: Bool) {
-       // self.mainview.makeToast("Password Updated", duration: 10.00, position: .bottom)
+        // self.mainview.makeToast("Password Updated", duration: 10.00, position: .bottom)
     }
     
     
@@ -68,44 +72,44 @@ class changepassViewController: UIViewController {
     
     @IBAction func update(_ sender: UIButton) {
         let result = DatabaseManager.shared.checkpass(password: self.txtoldpass.text!)
-//        let loader = self.loader()
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 4.45){
-//            self.stopLoad(loader: loader)
-//        }
+        //        let loader = self.loader()
+        //        DispatchQueue.main.asyncAfter(deadline: .now() + 4.45){
+        //            self.stopLoad(loader: loader)
+        //        }
         
         //DispatchQueue.main.asyncAfter(deadline: .now() + 5){
-            if(self.txtoldpass.text == "" || self.txtnewpass.text == "" || self.txtconfirmpass.text == ""){
-                self.Alertmsg(strMsgAlert: "Please Enter Valid Detial", strtitle:"Alert" )
-                
-            }else if result == false{
-                self.Alertmsg(strMsgAlert: "Old Password Not Found", strtitle: "Alert")
-            }else if(self.txtnewpass.text?.passvalid)==false{
-                self.Alertmsg(strMsgAlert: "Please Enter Valid New Password Like [0-9a-zA-Z!@#$%^&*()]", strtitle: "Alert")
-            }else if(self.txtconfirmpass.text?.passvalid) == false{
-                self.Alertmsg(strMsgAlert: "Invalid Confirm Password Like [0-9a-zA-Z!@#$%^&*()]", strtitle: "Alert")
-            }else {
-
-                let result = DatabaseManager.shared.checkpass(password: self.txtoldpass.text!)
-                if result == true{
-                    if(self.txtnewpass.text == self.txtconfirmpass.text) {
-                        print("Password Updated")
-                        DatabaseManager.shared.updatepass(strPass: self.txtconfirmpass.text!, strID:self.u_Id)
-                        self.dismiss(animated: true)
-                        //{
-//                  self.mainview.makeToast("Password Updated", duration: 10.00, position: .bottom)
-//                        }
-                      
-                    }else{
-                        self.Alertmsg(strMsgAlert: "Password Miss Match, Try Again....", strtitle: "Alert")
-                    }
-                }else if result == false{
-                    self.Alertmsg(strMsgAlert: "Not Found Data", strtitle: "Alert")
+        if(self.txtoldpass.text == "" || self.txtnewpass.text == "" || self.txtconfirmpass.text == ""){
+            self.Alertmsg(strMsgAlert: "Please Enter Valid Detial", strtitle:"Alert" )
+            
+        }else if result == false{
+            self.Alertmsg(strMsgAlert: "Old Password Not Found", strtitle: "Alert")
+        }else if(self.txtnewpass.text?.passvalid)==false{
+            self.Alertmsg(strMsgAlert: "Please Enter Valid New Password Like [0-9a-zA-Z!@#$%^&*()]", strtitle: "Alert")
+        }else if(self.txtconfirmpass.text?.passvalid) == false{
+            self.Alertmsg(strMsgAlert: "Invalid Confirm Password Like [0-9a-zA-Z!@#$%^&*()]", strtitle: "Alert")
+        }else {
+            
+            let result = DatabaseManager.shared.checkpass(password: self.txtoldpass.text!)
+            if result == true{
+                if(self.txtnewpass.text == self.txtconfirmpass.text) {
+                    print("Password Updated")
+                    DatabaseManager.shared.updatepass(strPass: self.txtconfirmpass.text!, strID:self.u_Id)
+                    self.dismiss(animated: true)
+                    //{
+                    //                  self.mainview.makeToast("Password Updated", duration: 10.00, position: .bottom)
+                    //                        }
+                    
+                }else{
+                    self.Alertmsg(strMsgAlert: "Password Miss Match, Try Again....", strtitle: "Alert")
                 }
+            }else if result == false{
+                self.Alertmsg(strMsgAlert: "Not Found Data", strtitle: "Alert")
             }
+        }
         //}
     }
-
-// Alert Control Function
+    
+    // Alert Control Function
     
     func Alertmsg(strMsgAlert:String,strtitle:String){
         let alert = UIAlertController(title: strtitle, message: strMsgAlert, preferredStyle: .alert)
@@ -119,14 +123,14 @@ class changepassViewController: UIViewController {
 
 extension UITextField{
     func underline(){
-            let border = CALayer()
-            let width = CGFloat(1.0)
+        let border = CALayer()
+        let width = CGFloat(1.0)
         border.borderColor = UIColor.black.cgColor
-            border.frame = CGRect(x: 0, y: self.frame.size.height - width, width:  self.frame.size.width, height: self.frame.size.height)
-            border.borderWidth = width
-            self.layer.addSublayer(border)
-            self.layer.masksToBounds = true
-        }
+        border.frame = CGRect(x: 0, y: self.frame.size.height - width, width:  self.frame.size.width, height: self.frame.size.height)
+        border.borderWidth = width
+        self.layer.addSublayer(border)
+        self.layer.masksToBounds = true
+    }
 }
 
 extension changepassViewController{
@@ -139,7 +143,7 @@ extension changepassViewController{
         alert.setValue(attributedString, forKey: "attributedTitle")
         let indicator = UIActivityIndicatorView(frame: CGRect(x: 25, y: 15, width: 50, height: 50))
         indicator.color = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
-//        indicator.backgroundColor = .darkGray
+        //        indicator.backgroundColor = .darkGray
         indicator.hidesWhenStopped = true
         indicator.style = UIActivityIndicatorView.Style.large
         indicator.startAnimating()
@@ -153,5 +157,29 @@ extension changepassViewController{
         DispatchQueue.main.async {
             loader.dismiss(animated: true, completion: nil)
         }
+    }
+}
+extension changepassViewController:UITextFieldDelegate{
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == txtoldpass{
+            let maxLength = 8
+            let currentString: NSString = txtoldpass.text! as NSString
+            let newString: NSString =
+            currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        }else if textField == txtnewpass{
+            let maxLength = 8
+            let currentString: NSString = txtnewpass.text! as NSString
+            let newString: NSString =
+            currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        }else if textField == txtconfirmpass{
+            let maxLength = 8
+            let currentString: NSString = txtconfirmpass.text! as NSString
+            let newString: NSString =
+            currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        }
+        return true
     }
 }

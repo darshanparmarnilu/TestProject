@@ -7,6 +7,7 @@
 
 import UIKit
 import Toast_Swift
+import SideMenu
 
 class profileViewController: UIViewController {
 
@@ -27,8 +28,8 @@ class profileViewController: UIViewController {
     @IBOutlet var lblbirthtime: UILabel!
     @IBOutlet var lbldateofbirth: UILabel!
     @IBOutlet var profileimg: UIImageView!
-    @IBOutlet var btnlogout: UIButton!
-    @IBOutlet var lbledit: UILabel!
+   // @IBOutlet var btnlogout: UIButton!
+   // @IBOutlet var lbledit: UILabel!
     @IBOutlet var subview: UIView!
     @IBOutlet var lblprofile: UILabel!
     @IBOutlet var txtaboutme: UITextField!
@@ -77,7 +78,7 @@ class profileViewController: UIViewController {
         lblmobile.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
         
         lblaboutme.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
-        lbledit.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
+        //lbledit.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
         lbldateofbirth.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
         lblbirthtime.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
         lblcountry.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
@@ -111,8 +112,8 @@ class profileViewController: UIViewController {
         txtcity.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
         txtgender.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
         
-        btnlogout.layer.masksToBounds = true
-        btnlogout.layer.cornerRadius = 20
+       // btnlogout.layer.masksToBounds = true
+       // btnlogout.layer.cornerRadius = 20
         
         self.reloadInputViews()
         
@@ -121,9 +122,21 @@ class profileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.getData()
-        
     }
 
+    @IBAction func Menu(_ sender: UIButton) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SideMenuNavigationController") as! SideMenuNavigationController
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            vc.settings.menuWidth = self.view.frame.width - 200
+        }else{
+            vc.settings.menuWidth = self.view.frame.width - 80
+        }
+        vc.settings.presentationStyle = .viewSlideOut
+        vc.settings.statusBarEndAlpha = 0
+        vc.leftSide = true
+        present(vc, animated: true, completion: nil)
+
+    }
     
     // MARK:- Get user Data from userDefaults
     func getData() {
@@ -165,29 +178,6 @@ class profileViewController: UIViewController {
                         }
                     }
                 }
-                
-            
-    // MARK:- Button Action
-    @IBAction func navigateback(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func edit(_ sender: Any) {
-        let edit = self.storyboard?.instantiateViewController(withIdentifier: "EditprofileViewController") as! EditprofileViewController
-        
-        self.navigationController?.pushViewController(edit, animated: true)
-    }
-    
-    
-    @IBAction func logout(_ sender: UIButton) {
-        let user_defaults = UserDefaults.standard
-            user_defaults.removeObject(forKey: "username")
-            user_defaults.removeObject(forKey: "password")
-            user_defaults.set(false, forKey: "rememberMe")
-//            self.navigationController?.popViewController(animated: true)
-        let navigate = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-        self.navigationController?.pushViewController(navigate, animated: true)
-    }
 }
 
 extension UITextField{

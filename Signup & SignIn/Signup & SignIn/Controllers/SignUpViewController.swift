@@ -94,6 +94,12 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
         
         
      //   saveImage()
+        txtfirst.delegate = self
+        txtlast.delegate = self
+        txtmobile.delegate = self
+        txtemail.delegate = self
+        txtpass.delegate = self
+        
         txtdateofbirth.delegate = self
         txtbirthtime.delegate = self
         txtcountry.delegate = self
@@ -229,6 +235,7 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
     }
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if (text == "\n"){
+            textView.textAlignment = .center
             textView.resignFirstResponder()
             return false
         }
@@ -239,6 +246,7 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
         if(textView.text == "About Me"){
             textView.text = ""
             textView.textColor = UIColor.black
+            textView.textAlignment = .center
             textView.reloadInputViews()
         }
         textView.becomeFirstResponder()
@@ -247,6 +255,7 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
         if (textView.text == ""){
             textView.text = "About Me"
             textView.textColor = UIColor.lightGray
+            textView.textAlignment = .center
             textView.reloadInputViews()
         }
         textView.resignFirstResponder()
@@ -257,7 +266,7 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
    
     @IBAction func camera(_ sender: UIButton) {
         let imagePicker = UIImagePickerController()
-           imagePicker.sourceType = .photoLibrary
+           imagePicker.sourceType = .camera
            imagePicker.allowsEditing = false
         imagePicker.delegate = self
            present(imagePicker, animated: true, completion: nil)
@@ -271,10 +280,32 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
     
     
     @IBAction func btncreateaccount(_ sender:UIButton) {
-        if(txtfirst.text == "" || txtlast.text == "" || txtemail.text == "" || txtpass.text == "" || txtmobile.text == "" || txtaboutme.text == "" || txtdateofbirth.text == "" || txtbirthtime.text == "" || txtcountry.text == "" || txtstate.text == "" || txtcity.text == "" || gender == ""){
-            Alertmsg(strMsgAlert: "Please Enter Valid Detail",strtitle: "Alert")
+        if(txtfirst.text == ""){
+            Alertmsg(strMsgAlert: "Please Enter First Name",strtitle: "Alert")
+        } else if(txtlast.text == ""){
+            Alertmsg(strMsgAlert: "Please Enter Last Name",strtitle: "Alert")
+        }else if(txtemail.text == ""){
+            Alertmsg(strMsgAlert: "Please Enter Email",strtitle: "Alert")
+        }else if(txtpass.text == ""){
+            Alertmsg(strMsgAlert: "Please Enter Password",strtitle: "Alert")
+        }else if(txtmobile.text == ""){
+            Alertmsg(strMsgAlert: "Please Enter Mobile No",strtitle: "Alert")
+        }else if(txtaboutme.text == ""){
+            Alertmsg(strMsgAlert: "Please Fill About Me Detial",strtitle: "Alert")
+        }else if(txtdateofbirth.text == ""){
+            Alertmsg(strMsgAlert: "Please Enter Date Of Birth",strtitle: "Alert")
+        }else if(txtbirthtime.text == ""){
+            Alertmsg(strMsgAlert: "Please Enter Birth Time",strtitle: "Alert")
+        }else if(txtcountry.text == ""){
+            Alertmsg(strMsgAlert: "Please Enter Country",strtitle: "Alert")
+        }else if(txtstate.text == ""){
+            Alertmsg(strMsgAlert: "Please Enter State",strtitle: "Alert")
+        }else if(txtcity.text == ""){
+            Alertmsg(strMsgAlert: "Please Enter City",strtitle: "Alert")
+        }else if(gender == ""){
+            Alertmsg(strMsgAlert: "Please Enter Gender",strtitle: "Alert")
         }else if(txtfirst.text?.firstnamevalid) == false{
-            Alertmsg(strMsgAlert: "Please Enter Valid Name",strtitle: "Alert")
+            Alertmsg(strMsgAlert: " Enter Valid First Name",strtitle: "Alert")
         }else if(txtlast.text?.lastnamevalid) == false{
             Alertmsg(strMsgAlert: "Please Enter Valid Last Name",strtitle:"Alert")
         }else if(txtemail.text?.emailvalid) == false{
@@ -284,7 +315,7 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
         }else if(txtmobile.text?.phonevalid) == false{
             Alertmsg(strMsgAlert: "Please Enter Valid Mobile No",strtitle: "Alert")
         }else if(txtaboutme.text?.aboutmevalid) == false{
-            Alertmsg(strMsgAlert: "Invalid Detial",strtitle: "Alert")
+            Alertmsg(strMsgAlert: "Invalid Detail",strtitle: "Alert")
         }else if self.imageSelecetd == false {
             Alertmsg(strMsgAlert: "Please selected user profile image",strtitle: "Alert")
         }
@@ -318,14 +349,14 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func country(_ sender: UIButton) {
-        openpicker(tag: 1)
+        self.openpicker(tag: 1)
     }
     
     @IBAction func state(_ sender: UIButton) {
         if txtcountry.text == ""{
             self.Alertmsg(strMsgAlert: "Please Select First Country", strtitle: "Alert")
         }else{
-            openpicker(tag: 2)
+            self.openpicker(tag: 2)
         }
     }
     
@@ -366,7 +397,7 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
 
 extension String{
     var passvalid:Bool{
-        let passRegEx = "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{2,64}$"
+        let passRegEx = "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{6,8}$"
         let passPred = NSPredicate(format:"SELF MATCHES %@", passRegEx)
         return passPred.evaluate(with: self)
     }
@@ -387,13 +418,13 @@ extension String{
     }
     var phonevalid:Bool{
 //        let phoneRegex = "^[0-9+]{0,1}+[0-9]{10,13}$"
-        let phoneRegex = "[0-9]{10,13}$"
+        let phoneRegex = "[0-9]{10}$"
         let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
         return phoneTest.evaluate(with: self)
     }
     var aboutmevalid:Bool{
-        //let aboutRehex = "^(([^ ]?)(^[a-zA-Z].*[a-zA-Z]$)([^ ]?)){10,50}$"
-        let aboutRehex = "[A-Z,a-z, ,]{10,50}$"
+        let aboutRehex = "^(([^ ]?)(^[a-zA-Z].*[a-zA-Z]$)([^ ]?))$"
+        //let aboutRehex = "[A-Z,a-z, ,]{50}$"
         let aboutText = NSPredicate(format: "SELF MATCHES %@", aboutRehex)
         return aboutText.evaluate(with: self)
     }
@@ -543,6 +574,35 @@ extension SignUpViewController:UITextFieldDelegate{
             
         }
         
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == txtpass{
+            let maxLength = 8
+            let currentString: NSString = txtpass.text! as NSString
+            let newString: NSString =
+            currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        }else if textField == txtfirst{
+            let maxLength = 24
+            let currentString: NSString = txtfirst.text! as NSString
+            let newString: NSString =
+            currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        }else if textField == txtlast{
+            let maxLength = 24
+            let currentString: NSString = txtlast.text! as NSString
+            let newString: NSString =
+            currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        }else if textField == txtmobile{
+            let maxLength = 10
+            let currentString: NSString = txtmobile.text! as NSString
+            let newString: NSString =
+            currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        }
+        return true
     }
 }
 
@@ -817,4 +877,5 @@ extension SignUpViewController{
         }
         
     }
+
 

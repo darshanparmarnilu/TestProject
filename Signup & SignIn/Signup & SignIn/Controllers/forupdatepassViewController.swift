@@ -24,6 +24,8 @@ class forupdatepassViewController: UIViewController {
         dropShadow()
         self.mainview.backgroundColor = .clear
         
+        txtnewpass.delegate = self
+        txtconfirmpass.delegate = self
         
         txtnewpass.layer.masksToBounds = true
         txtnewpass.layer.cornerRadius = 16
@@ -169,4 +171,22 @@ extension forupdatepassViewController{
     }
     
     
+}
+extension forupdatepassViewController:UITextFieldDelegate{
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == txtnewpass{
+            let maxLength = 8
+            let currentString: NSString = txtnewpass.text! as NSString
+            let newString: NSString =
+            currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        }else if textField == txtconfirmpass{
+            let maxLength = 8
+            let currentString: NSString = txtconfirmpass.text! as NSString
+            let newString: NSString =
+            currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        }
+        return true
+    }
 }

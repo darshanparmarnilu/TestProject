@@ -9,4 +9,6 @@ import UIKit
 
 class AlbamCollectionViewCell: UICollectionViewCell {
     
+    
+    @IBOutlet var imageView: UIImageView!
 }
