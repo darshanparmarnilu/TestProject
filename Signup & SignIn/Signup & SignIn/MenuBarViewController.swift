@@ -40,7 +40,9 @@ class MenuBarViewController: UIViewController {
     @IBAction func EditProfile(_ sender: UIButton) {
         let edit = self.storyboard?.instantiateViewController(withIdentifier: "EditprofileViewController") as! EditprofileViewController
         edit.modalPresentationStyle = .overFullScreen
-        self.navigationController?.pushViewController(edit, animated: true)
+        edit.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(edit, animated: false)
+        
     }
     
     @IBAction func ChangePass(_ sender: UIButton) {
@@ -58,6 +60,7 @@ class MenuBarViewController: UIViewController {
         
         let controller = self.storyboard?.instantiateViewController(withIdentifier: "changepassViewController") as! changepassViewController
         controller.modalPresentationStyle = .overFullScreen
+        controller.hidesBottomBarWhenPushed = true
         controller.u_Id = self.user_id
         self.present(controller, animated: true)
         
@@ -84,7 +87,8 @@ class MenuBarViewController: UIViewController {
         user_defaults.set(false, forKey: "rememberMe")
         //            self.navigationController?.popViewController(animated: true)
         let navigate = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-        
+        navigate.modalPresentationStyle = .overFullScreen
+        navigate.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(navigate, animated: true)
         
     }

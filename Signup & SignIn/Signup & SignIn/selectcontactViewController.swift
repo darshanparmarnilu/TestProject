@@ -75,6 +75,7 @@ class selectcontactViewController: UIViewController {
         self.arrContact.append(obj12)
         self.arrContact.append(obj13)
         self.arrContact.append(obj14)
+        self.arrContact.append(obj15)
         
         subView.alpha = 1
         searchview.alpha = 0
@@ -139,11 +140,12 @@ extension selectcontactViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let headerView = view as? UITableViewHeaderFooterView else { return }
+        let titleLabel = UILabel(frame: CGRect(x: 12, y: 0, width: tableView.bounds.size.width - 30, height: 50))
         headerView.textLabel?.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
-//        headerView.textLabel?.backgroundColor = UIColor(red: 232/255, green: 232/255, blue: 232/255, alpha: 1)
-//
         headerView.textLabel?.font = UIFont(name: "Inter-Medium", size: 22)
+        headerView.addSubview(titleLabel)
     }
+ 
 }
 
 extension selectcontactViewController:UISearchBarDelegate{

@@ -163,6 +163,9 @@ class EditprofileViewController: UIViewController {
         btnupdate.layer.borderColor = UIColor.black.cgColor
         btnupdate.layer.borderWidth = 1
         btnupdate.backgroundColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
+        if let Date = UserDefaults.standard.value(forKey: "Date") as? String{
+            txtdateofbirth.text = Date
+        }
     }
     @objc func imageTapped(tapGestureRecognizer:UITapGestureRecognizer){
         openGalary()
@@ -337,7 +340,7 @@ class EditprofileViewController: UIViewController {
                 }
             }
         }
-        self.viewWillAppear(true)
+       // self.viewWillAppear(true)
         self.Alertmsgback()
         //self.navigationController?.popViewController(animated: true)
     }
@@ -651,6 +654,7 @@ extension EditprofileViewController{
 extension EditprofileViewController{
     func OpenDatepickker(){
         let datePicker = UIDatePicker()
+        
         datePicker.addTarget(self, action: #selector(self.datePickerHandler(datePicker:)), for: .valueChanged)
         datePicker.datePickerMode = .date
         if #available(iOS 13.4, *) {
@@ -662,10 +666,11 @@ extension EditprofileViewController{
         datePicker.setValue(UIColor.red, forKeyPath: "textColor")
         datePicker.setValue(true, forKeyPath: "highlightsToday")
         txtdateofbirth.inputView = datePicker
-        
         let dateformrtter = DateFormatter()
         dateformrtter.dateStyle = .medium
-          
+        
+        
+        
         let toolbar = UIToolbar(frame:  CGRect(x: 0, y: 0, width: self.view.frame.width, height: 44))
         let cancelbtn = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.cancelBtnClick))
         let donebtn = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneBtnClick))
@@ -673,6 +678,10 @@ extension EditprofileViewController{
         let resetbtn = UIBarButtonItem(title: "Reset", style: .done, target: self, action: #selector(self.resetbtn))
         toolbar.setItems([cancelbtn,flexibleBtn,resetbtn,flexibleBtn,donebtn], animated: true)
         txtdateofbirth.inputAccessoryView = toolbar
+        if let index = UserDefaults.standard.value(forKey: "SelectedDate") as? Date{
+            datePicker.date = index
+        }
+        
     }
     @objc
     func cancelBtnClick(){
@@ -687,6 +696,10 @@ extension EditprofileViewController{
             print(datePicker.date)
             txtdateofbirth.text = dateformetter.string(from: datePicker.date)
             txtdateofbirth.resignFirstResponder()
+            let selecteddate = datePicker.date
+            UserDefaults.standard.set(selecteddate, forKey: "SelectedDate")
+//            UserDefaults.standard.set(txtdateofbirth.text, forKey: "Date")
+            
         }
     }
     
@@ -697,6 +710,7 @@ extension EditprofileViewController{
     @objc
     func datePickerHandler(datePicker:UIDatePicker){
         print(datePicker.date)
+        
     }
 }
 
@@ -727,6 +741,9 @@ extension EditprofileViewController{
         let resetBtn = UIBarButtonItem(title: "Reset", style: .done, target: self, action: #selector(self.resetBtn))
         toolbar.setItems([cancelBtn,flexibleBtn,resetBtn,flexibleBtn,doneBtn], animated: true)
         txtbirthtime.inputAccessoryView = toolbar
+        if let index = UserDefaults.standard.value(forKey: "Time") as? Date{
+            datePicker.date = index
+        }
     }
     
     @objc
@@ -740,6 +757,8 @@ extension EditprofileViewController{
             let formatter = DateFormatter()
                 formatter.timeStyle = .short
             txtbirthtime.text = formatter.string(from: datePicker.date)
+            let selected = datePicker.date
+            UserDefaults.standard.set(datePicker.date, forKey: "Time")
             txtbirthtime.resignFirstResponder()
         }
     }

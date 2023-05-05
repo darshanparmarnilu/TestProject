@@ -82,6 +82,7 @@ class forupdatepassViewController: UIViewController {
                     DatabaseManager.shared.updateforpass(strEmail: self.emailID, strPass:self.txtconfirmpass.text! )
                     self.dismiss(animated: true, completion: nil)
                 self.Alertmsg(strMsgAlert: "Password Updated", strtitle: "Done")
+             
                 
             }else if(self.txtnewpass.text! != self.txtconfirmpass.text!){
                 self.dismiss(animated: true,completion: nil)

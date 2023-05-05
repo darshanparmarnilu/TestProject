@@ -22,5 +22,4 @@ class WSContacts: NSObject {
         self.ShowStack = ShowStack
         self.lblTime = lblTime
     }
-    
 }

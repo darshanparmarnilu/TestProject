@@ -16,6 +16,8 @@ class WorkTableViewCell: UITableViewCell {
     @IBOutlet var stackrating: UIStackView!
    
     
+    @IBOutlet weak var presentView: UIView!
+    @IBOutlet weak var backView: UIView!
     @IBOutlet var lbl100: UILabel!
     @IBOutlet var lbl0: UILabel!
     @IBOutlet var progressbar: UIProgressView!
@@ -27,25 +29,41 @@ class WorkTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
+        self.isUserInteractionEnabled = true
+        presentView.isUserInteractionEnabled = true
+        
         self.subview.layer.masksToBounds = true
         self.subview.layer.cornerRadius = 20
         
         self.contentView.layer.masksToBounds = true
         self.contentView.layer.cornerRadius = 25
         
+        let thumbImage = UIImage(named: "Ellipse 4")?.resizeImage(to: CGSize(width: 20, height: 20))
+
+        // Set the thumb image of the slider
+        slider.setThumbImage(thumbImage, for: .normal)
         
+        backView.layer.masksToBounds = true
+        backView.layer.shadowColor = UIColor.black.cgColor
+        backView.layer.shadowOffset = CGSize(width: 0, height: 1)
+        backView.layer.shadowOpacity = 0.8
+        backView.layer.shadowRadius = 7
+        backView.layer.masksToBounds = false
+        
+        presentView.layer.masksToBounds = true
+        presentView.layer.cornerRadius = 20
         
         
     }
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 1)
-        layer.shadowOpacity = 0.5
-        layer.shadowRadius = 5
-       
-        layer.masksToBounds = false
-    }
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        layer.shadowColor = UIColor.black.cgColor
+//        layer.shadowOffset = CGSize(width: 0, height: 1)
+//        layer.shadowOpacity = 0.5
+//        layer.shadowRadius = 5
+//
+//        layer.masksToBounds = false
+//    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -80,4 +98,13 @@ class WorkTableViewCell: UITableViewCell {
 //                subview.backgroundColor = subview.backgroundColor?.withAlphaComponent(CGFloat(value))
 //    }
 
+}
+extension UIImage{
+    func resizeImage(to newSize: CGSize) -> UIImage? {
+            UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
+            self.draw(in: CGRect(origin: CGPoint.zero, size: newSize))
+            let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return resizedImage
+        }
 }

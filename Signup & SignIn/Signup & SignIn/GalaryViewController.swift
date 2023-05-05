@@ -15,7 +15,7 @@ class GalaryViewController: UIViewController {
                   UIImage(imageLiteralResourceName: "image4"),
                   UIImage(imageLiteralResourceName: "image5")]
     var ArrCategory = ["All Image","Recents","Download","Favourite","Camera"]
-    
+    var NameAlbam = ""
     
     var arrGallery : [GalleryData] = []
 
@@ -26,10 +26,10 @@ class GalaryViewController: UIViewController {
         collectionview.dataSource = self
         
         let obj = GalleryData(strTitile: "All Image", images: ["image1","image2","image3","image4","image5"])
-        let obj1 = GalleryData(strTitile: "Recents", images: ["image1","image2","image3","image4","image5"])
-        let obj2 = GalleryData(strTitile: "Download", images: ["image1","image2","image3","image4","image5"])
-        let obj3 = GalleryData(strTitile: "Favourite", images: ["image1","image2","image3","image4","image5"])
-        let obj4 = GalleryData(strTitile: "Camera", images: ["image1","image2","image3","image4","image5"])
+        let obj1 = GalleryData(strTitile: "Recents", images: ["image101","image102","image103","image104"])
+        let obj2 = GalleryData(strTitile: "Download", images: ["image105","image106","image107","image108"])
+        let obj3 = GalleryData(strTitile: "Favourite", images: ["image109","image110","image111","image112","image107","image108"])
+        let obj4 = GalleryData(strTitile: "Camera", images: ["image105","image106","image107","image108"])
         
         self.arrGallery.append(obj)
         self.arrGallery.append(obj1)
@@ -58,8 +58,11 @@ extension GalaryViewController:UICollectionViewDelegate,UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let Navigate = self.storyboard?.instantiateViewController(withIdentifier: "RecentViewController") as! RecentViewController
+        //Navigate.modalPresentationStyle = .overFullScreen
+        Navigate.hidesBottomBarWhenPushed = true
         Navigate.ArrImg = self.arrGallery[indexPath.row].arrImages
-        
+        self.NameAlbam = self.arrGallery[indexPath.row].strTitile
+        Navigate.AlbamName = self.NameAlbam
         self.present(Navigate, animated: true)
        //self.navigationController?.pushViewController(Navigate, animated: true)
     }

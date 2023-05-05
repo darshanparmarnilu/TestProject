@@ -12,8 +12,10 @@ class RecentViewController: UIViewController {
 
     var ArrImg : [String] = []
     
+    @IBOutlet weak var lblAlbam: UILabel!
     @IBOutlet var collactionview: UICollectionView!
     @IBOutlet var container: UIView!
+    var AlbamName = ""
     var ImgCount = 0
     var currentIndex = 0
     @IBOutlet var lblcount: UILabel!
@@ -25,7 +27,7 @@ class RecentViewController: UIViewController {
         collactionview.delegate = self
         collactionview.dataSource = self
         self.ImgCount = ArrImg.count
-        
+        self.lblAlbam.text = AlbamName
         lblcount.text = "\(currentIndex+1)" + "/" + "\(ArrImg.count)"
         
        // imageview.contentMode = .scaleAspectFit

@@ -94,11 +94,15 @@ class changepassViewController: UIViewController {
                 if(self.txtnewpass.text == self.txtconfirmpass.text) {
                     print("Password Updated")
                     DatabaseManager.shared.updatepass(strPass: self.txtconfirmpass.text!, strID:self.u_Id)
+                    let navigate = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+                    navigate.modalPresentationStyle = .overFullScreen
+                    navigate.hidesBottomBarWhenPushed = true
+                    self.navigationController?.pushViewController(navigate, animated: true)
                     self.dismiss(animated: true)
+                    
                     //{
                     //                  self.mainview.makeToast("Password Updated", duration: 10.00, position: .bottom)
                     //                        }
-                    
                 }else{
                     self.Alertmsg(strMsgAlert: "Password Miss Match, Try Again....", strtitle: "Alert")
                 }
@@ -115,6 +119,17 @@ class changepassViewController: UIViewController {
         let alert = UIAlertController(title: strtitle, message: strMsgAlert, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
             NSLog("The \"OK\" alert occured.")
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    func AltMesg(strMsgAlert:String,strtitle:String){
+        let alert = UIAlertController(title: strtitle, message: strMsgAlert, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+            NSLog("The \"OK\" alert occured.")
+                                let navigate = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+                                navigate.modalPresentationStyle = .overFullScreen
+                                navigate.hidesBottomBarWhenPushed = true
+                                self.navigationController?.pushViewController(navigate, animated: true)
         }))
         self.present(alert, animated: true, completion: nil)
     }
