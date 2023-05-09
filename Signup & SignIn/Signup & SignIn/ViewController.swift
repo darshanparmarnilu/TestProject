@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     var checkbtn:Bool! = false
     var txtEmail:UITextField!
     var email = ""
+    var Name = ""
     
     // MARK :- IBOutlet
     //@IBOutlet var lbldonot: UILabel!
