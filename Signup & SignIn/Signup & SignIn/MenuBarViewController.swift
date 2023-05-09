@@ -77,7 +77,20 @@ class MenuBarViewController: UIViewController {
     }
     
     @IBAction func ContactUs(_ sender: UIButton) {
-        
+        let recipientEmail = "contact@example.com"
+            let subject = "Contact Us"
+            let body = "Please enter your message here"
+            let urlEncodedSubject = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+            let urlEncodedBody = body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+            let urlString = "googlegmail:///co?to=\(recipientEmail)&subject=\(urlEncodedSubject)&body=\(urlEncodedBody)"
+            let gmailUrl = URL(string: urlString)!
+            if UIApplication.shared.canOpenURL(gmailUrl) {
+                UIApplication.shared.open(gmailUrl, options: [:], completionHandler: nil)
+            } else {
+                // Gmail app is not installed, open Gmail website in Safari instead
+                let webUrl = URL(string: "https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=\(recipientEmail)&su=\(urlEncodedSubject)&body=\(urlEncodedBody)")!
+                UIApplication.shared.open(webUrl, options: [:], completionHandler: nil)
+            }
     }
     
     @IBAction func logout(_ sender: UIButton) {

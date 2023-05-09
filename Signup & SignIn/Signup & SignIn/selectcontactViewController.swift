@@ -166,7 +166,7 @@ extension selectcontactViewController:UISearchBarDelegate{
             self.arrContact = self.arrContactData
             self.tableview.reloadData()
         }
-
+        self.container.alpha = 0
         self.tableview.reloadData()
     }
 }
