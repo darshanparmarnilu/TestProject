@@ -70,33 +70,42 @@ class forupdatepassViewController: UIViewController {
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 5){ [self] in
             if(txtnewpass.text == "" || txtconfirmpass.text == ""){
-                self.dismiss(animated: true,completion: nil)
-                    self.Alertmsg(strMsgAlert: "Please Enter Valid Password ", strtitle: "Alert")
+                //self.dismiss(animated: true,completion: nil)
+//                self.dismiss(animated: true)
+               viewAlert(withTitle: "Alert ", message: "Please Enter Valid Password ")
+               
+//                self.Alertmsg(strMsgAlert: "Please Enter Valid Password ", strtitle: "Alert")
+                
             }else if self.txtnewpass.text?.passvalid == false{
-                self.Alertmsg(strMsgAlert: "Please Enter Valid New Password Like [0-9a-zA-Z!@#$%^&*()] ", strtitle: "Alert")
+                self.dismiss(animated: true)
+//                self.Alertmsg(strMsgAlert: "Please Enter Valid New Password Like [0-9a-zA-Z!@#$%^&*()] ", strtitle: "Alert")
+                    viewAlert(withTitle:"Alert" , message: "Please Enter Valid New Password Like [0-9a-zA-Z!@#$%^&*()] ")
+               
             }else if self.txtconfirmpass.text?.passvalid == false{
-                self.Alertmsg(strMsgAlert: "Please Enter Valid Confirm Password Like [0-9a-zA-Z!@#$%^&*()] ", strtitle: "Alert")
+                self.dismiss(animated: true)
+//                self.Alertmsg(strMsgAlert: "Please Enter Valid Confirm Password Like [0-9a-zA-Z!@#$%^&*()] ", strtitle: "Alert")
+                viewAlert(withTitle:"Alert" , message: "Please Enter Valid Confirm Password Like [0-9a-zA-Z!@#$%^&*()] ")
             }
            else if (self.txtnewpass.text! == self.txtconfirmpass.text!){
                
                     DatabaseManager.shared.updateforpass(strEmail: self.emailID, strPass:self.txtconfirmpass.text! )
                
-                    self.dismiss(animated: true, completion: nil)
+                    //self.dismiss(animated: true, completion: nil)
+              // self.dismiss(animated: true)
                
-               self.Alertmsg(strMsgAlert: "Password Updated", strtitle: "Done")
+               //self.Alertmsg(strMsgAlert: "Password Updated", strtitle: "Done")
+               viewAlert(withTitle: "Done", message: "Password Updated")
                 
             }else if(self.txtnewpass.text! != self.txtconfirmpass.text!){
                 
-                self.dismiss(animated: true,completion: nil)
-                
-                self.Alertmsg(strMsgAlert: "Password Does Not Match", strtitle: "Alert")
-                
-                    
-                    print("Password Does Not Match")
-                
+                //self.dismiss(animated: true,completion: nil)
+               // self.dismiss(animated: true)
+               // self.Alertmsg(strMsgAlert: "Password Does Not Match", strtitle: "Alert")
+                viewAlert(withTitle: "Alert", message:"Password Does Not Match" )
+                print("Password Does Not Match")
             }
             
-            self.removeAanimation()
+//            self.removeAanimation()
             //self.stopLoad(loader: loader)
         }
     }
@@ -142,7 +151,7 @@ extension forupdatepassViewController {
 //    }
     
     func Alertmsg(strMsgAlert:String,strtitle:String){
-        let alert = UIAlertController(title: strtitle, message: strMsgAlert, preferredStyle: .alert)
+        let alert = UIAlertController(title: strtitle, message: strMsgAlert, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
             NSLog("The \"OK\" alert occured.")
         }))
@@ -174,7 +183,17 @@ extension forupdatepassViewController{
           loader.dismiss(animated: true, completion: nil)
         }
     }
-    
+    func viewAlert(withTitle title: String, message: String) {
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+                self.dismiss(animated: true)
+                NSLog("The \"OK\" alert occurred.")
+            }))
+            
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
     
 }
 extension forupdatepassViewController:UITextFieldDelegate{

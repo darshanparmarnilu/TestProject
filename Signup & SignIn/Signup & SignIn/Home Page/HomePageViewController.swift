@@ -106,6 +106,7 @@ extension HomePageViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableview.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! HometableViewCell
+        cell.selectionStyle = .none
         let obj = self.ArrImg[indexPath.row]
         cell.collactionview.delegate = self
         cell.collactionview.dataSource = self

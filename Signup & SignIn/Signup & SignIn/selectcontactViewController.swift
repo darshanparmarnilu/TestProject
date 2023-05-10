@@ -126,6 +126,7 @@ extension selectcontactViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCell(withIdentifier: "cell", for:indexPath) as! selectcontactTableViewCell
+        cell.selectionStyle = .none
         let obj = self.arrContact[indexPath.row]
         
         cell.lblname.text = obj.strName

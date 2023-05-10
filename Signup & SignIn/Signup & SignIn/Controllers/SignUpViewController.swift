@@ -609,6 +609,7 @@ extension SignUpViewController:UITextFieldDelegate{
 // Mark:- Date Picker
 
 extension SignUpViewController{
+    
     func OpenDatepickker(){
         let datePicker = UIDatePicker()
         datePicker.addTarget(self, action: #selector(self.datePickerHandler(datePicker:)), for: .valueChanged)
@@ -637,6 +638,9 @@ extension SignUpViewController{
         let resetbtn = UIBarButtonItem(title: "Reset", style: .done, target: self, action: #selector(self.resetbtn))
         toolbar.setItems([cancelbtn,flexibleBtn,resetbtn,flexibleBtn,donebtn], animated: true)
         txtdateofbirth.inputAccessoryView = toolbar
+//        if let index = UserDefaults.standard.value(forKey: "SelectedDate") as? Date{
+//            datePicker.date = index
+//        }
     }
     @objc
     func cancelBtnClick(){
@@ -651,6 +655,8 @@ extension SignUpViewController{
             print(datePicker.date)
             txtdateofbirth.text = dateformetter.string(from: datePicker.date)
             txtdateofbirth.resignFirstResponder()
+//            let selecteddate = datePicker.date
+//            UserDefaults.standard.set(selecteddate, forKey: "SelectedDate")
         }
     }
     
@@ -691,6 +697,9 @@ extension SignUpViewController{
         let resetBtn = UIBarButtonItem(title: "Reset", style: .done, target: self, action: #selector(self.resetBtn))
         toolbar.setItems([cancelBtn,flexibleBtn,resetBtn,flexibleBtn,doneBtn], animated: true)
         txtbirthtime.inputAccessoryView = toolbar
+//        if let index = UserDefaults.standard.value(forKey: "Time") as? Date{
+//            datePicker.date = index
+//        }
     }
     
     @objc
@@ -704,6 +713,8 @@ extension SignUpViewController{
             let formatter = DateFormatter()
                 formatter.timeStyle = .short
             txtbirthtime.text = formatter.string(from: datePicker.date)
+//            let selected = datePicker.date
+//            UserDefaults.standard.set(datePicker.date, forKey: "Time")
             txtbirthtime.resignFirstResponder()
         }
     }
