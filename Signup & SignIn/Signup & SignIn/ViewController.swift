@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     var email = ""
     
     // Welcome Darshan
-    //Congartulations Dharmesh 
+    //Congartulations Dharmesh Become A Greate Strudent of GTU
     
     // MARK :- IBOutlet
     //@IBOutlet var lbldonot: UILabel!
