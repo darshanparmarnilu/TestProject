@@ -37,7 +37,7 @@ class WorkViewController: UIViewController {
         let obj7 = WorkOut(arrColors: UIColor.brown, WorkType: "Swiming", Switch: false, Slider: 10)
         let obj8 = WorkOut(arrColors: UIColor.black, WorkType: "Catching", Switch: false, Slider: 20)
         let obj9 = WorkOut(arrColors: UIColor.gray, WorkType: "Eating", Switch: false, Slider: 30)
-        let obj10 = WorkOut(arrColors: UIColor.white, WorkType: "Dancing", Switch: false, Slider: 40)
+        let obj10 = WorkOut(arrColors: UIColor.cyan, WorkType: "Dancing", Switch: false, Slider: 40)
         let obj11 = WorkOut(arrColors: UIColor.magenta, WorkType: "Putting", Switch: false, Slider: 50)
         
         self.ArrWorkOut.append(obj1)
@@ -132,7 +132,7 @@ extension WorkViewController: UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        let cell = self.tableview.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! WorkTableViewCell
-        
+        cell.selectionStyle = .none
         let obj = self.ArrWorkOut[indexPath.row]
         cell.subview.backgroundColor = obj.arrColors
         cell.lblwork.text = obj.WorkType

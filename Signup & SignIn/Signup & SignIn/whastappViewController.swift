@@ -215,6 +215,7 @@ extension whastappViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableview.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! contactTableViewCell
+        cell.selectionStyle = .none
         let obj = self.ArrContacts[indexPath.row]
         //self.isCollapce = true
         //        cell.lblname.text = ArrName[indexPath.row]

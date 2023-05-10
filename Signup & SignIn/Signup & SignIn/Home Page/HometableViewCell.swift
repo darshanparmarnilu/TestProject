@@ -17,6 +17,7 @@ class HometableViewCell: UITableViewCell {
     @IBOutlet var userImg: UIImageView!
     @IBOutlet var btnsave: UIButton!
     @IBOutlet var btnlike: UIButton!
+    
  
 
 
@@ -38,6 +39,7 @@ class HometableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        self.selectionStyle = .none
     }
 //    @IBAction func likeButton(_ sender: UIButton) {
 //        btnlike.isSelected = !btnlike.isSelected

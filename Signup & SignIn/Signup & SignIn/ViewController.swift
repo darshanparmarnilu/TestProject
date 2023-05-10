@@ -209,12 +209,12 @@ extension ViewController{
 //                let homeVC = storyboard.instantiateViewController(withIdentifier: "profileViewController") as! profileViewController
 //                navigationController?.pushViewController(profileVC, animated: false)
                 
-                let myTabbar = self.storyboard?.instantiateViewController(withIdentifier: "myTabbar") as! UITabBarController
-
-                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                    let appDelegate = windowScene.delegate as? SceneDelegate {
-                    appDelegate.window?.rootViewController = myTabbar
-                }
+                let myTabbar = self.storyboard?.instantiateViewController(withIdentifier: "myTabbar") as! TabbarViewController
+                navigationController?.pushViewController(myTabbar, animated: true)
+//                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+//                    let appDelegate = windowScene.delegate as? SceneDelegate {
+//                    appDelegate.window?.rootViewController = myTabbar
+//                }
             }
     }
     
@@ -239,7 +239,7 @@ extension ViewController{
             {
                 self.Alert(strmessage: "Please Enter Email")
             }else if(txtemail.text?.isValidEmail) == false {
-                Alert(strmessage: "Invalid Email, Try Again...")
+                Alert(strmessage: "Invalid Email Formate, Try Again...")
             }
             //else if (testStr: (txtemail?.text!)! ) ==  false
 //            else if (isValidEmail:txtemail.text!) ==  false{
@@ -288,6 +288,8 @@ extension ViewController{
         }
         self.present(alerBox, animated: true, completion: nil)
     }
+    
+    
 }
 
 
@@ -342,4 +344,7 @@ extension ViewController:UITextFieldDelegate{
 //        }
 //    }
     
+    
+    
 }
+
