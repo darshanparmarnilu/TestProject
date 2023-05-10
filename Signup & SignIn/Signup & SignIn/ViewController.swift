@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     var txtEmail:UITextField!
     var email = ""
     
-    // Hello Darshan Parmar
+    // Welcome Darshan
     
     // MARK :- IBOutlet
     //@IBOutlet var lbldonot: UILabel!
