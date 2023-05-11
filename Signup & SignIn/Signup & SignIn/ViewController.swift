@@ -17,12 +17,10 @@ class ViewController: UIViewController {
     var txtEmail:UITextField!
     var email = ""
     
-<<<<<<< HEAD
-    // This Comment For Brach2
-=======
-        // Hello Darshan For Branch 1
+
     
->>>>>>> Branch-1
+    
+    
     
     // MARK :- IBOutlet
     //@IBOutlet var lbldonot: UILabel!
