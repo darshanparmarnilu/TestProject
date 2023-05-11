@@ -20,6 +20,8 @@ class forupdatepassViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.hideKeyboard()
+        
         addAanimation()
         dropShadow()
         self.mainview.backgroundColor = .clear
@@ -27,24 +29,27 @@ class forupdatepassViewController: UIViewController {
         txtnewpass.delegate = self
         txtconfirmpass.delegate = self
         
-        txtnewpass.layer.masksToBounds = true
-        txtnewpass.layer.cornerRadius = 16
-        txtnewpass.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-        txtnewpass.layer.borderWidth = 0.5
-        txtnewpass.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
-        txtnewpass.font = UIFont(name:"Inter-Medium", size: 20)
-        txtnewpass.layer.borderWidth = 1
-        txtnewpass.layer.borderColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1).cgColor
+        txtconfirmpass.underline()
+        txtnewpass.underline()
         
-        txtconfirmpass.layer.masksToBounds = true
-        txtconfirmpass.layer.cornerRadius = 16
-        txtconfirmpass.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-        txtconfirmpass.layer.borderWidth = 0.5
-        txtconfirmpass.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
-        txtconfirmpass.font = UIFont(name:"Inter-Medium", size: 20)
-        txtconfirmpass.layer.borderWidth = 1
-        txtconfirmpass.layer.borderColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1).cgColor
-        
+//        txtnewpass.layer.masksToBounds = true
+//        txtnewpass.layer.cornerRadius = 16
+//        txtnewpass.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+//        txtnewpass.layer.borderWidth = 0.5
+//        txtnewpass.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
+//        txtnewpass.font = UIFont(name:"Inter-Medium", size: 20)
+//        txtnewpass.layer.borderWidth = 1
+//        txtnewpass.layer.borderColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1).cgColor
+//
+//        txtconfirmpass.layer.masksToBounds = true
+//        txtconfirmpass.layer.cornerRadius = 16
+//        txtconfirmpass.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+//        txtconfirmpass.layer.borderWidth = 0.5
+//        txtconfirmpass.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
+//        txtconfirmpass.font = UIFont(name:"Inter-Medium", size: 20)
+//        txtconfirmpass.layer.borderWidth = 1
+//        txtconfirmpass.layer.borderColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1).cgColor
+//
         btnupdate.layer.masksToBounds = true
         btnupdate.layer.cornerRadius = 18
         
@@ -212,5 +217,17 @@ extension forupdatepassViewController:UITextFieldDelegate{
             return newString.length <= maxLength
         }
         return true
+    }
+}
+
+extension UIViewController{
+    func hideKeyboard(){
+        let tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard(){
+        view.endEditing(true)
     }
 }

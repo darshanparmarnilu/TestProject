@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 import Toast_Swift
 
 class SignUpViewController: UIViewController, UITextViewDelegate {
@@ -113,6 +114,8 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
         txtcity.isUserInteractionEnabled = true
         txtstate.isUserInteractionEnabled = true
         
+        self.setupTextView()
+        self.hideKeyboard()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         profileimage.addGestureRecognizer(tapGesture)
@@ -220,11 +223,15 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
         btnsignin.titleLabel?.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
         btnsignin.reloadInputViews()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        self.setupTextView()
+    }
     
 // MARK:- Functions Place Holder For About Me
 
     @objc func imageTapped(tapGestureRecognizer:UITapGestureRecognizer){
-        openGalary()
+       actionSheet()
+        // openGalary()
         print("Image Taped")
     }
     
@@ -233,43 +240,81 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
         self.picker.removeFromSuperview()
         self.toolBar.removeFromSuperview()
     }
+    
+    
+    
+//    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+//        if (text == "\n"){
+//            textView.textAlignment = .center
+//            textView.resignFirstResponder()
+//            return false
+//        }
+//        return true
+//    }
+//
+//    public func textViewDidBeginEditing(_ textView: UITextView) {
+//        if(textView.text == "About Me"){
+//            textView.text = ""
+//            textView.textColor = UIColor.black
+//            textView.textAlignment = .center
+//            textView.reloadInputViews()
+//        }
+//        textView.becomeFirstResponder()
+//    }
+//    public func textViewDidEndEditing(_ textView: UITextView) {
+//        if (textView.text == ""){
+//            textView.text = "About Me"
+//            textView.textColor = UIColor.lightGray
+//            textView.textAlignment = .center
+//            textView.reloadInputViews()
+//        }
+//        textView.resignFirstResponder()
+//    }
+    
+    func setupTextView() {
+        txtaboutme.text = "About Me"
+        txtaboutme.textColor = UIColor.lightGray
+        txtaboutme.textAlignment = .center
+        txtaboutme.delegate = self
+       // txtaboutme.becomeFirstResponder()
+    }
+
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if (text == "\n"){
+        if text == "\n" {
             textView.textAlignment = .center
             textView.resignFirstResponder()
             return false
         }
         return true
     }
-    
+
     public func textViewDidBeginEditing(_ textView: UITextView) {
-        if(textView.text == "About Me"){
+        if textView.text == "About Me" {
             textView.text = ""
             textView.textColor = UIColor.black
             textView.textAlignment = .center
-            textView.reloadInputViews()
         }
-        textView.becomeFirstResponder()
     }
+
     public func textViewDidEndEditing(_ textView: UITextView) {
-        if (textView.text == ""){
+        if textView.text.isEmpty {
             textView.text = "About Me"
             textView.textColor = UIColor.lightGray
             textView.textAlignment = .center
-            textView.reloadInputViews()
         }
-        textView.resignFirstResponder()
     }
     
     // MARK:- Button Action
     
    
     @IBAction func camera(_ sender: UIButton) {
-        let imagePicker = UIImagePickerController()
-           imagePicker.sourceType = .camera
-           imagePicker.allowsEditing = false
-        imagePicker.delegate = self
-           present(imagePicker, animated: true, completion: nil)
+        self.actionSheet()
+        
+//        let imagePicker = UIImagePickerController()
+//           imagePicker.sourceType = .camera
+//           imagePicker.allowsEditing = false
+//        imagePicker.delegate = self
+//           present(imagePicker, animated: true, completion: nil)
     }
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -315,7 +360,7 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
         }else if(txtmobile.text?.phonevalid) == false{
             Alertmsg(strMsgAlert: "Please Enter Valid Mobile No",strtitle: "Alert")
         }else if(txtaboutme.text?.aboutmevalid) == false{
-            Alertmsg(strMsgAlert: "Invalid Detail",strtitle: "Alert")
+            Alertmsg(strMsgAlert: "Invalid About Me Detail",strtitle: "Alert")
         }else if self.imageSelecetd == false {
             Alertmsg(strMsgAlert: "Please selected user profile image",strtitle: "Alert")
         }
@@ -407,12 +452,14 @@ extension String{
         return emailTest.evaluate(with: self)
     }
     var firstnamevalid:Bool{
-        let firstRehex = "^(([^ ]?)(^[a-zA-Z].*[a-zA-Z]$)([^ ]?))$"
+        let firstRehex = "^[a-zA-Z0-9].{0,98}[a-zA-Z0-9]$"
+       // let firstRehex = "^(([^ ]?)(^[a-zA-Z0-9].*[a-zA-Z]$)([^ ]?))$"
         let firstTest = NSPredicate(format: "SELF MATCHES %@", firstRehex)
         return firstTest.evaluate(with: self)
     }
     var lastnamevalid:Bool{
-        let lastRehex = "^(([^ ]?)(^[a-zA-Z].*[a-zA-Z]$)([^ ]?))$"
+        let lastRehex = "^[a-zA-Z0-9].{0,98}[a-zA-Z0-9]$"
+      //  let lastRehex = "^(([^ ]?)(^[a-zA-Z0-9].*[a-zA-Z]$)([^ ]?))$"
         let lastText = NSPredicate(format: "SELF MATCHES %@", lastRehex)
         return lastText.evaluate(with: self)
     }
@@ -423,8 +470,9 @@ extension String{
         return phoneTest.evaluate(with: self)
     }
     var aboutmevalid:Bool{
-        let aboutRehex = "^(([^ ]?)(^[a-zA-Z].*[a-zA-Z]$)([^ ]?))$"
+       // let aboutRehex = "^(([^ ]?)(^[a-zA-Z0-9].*[a-zA-Z]$)([^ ]?))$"
         //let aboutRehex = "[A-Z,a-z, ,]{50}$"
+        let aboutRehex = "^[a-zA-Z0-9].{0,98}[a-zA-Z0-9]$"
         let aboutText = NSPredicate(format: "SELF MATCHES %@", aboutRehex)
         return aboutText.evaluate(with: self)
     }
@@ -516,28 +564,28 @@ extension SignUpViewController{
 
 // Open Galary
 
-extension SignUpViewController:UINavigationControllerDelegate,UIImagePickerControllerDelegate{
-    
-    func openGalary(){
-        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
-            let picker = UIImagePickerController()
-            picker.delegate = self
-            picker.sourceType = .savedPhotosAlbum
-            present(picker, animated: true)
-        }
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let img = info[.originalImage] as? UIImage{
-            profileimage.image = img
-            self.imageSelecetd = true
-        }
-        dismiss(animated: true)
-    }
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true, completion: nil)
-    }
-}
+//extension SignUpViewController:UINavigationControllerDelegate,UIImagePickerControllerDelegate{
+//
+//    func openGalary(){
+//        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+//            let picker = UIImagePickerController()
+//            picker.delegate = self
+//            picker.sourceType = .savedPhotosAlbum
+//            present(picker, animated: true)
+//        }
+//    }
+//
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//        if let img = info[.originalImage] as? UIImage{
+//            profileimage.image = img
+//            self.imageSelecetd = true
+//        }
+//        dismiss(animated: true)
+//    }
+//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+//        picker.dismiss(animated: true, completion: nil)
+//    }
+//}
 
 // Open Date And Time Picker
 
@@ -602,6 +650,10 @@ extension SignUpViewController:UITextFieldDelegate{
             currentString.replacingCharacters(in: range, with: string) as NSString
             return newString.length <= maxLength
         }
+        return true
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
         return true
     }
 }
@@ -801,7 +853,6 @@ extension SignUpViewController{
         picker.dataSource = self
         picker.backgroundColor = UIColor.white
         picker.setValue(UIColor.black, forKey: "textColor")
-        
         picker.autoresizingMask = .flexibleWidth
         picker.contentMode = .center
         //self.view.addSubview(picker)
@@ -828,53 +879,71 @@ extension SignUpViewController{
     func DonebtnClick(){
         if picker.tag == 1{
             
-            let country = self.strSelectedCountry
+            let selectedRow = picker.selectedRow(inComponent: 0) // Get the selected row in the picker's first component
+            let selectedCountry = ArrCountry[selectedRow] // Assuming ArrCountries is an array of country names
             
-            if country != txtcountry.text{
+            if selectedCountry != txtcountry.text {
                 txtcity.text = ""
                 txtstate.text = ""
             }
-            txtcountry.text = country
+            
+            txtcountry.text = selectedCountry
             txtcountry.resignFirstResponder()
-            if self.strSelectedCountry == ""{
+            
+            if selectedCountry == "" {
                 print("Please Select Country")
-            }else{
-                if let arrST = self.ArrStates[self.strSelectedCountry]  {
+            } else {
+                if let arrST = ArrStates[selectedCountry] {
                     self.arrSelectedStates = arrST
                 }
             }
-        }else if  picker.tag == 2{
-            
-            let state = self.strSelectedStates
-            
-            if state != txtstate.text{
-                txtcity.text = ""
-//                txtstate.text = ""
+        }else if picker.tag == 2 {
+            guard let selectedCountry = txtcountry.text else {
+                print("Please select a country first")
+                return
             }
-            txtstate.text = state
+            
+            let selectedState = ArrStates[selectedCountry]?[picker.selectedRow(inComponent: 0)] ?? ""
+            
+            if selectedState != txtstate.text {
+                txtcity.text = ""
+            }
+            
+            txtstate.text = selectedState
             txtstate.resignFirstResponder()
             
-                if self.strSelectedStates == ""{
-                    print("Please Select States")
-                }else{
-                    if let arrCT = self.Arrcities[self.strSelectedStates]  {
-                        self.arrSelectedCity = arrCT
-                    }
-                }
-            
-            }else if  picker.tag == 3 {
-                txtcity.text = self.strSelectedCity
-                txtcity.resignFirstResponder()
-                if self.strSelectedCity == ""{
-                    print("Please Select City")
+            if selectedState.isEmpty {
+                print("Please Select State")
+            } else {
+                if let arrCT = Arrcities[selectedState] {
+                    self.arrSelectedCity = arrCT
                 }
             }
-            self.picker.removeFromSuperview()
-            self.toolBar.removeFromSuperview()
+        }else if  picker.tag == 3 {
+            guard let selectedCountry = txtcountry.text, !selectedCountry.isEmpty else {
+                    print("Please select a country first")
+                    return
+                }
+                
+                guard let selectedState = txtstate.text, !selectedState.isEmpty else {
+                    print("Please select a state first")
+                    return
+                }
+                
+                let selectedCity = Arrcities[selectedState]?[picker.selectedRow(inComponent: 0)] ?? ""
+                
+                txtcity.text = selectedCity
+                txtcity.resignFirstResponder()
+                
+                if selectedCity.isEmpty {
+                    print("Please select a city")
+                }
         }
-        
-        @objc
-        func CancelBtnClick(){
+        self.picker.removeFromSuperview()
+        self.toolBar.removeFromSuperview()
+    }
+    
+        @objc func CancelBtnClick(){
             if picker.tag == 1{
                 self.txtcountry.resignFirstResponder()
             }else  if picker.tag == 2{
@@ -889,4 +958,56 @@ extension SignUpViewController{
         
     }
 
+extension SignUpViewController{
+    func gallaryOpen(){
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+            let picker = UIImagePickerController()
+            picker.allowsEditing = true
+            picker.delegate  = self
+            picker.sourceType = .photoLibrary
+            self.present(picker, animated: true,completion: nil)
+        }
+    }
+    func camareaOpen(){
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            let picker = UIImagePickerController()
+            picker.allowsEditing = true
+            picker.sourceType = .camera
+            picker.mediaTypes = [kUTTypeImage as String]
+            picker.present(picker, animated: true,completion: nil)
+        }
+        
+//                let imagePicker = UIImagePickerController()
+//                   imagePicker.sourceType = .camera
+//                   imagePicker.allowsEditing = false
+//                imagePicker.delegate = self
+//                   present(imagePicker, animated: true, completion: nil)
+    }
+    func actionSheet(){
+        let alert = UIAlertController(title: "Choose Image From", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Gallary", style: .default,handler: {(handler) in
+            self.gallaryOpen()
+        }))
+        alert.addAction(UIAlertAction(title: "Camera", style: .default,handler: {(handler) in
+            self.camareaOpen()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default,handler: {(handler) in
+            self.dismiss(animated: true)
+        }))
+        self.present(alert, animated: true,completion: nil)
+    }
+}
 
+extension SignUpViewController:UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+
+        if let img = info[.originalImage] as? UIImage{
+            profileimage.image = img
+            self.imageSelecetd = true
+        }
+        dismiss(animated: true)
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true,completion: nil )
+    }
+}

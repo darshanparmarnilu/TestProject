@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 import Toast_Swift
 
 
@@ -46,13 +47,13 @@ class EditprofileViewController: UIViewController {
     @IBOutlet var txtlast: UITextField!
     
     @IBOutlet var btnupdate: UIButton!
-   
+    
     
     var user_id = ""
     var image_path = ""
     var imageSelected = false
     var userProfileImageName = ""
- 
+    
     var gender = ""
     
     var maleBtnSelect:Bool = false
@@ -90,11 +91,11 @@ class EditprofileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
         
+        self.hideKeyboard()
         
         //self.tabBarController?.tabBar.isHidden = true
-       // self.tabBarController?.tabBar.layer.zPosition = -1
+        // self.tabBarController?.tabBar.layer.zPosition = -1
         txtfirst.delegate = self
         txtlast.delegate = self
         txtmobile.delegate = self
@@ -105,6 +106,9 @@ class EditprofileViewController: UIViewController {
         txtcity.delegate = self
         picker.delegate = self
         picker.dataSource = self
+        txtabout.delegate = self
+        
+        
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         profileImage.addGestureRecognizer(tapGesture)
@@ -120,7 +124,7 @@ class EditprofileViewController: UIViewController {
         lbllast.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
         lblemail.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
         lblmobile.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
-       // lblpass.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
+        // lblpass.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
         lblabout.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
         lbldateofbirth.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
         lblbirthtime.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
@@ -131,7 +135,7 @@ class EditprofileViewController: UIViewController {
         txtfirst.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
         txtlast.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
         txtemail.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
-       // txtpass.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
+        // txtpass.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
         txtmobile.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
         txtabout.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
         txtdateofbirth.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
@@ -144,7 +148,7 @@ class EditprofileViewController: UIViewController {
         txtemail.isUserInteractionEnabled = false
         txtemail.textColor = .darkGray
         
-   
+        
         
         txtfirst.underlinedtext()
         txtlast.underlinedtext()
@@ -168,15 +172,17 @@ class EditprofileViewController: UIViewController {
         }
     }
     @objc func imageTapped(tapGestureRecognizer:UITapGestureRecognizer){
-        openGalary()
+        actionSheet()
+        //openGalary()
         print("Image Taped")
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
         self.getData()
     }
     
-// Mark:- Get All Data
+    // Mark:- Get All Data
     
     func getData(){
         getDataFromDefaults {success , id, firstname, lastname, email, password, mobileno,aboutme,userImage,userDateofBirth,userBirthTime,userCountry,userState,userCity,userGender  in
@@ -190,24 +196,24 @@ class EditprofileViewController: UIViewController {
                 self.user_id = id
                 //self.image_path = userImage
                 let urlString = userImage
-//                if let url = URL(string: urlString) {
-//                    print(url)
-//                    self.profileImage.image = UIImage(contentsOfFile: urlString)
-//                } else {
-//                    print("Invalid URL")
-//                }
+                //                if let url = URL(string: urlString) {
+                //                    print(url)
+                //                    self.profileImage.image = UIImage(contentsOfFile: urlString)
+                //                } else {
+                //                    print("Invalid URL")
+                //                }
                 if let url = URL(string: urlString) {
-                                    print(url)
-                                    
-                let destPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-                                   
-                let fullDestPath = NSURL(fileURLWithPath: destPath).appendingPathComponent(url.lastPathComponent)
+                    print(url)
+                    
+                    let destPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+                    
+                    let fullDestPath = NSURL(fileURLWithPath: destPath).appendingPathComponent(url.lastPathComponent)
                     self.userProfileImageName = url.lastPathComponent
-                let fullDestPathString = fullDestPath!.path
-                                    self.profileImage.image = UIImage(contentsOfFile: fullDestPathString)
+                    let fullDestPathString = fullDestPath!.path
+                    self.profileImage.image = UIImage(contentsOfFile: fullDestPathString)
                 } else {
-                 print("Invalid URL")
-               }
+                    print("Invalid URL")
+                }
                 self.txtdateofbirth.text = userDateofBirth
                 self.txtbirthtime.text = userBirthTime
                 self.txtcountry.text = userCountry
@@ -236,7 +242,7 @@ class EditprofileViewController: UIViewController {
                     self.btnfemale.setImage(UIImage(named: "select"), for: UIControl.State.normal)
                     self.btnmale.setImage(UIImage(named: "unselect"), for: UIControl.State.normal)
                 }
-            
+                
             }
         }
     }
@@ -246,24 +252,24 @@ class EditprofileViewController: UIViewController {
     
     @IBAction func btnmale(_ sender: UIButton) {
         gender = "Male"
-
-            if(maleBtnSelect == false){
-                sender.setImage(UIImage(named: "select"), for: UIControl.State.normal)
-                btnfemale.setImage(UIImage(named: "unselect"), for: UIControl.State.normal)
-            }
-            maleBtnSelect = true
-            femalebtnSelect = false
-
+        
+        if(maleBtnSelect == false){
+            sender.setImage(UIImage(named: "select"), for: UIControl.State.normal)
+            btnfemale.setImage(UIImage(named: "unselect"), for: UIControl.State.normal)
+        }
+        maleBtnSelect = true
+        femalebtnSelect = false
+        
     }
     
     @IBAction func btnfemale(_ sender: UIButton) {
         gender = "Female"
-            if(femalebtnSelect == false){
-                sender.setImage(UIImage(named: "select"), for: UIControl.State.normal)
-                btnmale.setImage(UIImage(named: "unselect"), for: UIControl.State.normal)
-            }
-            maleBtnSelect = false
-            femalebtnSelect = true
+        if(femalebtnSelect == false){
+            sender.setImage(UIImage(named: "select"), for: UIControl.State.normal)
+            btnmale.setImage(UIImage(named: "unselect"), for: UIControl.State.normal)
+        }
+        maleBtnSelect = false
+        femalebtnSelect = true
     }
     
     @IBAction func country(_ sender: UIButton) {
@@ -287,10 +293,10 @@ class EditprofileViewController: UIViewController {
             self.openpicker(tag: 3)
         }
     }
-
+    
     @IBAction func update(_ sender: UIButton) {
         
-
+        
         if(txtfirst.text == ""){
             Alertmsg(strMsgAlert: "Please Enter First Name",strtitle: "Alert")
         } else if(txtlast.text == ""){
@@ -334,13 +340,13 @@ class EditprofileViewController: UIViewController {
                             print("Error")
                         }
                     })
-                   
+                    
                 }else {
                     self.Alertmsg(strMsgAlert: "Please try agin!",strtitle: "Alert")
                 }
             }
         }
-       // self.viewWillAppear(true)
+        // self.viewWillAppear(true)
         self.Alertmsgback()
         //self.navigationController?.popViewController(animated: true)
     }
@@ -358,14 +364,14 @@ class EditprofileViewController: UIViewController {
 
 extension UITextField{
     func underlinedtext(){
-            let border = CALayer()
-            let width = CGFloat(1.0)
+        let border = CALayer()
+        let width = CGFloat(1.0)
         border.borderColor = UIColor.black.cgColor
-            border.frame = CGRect(x: 0, y: self.frame.size.height - width, width:  self.frame.size.width*3, height: self.frame.size.height)
-            border.borderWidth = width
-            self.layer.addSublayer(border)
-            self.layer.masksToBounds = true
-        }
+        border.frame = CGRect(x: 0, y: self.frame.size.height - width, width:  self.frame.size.width*3, height: self.frame.size.height)
+        border.borderWidth = width
+        self.layer.addSublayer(border)
+        self.layer.masksToBounds = true
+    }
 }
 
 extension EditprofileViewController{
@@ -389,53 +395,53 @@ extension EditprofileViewController{
     // Save Image
     
     func saveImage(completion:@escaping (Bool,String)->()){
-             if  let image = profileImage.image {
-                 let imageName = self.userProfileImageName//"img" + "\(Date().timeIntervalSince1970)" + ".png"
-                 let destPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-                 let fileManager = FileManager.default
-                 let fullDestPath = NSURL(fileURLWithPath: destPath).appendingPathComponent(imageName)
-                 
-                 let fullDestPathString = fullDestPath!.path
-                    if FileManager.default.fileExists(atPath: fullDestPath!.path){
-                        do{
-                            try image.pngData()!.write(to: fullDestPath!)
-                            print("Image Added Successfully")
-                            completion(true, fullDestPathString)
-                        }catch{
-                            print("Image Not Added")
-                            completion(false, "")
-                        }
-                    }else {
-                        completion(false, "")
-                    }
-             }
-        }
-
-}
-
-
-extension EditprofileViewController:UINavigationControllerDelegate,UIImagePickerControllerDelegate{
-    
-    func openGalary(){
-        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
-            let picker = UIImagePickerController()
-            picker.delegate = self
-            picker.sourceType = .savedPhotosAlbum
-            present(picker, animated: true)
+        if  let image = profileImage.image {
+            let imageName = self.userProfileImageName//"img" + "\(Date().timeIntervalSince1970)" + ".png"
+            let destPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+            let fileManager = FileManager.default
+            let fullDestPath = NSURL(fileURLWithPath: destPath).appendingPathComponent(imageName)
+            
+            let fullDestPathString = fullDestPath!.path
+            if FileManager.default.fileExists(atPath: fullDestPath!.path){
+                do{
+                    try image.pngData()!.write(to: fullDestPath!)
+                    print("Image Added Successfully")
+                    completion(true, fullDestPathString)
+                }catch{
+                    print("Image Not Added")
+                    completion(false, "")
+                }
+            }else {
+                completion(false, "")
+            }
         }
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let img = info[.originalImage] as? UIImage{
-            profileImage.image = img
-            self.imageSelected = true
-        }
-        dismiss(animated: true)
-    }
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true, completion: nil)
-    }
 }
+
+
+//extension EditprofileViewController:UINavigationControllerDelegate,UIImagePickerControllerDelegate{
+//
+//    func openGalary(){
+//        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+//            let picker = UIImagePickerController()
+//            picker.delegate = self
+//            picker.sourceType = .savedPhotosAlbum
+//            present(picker, animated: true)
+//        }
+//    }
+//
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//        if let img = info[.originalImage] as? UIImage{
+//            profileImage.image = img
+//            self.imageSelected = true
+//        }
+//        dismiss(animated: true)
+//    }
+//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+//        picker.dismiss(animated: true, completion: nil)
+//    }
+//}
 
 
 extension EditprofileViewController:UITextFieldDelegate{
@@ -477,7 +483,11 @@ extension EditprofileViewController:UITextFieldDelegate{
             return newString.length <= maxLength
         }
         return true
-    
+        
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
 }
@@ -486,7 +496,7 @@ extension EditprofileViewController:UIPickerViewDelegate,UIPickerViewDataSource{
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView.tag == 1 {
             return ArrCountry.count
@@ -498,9 +508,9 @@ extension EditprofileViewController:UIPickerViewDelegate,UIPickerViewDataSource{
         {
             return 0
         }
-
+        
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         if pickerView.tag == 1 {
@@ -514,19 +524,19 @@ extension EditprofileViewController:UIPickerViewDelegate,UIPickerViewDataSource{
         }
         return nil
     }
-
-        func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-            if pickerView.tag == 1 {
-                self.strSelectedCountry = self.ArrCountry[row]
-            } else if pickerView.tag == 2 {
-                self.strSelectedStates = self.arrSelectedStates[row]
-            }else if  pickerView.tag == 3 {
-                self.strSelectedCity = self.arrSelectedCity[row]
-            }else {
-                
-            }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView.tag == 1 {
+            self.strSelectedCountry = self.ArrCountry[row]
+        } else if pickerView.tag == 2 {
+            self.strSelectedStates = self.arrSelectedStates[row]
+        }else if  pickerView.tag == 3 {
+            self.strSelectedCity = self.arrSelectedCity[row]
+        }else {
             
         }
+        
+    }
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         if pickerView.tag == 1 {
             return NSAttributedString(string: ArrCountry[row], attributes: [NSAttributedString.Key.foregroundColor : UIColor.black])
@@ -580,74 +590,85 @@ extension EditprofileViewController{
     @objc
     func DonebtnClick(){
         if picker.tag == 1{
+            let selectedRow = picker.selectedRow(inComponent: 0) // Get the selected row in the picker's first component
+            let selectedCountry = ArrCountry[selectedRow] // Assuming ArrCountries is an array of country names
             
-//            txtcountry.text = self.strSelectedCountry
-//            txtcountry.resignFirstResponder()
-//            if self.strSelectedCountry == ""{
-//                print("Please Select Country")
-//            }else{
-//                if let arrST = self.ArrStates[self.strSelectedCountry]  {
-//                    self.arrSelectedStates = arrST
-//                }
-//            }
-            let country = self.strSelectedCountry
-            
-            if country != txtcountry.text{
+            if selectedCountry != txtcountry.text {
                 txtcity.text = ""
                 txtstate.text = ""
             }
-            txtcountry.text = country
+            
+            txtcountry.text = selectedCountry
             txtcountry.resignFirstResponder()
-            if self.strSelectedCountry == ""{
+            
+            if selectedCountry == "" {
                 print("Please Select Country")
-            }else{
-                if let arrST = self.ArrStates[self.strSelectedCountry]  {
+            } else {
+                if let arrST = ArrStates[selectedCountry] {
                     self.arrSelectedStates = arrST
                 }
             }
-        }else if  picker.tag == 2{
+        }else if picker.tag == 2 {
+            guard let selectedCountry = txtcountry.text else {
+                print("Please select a country first")
+                return
+            }
             
-            let state = self.strSelectedStates
+            let selectedState = ArrStates[selectedCountry]?[picker.selectedRow(inComponent: 0)] ?? ""
             
-            if state != txtstate.text{
+            if selectedState != txtstate.text {
                 txtcity.text = ""
             }
-            txtstate.text = state
-            txtstate.resignFirstResponder()
-                if self.strSelectedStates == ""{
-                    print("Please Select States")
-                }else{
-                    if let arrCT = self.Arrcities[self.strSelectedStates]  {
-                        self.arrSelectedCity = arrCT
-                    }
-                    
-                }
             
-            }else if  picker.tag == 3 {
-                txtcity.text = self.strSelectedCity
-                txtcity.resignFirstResponder()
-                if self.strSelectedCity == ""{
-                    print("Please Select City")
+            txtstate.text = selectedState
+            txtstate.resignFirstResponder()
+            
+            if selectedState.isEmpty {
+                print("Please Select State")
+            } else {
+                if let arrCT = Arrcities[selectedState] {
+                    self.arrSelectedCity = arrCT
                 }
             }
-            self.picker.removeFromSuperview()
-            self.toolBar.removeFromSuperview()
-        }
-        
-        @objc
-        func CancelBtnClick(){
-            if picker.tag == 1{
-                self.txtcountry.resignFirstResponder()
-            }else  if picker.tag == 2{
-                self.txtstate.resignFirstResponder()
-            }else if picker.tag == 3{
-                self.txtcity.resignFirstResponder()
+        }else if  picker.tag == 3 {
+            guard let selectedCountry = txtcountry.text, !selectedCountry.isEmpty else {
+                print("Please select a country first")
+                return
             }
-            self.picker.removeFromSuperview()
-            self.toolBar.removeFromSuperview()
+            
+            guard let selectedState = txtstate.text, !selectedState.isEmpty else {
+                print("Please select a state first")
+                return
+            }
+            
+            let selectedCity = Arrcities[selectedState]?[picker.selectedRow(inComponent: 0)] ?? ""
+            
+            txtcity.text = selectedCity
+            txtcity.resignFirstResponder()
+            
+            if selectedCity.isEmpty {
+                print("Please select a city")
+            }
         }
+        self.picker.removeFromSuperview()
+        self.toolBar.removeFromSuperview()
         
     }
+    
+    @objc
+    func CancelBtnClick(){
+        if picker.tag == 1{
+            self.txtcountry.resignFirstResponder()
+        }else  if picker.tag == 2{
+            self.txtstate.resignFirstResponder()
+        }else if picker.tag == 3{
+            self.txtcity.resignFirstResponder()
+        }
+        self.picker.removeFromSuperview()
+        self.toolBar.removeFromSuperview()
+    }
+    
+}
 
 // Mark:- Date Picker
 
@@ -698,7 +719,7 @@ extension EditprofileViewController{
             txtdateofbirth.resignFirstResponder()
             let selecteddate = datePicker.date
             UserDefaults.standard.set(selecteddate, forKey: "SelectedDate")
-//            UserDefaults.standard.set(txtdateofbirth.text, forKey: "Date")
+            //            UserDefaults.standard.set(txtdateofbirth.text, forKey: "Date")
             
         }
     }
@@ -733,7 +754,7 @@ extension EditprofileViewController{
         
         let dateformrtter = DateFormatter()
         dateformrtter.dateStyle = .medium
-          
+        
         let toolbar = UIToolbar(frame:  CGRect(x: 0, y: 0, width: self.view.frame.width, height: 44))
         let cancelBtn = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.cancelbtnClick))
         let doneBtn = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.donebtnClick))
@@ -755,7 +776,7 @@ extension EditprofileViewController{
     func donebtnClick(){
         if let datePicker = txtbirthtime.inputView as? UIDatePicker{
             let formatter = DateFormatter()
-                formatter.timeStyle = .short
+            formatter.timeStyle = .short
             txtbirthtime.text = formatter.string(from: datePicker.date)
             let selected = datePicker.date
             UserDefaults.standard.set(datePicker.date, forKey: "Time")
@@ -770,5 +791,95 @@ extension EditprofileViewController{
     func DatePickerHandler(datePicker:UIDatePicker){
         print(datePicker.date)
     }
-   
+    
 }
+
+extension EditprofileViewController{
+    func gallaryOpen(){
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+            let picker = UIImagePickerController()
+            picker.allowsEditing = true
+            picker.delegate  = self
+            picker.sourceType = .photoLibrary
+            self.present(picker, animated: true,completion: nil)
+        }
+    }
+    func camareaOpen(){
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+            let picker = UIImagePickerController()
+            picker.allowsEditing = true
+            picker.sourceType = .camera
+            picker.mediaTypes = [kUTTypeImage as String]
+            picker.present(picker, animated: true,completion: nil)
+        }
+    }
+    func actionSheet(){
+        let alert = UIAlertController(title: "Choose Image From", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Gallary", style: .default,handler: {(handler) in
+            self.gallaryOpen()
+        }))
+        alert.addAction(UIAlertAction(title: "Camera", style: .default,handler: {(handler) in
+            self.camareaOpen()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default,handler: {(handler) in
+            self.dismiss(animated: true)
+        }))
+        self.present(alert, animated: true,completion: nil)
+    }
+}
+
+extension EditprofileViewController:UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let img = info[.originalImage] as? UIImage{
+            profileImage.image = img
+            self.imageSelected = true
+        }
+        dismiss(animated: true)
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true,completion: nil )
+    }
+}
+
+
+
+//extension EditprofileViewController{
+//    func setupTextView() {
+//        if txtabout.text != ""{
+//            txtabout.text = "About Me"
+//            txtabout.textColor = UIColor.lightGray
+//            txtabout.textAlignment = .center
+//            txtabout.delegate = self
+//           // txtaboutme.becomeFirstResponder()
+//        }else{
+//            // Data Show
+//        }
+//
+//    }
+//
+//    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+//        if text == "\n" {
+//            textView.textAlignment = .center
+//            textView.resignFirstResponder()
+//            return false
+//        }
+//        return true
+//    }
+//
+//    public func textViewDidBeginEditing(_ textView: UITextView) {
+//        if textView.text == "About Me" {
+//            textView.text = ""
+//            textView.textColor = UIColor.black
+//            textView.textAlignment = .center
+//        }
+//    }
+//
+//    public func textViewDidEndEditing(_ textView: UITextView) {
+//        if textView.text.isEmpty {
+//            textView.text = "About Me"
+//            textView.textColor = UIColor.lightGray
+//            textView.textAlignment = .center
+//        }
+//    }
+//}

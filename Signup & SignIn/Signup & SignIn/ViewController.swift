@@ -17,8 +17,8 @@ class ViewController: UIViewController {
     var txtEmail:UITextField!
     var email = ""
     
-    // Welcome Darshan
-    //Congartulations Dharmesh Become A Greate Strudent of GTU
+    
+    
     
     // MARK :- IBOutlet
     //@IBOutlet var lbldonot: UILabel!
@@ -38,6 +38,8 @@ class ViewController: UIViewController {
         
         txtemail.delegate = self
         txtpass.delegate = self
+        
+        self.hideKeyboard()
         
         sendprofile()
 
@@ -333,21 +335,24 @@ extension ViewController:UITextFieldDelegate{
 //        return true
 //    }
     
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
-//                           replacementString string: String) -> Bool
-//    {
-//        if textField == txtpass{
-//            let maxLength = 8
-//            let currentString: NSString = txtpass.text! as NSString
-//            let newString: NSString =
-//            currentString.replacingCharacters(in: range, with: string) as NSString
-//            return newString.length <= maxLength
-//        }else{
-//            return true
-//        }
-//    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
+                           replacementString string: String) -> Bool
+    {
+        if textField == txtpass{
+            let maxLength = 24
+            let currentString: NSString = txtpass.text! as NSString
+            let newString: NSString =
+            currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        }else{
+            return true
+        }
+    }
     
-    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     
 }
 

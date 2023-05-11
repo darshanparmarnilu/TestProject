@@ -29,6 +29,9 @@ class changepassViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.hideKeyboard()
+        
         let blurEffect = UIBlurEffect(style: .light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = view.bounds
@@ -195,6 +198,11 @@ extension changepassViewController:UITextFieldDelegate{
             currentString.replacingCharacters(in: range, with: string) as NSString
             return newString.length <= maxLength
         }
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
         return true
     }
 }
