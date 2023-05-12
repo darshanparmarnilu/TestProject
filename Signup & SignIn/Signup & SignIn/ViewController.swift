@@ -18,13 +18,6 @@ class ViewController: UIViewController {
     var email = ""
     
 
-    
-
-    // This Change For Branch 2
-
-    // This Change For Branch 1
-    
-    
 
     
     
