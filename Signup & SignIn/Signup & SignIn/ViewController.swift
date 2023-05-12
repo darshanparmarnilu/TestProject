@@ -26,9 +26,13 @@ class ViewController: UIViewController {
 =======
 // Hello Darshan
 //This Change For Stash
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes
     
 
+=======
+    
+>>>>>>> Stashed changes
     // MARK :- IBOutlet
     //@IBOutlet var lbldonot: UILabel!
     //@IBOutlet var lblremember: UILabel!
