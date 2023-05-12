@@ -18,10 +18,12 @@ class ViewController: UIViewController {
     var email = ""
     
     
-      
+
     /*
-     Please remember to review your changes and make sure you understand the implications before committing or stashing them.
+     Commit your changes: If you want to keep the modifications you made to the file mentioned in the error message, you can commit those changes before applying the stash. In SourceTree, select the file(s) you modified, stage them, and then commit the changes. Once the changes are committed, you can try applying the stash again.
      */
+    
+
     // MARK :- IBOutlet
     //@IBOutlet var lbldonot: UILabel!
     //@IBOutlet var lblremember: UILabel!
