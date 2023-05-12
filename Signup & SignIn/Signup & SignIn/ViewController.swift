@@ -19,7 +19,9 @@ class ViewController: UIViewController {
     
     
       
-    
+    /*
+     Please remember to review your changes and make sure you understand the implications before committing or stashing them.
+     */
     // MARK :- IBOutlet
     //@IBOutlet var lbldonot: UILabel!
     //@IBOutlet var lblremember: UILabel!
