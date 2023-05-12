@@ -18,8 +18,7 @@ class ViewController: UIViewController {
     var email = ""
     
     
-        // This Is Branch 1 For Darshan
-
+      
     
     // MARK :- IBOutlet
     //@IBOutlet var lbldonot: UILabel!
