@@ -16,6 +16,9 @@ class WorkTableViewCell: UITableViewCell {
     @IBOutlet var stackrating: UIStackView!
    
     
+    @IBOutlet weak var ratingBtn3: UIButton!
+    @IBOutlet weak var ratingBtn2: UIButton!
+    @IBOutlet weak var ratingBtn1: UIButton!
     @IBOutlet weak var presentView: UIView!
     @IBOutlet weak var backView: UIView!
     @IBOutlet var lbl100: UILabel!

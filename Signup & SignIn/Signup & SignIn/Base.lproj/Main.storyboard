@@ -2304,9 +2304,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="tintColor" red="0.0019607843140000002" green="0.0019607843140000002" blue="0.0019607843140000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="0.019607843137254902" green="0.10980392156862745" blue="0.41960784313725491" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="selectedImageTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" red="0.019607843137254902" green="0.10980392156862745" blue="0.41960784313725491" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="MUu-zT-di1" kind="relationship" relationship="viewControllers" id="QGD-Ju-8ag"/>
@@ -2858,6 +2858,9 @@
                                             <outlet property="lblwork" destination="u7O-lC-fdH" id="xjp-dt-6Kh"/>
                                             <outlet property="presentView" destination="Gce-YI-lLV" id="HiU-8c-2dn"/>
                                             <outlet property="progressbar" destination="UTu-d4-HDc" id="J8q-Mf-FWG"/>
+                                            <outlet property="ratingBtn1" destination="B5S-Hl-lhP" id="i9N-Ck-ne8"/>
+                                            <outlet property="ratingBtn2" destination="zNc-CC-RP5" id="gyp-iV-TYo"/>
+                                            <outlet property="ratingBtn3" destination="FGX-Mb-pVk" id="trS-wS-ccM"/>
                                             <outlet property="ratio" destination="a7m-MV-6Vc" id="xEa-SB-NSN"/>
                                             <outlet property="slider" destination="MrT-hj-guN" id="Hgo-Sd-W6q"/>
                                             <outlet property="stackrating" destination="BD0-pe-1yK" id="hvC-MU-BHy"/>
@@ -3223,7 +3226,7 @@
             <objects>
                 <viewController storyboardIdentifier="GalaryViewController" id="7Xv-gv-mXl" customClass="GalaryViewController" customModule="Signup___SignIn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XlV-l4-3LQ">
-                        <rect key="frame" x="0.0" y="0.0" width="430" height="794.33333333333326"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="794"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eHy-rN-FQC">

@@ -63,7 +63,7 @@ class EditprofileViewController: UIViewController {
     
     var ArrStates = ["India":["Gujarat","Rajasthan","Punjab"],
                      "United States of America":["California","Florida","Hawaii"],
-                     "United Kingdom":["England"," Scotland","Northern Ireland"]]
+                     "United Kingdom":["England","Scotland","Northern Ireland"]]
     
     var Arrcities = ["Gujarat":["Ahemdabad","Surat","Baroda","Gandhinagar","Modasa"],
                      "Rajasthan":["Jaipur","Udaipur","Jodhpur","Jaisalmer","Bikaner"],
@@ -555,8 +555,40 @@ extension EditprofileViewController:UIPickerViewDelegate,UIPickerViewDataSource{
 
 extension EditprofileViewController{
     // Country Picker
-    func openpicker(tag:Int){
-        picker = UIPickerView.init(frame:CGRect(x: 0.0, y: self.view.frame.height - 200, width: self.view.frame.width, height: 300) )
+    //    func openpicker(tag:Int){
+    //        picker = UIPickerView.init(frame:CGRect(x: 0.0, y: self.view.frame.height - 200, width: self.view.frame.width, height: 300) )
+    //        picker.delegate = self
+    //        picker.tag = tag
+    //        picker.dataSource = self
+    //        picker.backgroundColor = UIColor.white
+    //        picker.setValue(UIColor.black, forKey: "textColor")
+    //
+    //        picker.autoresizingMask = .flexibleWidth
+    //        picker.contentMode = .center
+    //
+    //        //self.view.addSubview(picker)
+    //        //txtdateofbirth.inputView = picker
+    //
+    //        txtcountry.inputView = picker
+    //        txtstate.inputView = picker
+    //        txtcity.inputView = picker
+    //
+    //        toolBar = UIToolbar.init(frame: CGRect(x: 0.0, y: UIScreen.main.bounds.size.height - 250, width: UIScreen.main.bounds.size.width, height: 50))
+    //        let flexibleBtn = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    //        let cancelBtn = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.CancelBtnClick))
+    //        let doneBtn = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.DonebtnClick))
+    //        toolBar.barStyle = .blackTranslucent
+    //        toolBar.setItems([cancelBtn,flexibleBtn,flexibleBtn,flexibleBtn,doneBtn], animated: true)
+    //        //txtcountry.inputAccessoryView = toolBar
+    //        //self.view.addSubview(toolBar)
+    //
+    //        txtcountry.inputAccessoryView = toolBar
+    //        txtstate.inputAccessoryView = toolBar
+    //        txtcity.inputAccessoryView = toolBar
+    //    }
+    //
+    func openpicker(tag: Int) {
+        picker = UIPickerView(frame: CGRect(x: 0.0, y: self.view.frame.height - 200, width: self.view.frame.width, height: 300))
         picker.delegate = self
         picker.tag = tag
         picker.dataSource = self
@@ -566,109 +598,126 @@ extension EditprofileViewController{
         picker.autoresizingMask = .flexibleWidth
         picker.contentMode = .center
         
-        //self.view.addSubview(picker)
-        //txtdateofbirth.inputView = picker
-        
         txtcountry.inputView = picker
         txtstate.inputView = picker
         txtcity.inputView = picker
         
-        toolBar = UIToolbar.init(frame: CGRect(x: 0.0, y: UIScreen.main.bounds.size.height - 250, width: UIScreen.main.bounds.size.width, height: 50))
+        toolBar = UIToolbar(frame: CGRect(x: 0.0, y: UIScreen.main.bounds.size.height - 250, width: UIScreen.main.bounds.size.width, height: 50))
         let flexibleBtn = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let cancelBtn = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.CancelBtnClick))
         let doneBtn = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.DonebtnClick))
         toolBar.barStyle = .blackTranslucent
-        toolBar.setItems([cancelBtn,flexibleBtn,flexibleBtn,flexibleBtn,doneBtn], animated: true)
-        //txtcountry.inputAccessoryView = toolBar
-        //self.view.addSubview(toolBar)
+        toolBar.setItems([cancelBtn, flexibleBtn, flexibleBtn, flexibleBtn, doneBtn], animated: true)
         
         txtcountry.inputAccessoryView = toolBar
         txtstate.inputAccessoryView = toolBar
         txtcity.inputAccessoryView = toolBar
-    }
-    
-    @objc
-    func DonebtnClick(){
-        if picker.tag == 1{
-            let selectedRow = picker.selectedRow(inComponent: 0) // Get the selected row in the picker's first component
-            let selectedCountry = ArrCountry[selectedRow] // Assuming ArrCountries is an array of country names
-            
-            if selectedCountry != txtcountry.text {
-                txtcity.text = ""
-                txtstate.text = ""
-            }
-            
-            txtcountry.text = selectedCountry
-            txtcountry.resignFirstResponder()
-            
-            if selectedCountry == "" {
-                print("Please Select Country")
-            } else {
-                if let arrST = ArrStates[selectedCountry] {
-                    self.arrSelectedStates = arrST
-                }
-            }
-        }else if picker.tag == 2 {
-            guard let selectedCountry = txtcountry.text else {
-                print("Please select a country first")
-                return
-            }
-            
-            let selectedState = ArrStates[selectedCountry]?[picker.selectedRow(inComponent: 0)] ?? ""
-            
-            if selectedState != txtstate.text {
-                txtcity.text = ""
-            }
-            
-            txtstate.text = selectedState
-            txtstate.resignFirstResponder()
-            
-            if selectedState.isEmpty {
-                print("Please Select State")
-            } else {
-                if let arrCT = Arrcities[selectedState] {
-                    self.arrSelectedCity = arrCT
-                }
-            }
-        }else if  picker.tag == 3 {
-            guard let selectedCountry = txtcountry.text, !selectedCountry.isEmpty else {
-                print("Please select a country first")
-                return
-            }
-            
-            guard let selectedState = txtstate.text, !selectedState.isEmpty else {
-                print("Please select a state first")
-                return
-            }
-            
-            let selectedCity = Arrcities[selectedState]?[picker.selectedRow(inComponent: 0)] ?? ""
-            
-            txtcity.text = selectedCity
-            txtcity.resignFirstResponder()
-            
-            if selectedCity.isEmpty {
-                print("Please select a city")
-            }
-        }
-        self.picker.removeFromSuperview()
-        self.toolBar.removeFromSuperview()
         
-    }
-    
-    @objc
-    func CancelBtnClick(){
-        if picker.tag == 1{
-            self.txtcountry.resignFirstResponder()
-        }else  if picker.tag == 2{
-            self.txtstate.resignFirstResponder()
-        }else if picker.tag == 3{
-            self.txtcity.resignFirstResponder()
+        // Update picker selection based on text field values
+        if tag == 1, let selectedCountry = txtcountry.text, !selectedCountry.isEmpty {
+            if let countryIndex = ArrCountry.firstIndex(of: selectedCountry) {
+                picker.selectRow(countryIndex, inComponent: 0, animated: false)
+            }
+        } else if tag == 2, let selectedState = txtstate.text, !selectedState.isEmpty {
+            if let stateIndex = ArrStates.keys.firstIndex(where: { $0 == selectedState }) {
+                let row = ArrStates.keys.distance(from: ArrStates.keys.startIndex, to: stateIndex)
+                picker.selectRow(row, inComponent: 0, animated: false)
+            }
         }
-        self.picker.removeFromSuperview()
-        self.toolBar.removeFromSuperview()
+        else if tag == 3, let selectedCountry = txtcountry.text, !selectedCountry.isEmpty,
+                let selectedState = txtstate.text, !selectedState.isEmpty {
+            let selectedCity = txtcity.text ?? ""
+            if let cityIndex = Arrcities[selectedState]?.firstIndex(of: selectedCity) {
+                picker.selectRow(cityIndex, inComponent: 0, animated: false)
+            }
+        }
     }
     
-}
+    
+        @objc
+        func DonebtnClick(){
+            if picker.tag == 1{
+                let selectedRow = picker.selectedRow(inComponent: 0) // Get the selected row in the picker's first component
+                let selectedCountry = ArrCountry[selectedRow] // Assuming ArrCountries is an array of country names
+    
+                if selectedCountry != txtcountry.text {
+                    txtcity.text = ""
+                    txtstate.text = ""
+                }
+    
+                txtcountry.text = selectedCountry
+                txtcountry.resignFirstResponder()
+    
+                if selectedCountry == "" {
+                    print("Please Select Country")
+                } else {
+                    if let arrST = ArrStates[selectedCountry] {
+                        self.arrSelectedStates = arrST
+                    }
+                }
+            }else if picker.tag == 2 {
+                guard let selectedCountry = txtcountry.text else {
+                    print("Please select a country first")
+                    return
+                }
+    
+                let selectedState = ArrStates[selectedCountry]?[picker.selectedRow(inComponent: 0)] ?? ""
+    
+                if selectedState != txtstate.text {
+                    txtcity.text = ""
+                }
+    
+                txtstate.text = selectedState
+                txtstate.resignFirstResponder()
+    
+                if selectedState.isEmpty {
+                    print("Please Select State")
+                } else {
+                    if let arrCT = Arrcities[selectedState] {
+                        self.arrSelectedCity = arrCT
+                    }
+                }
+            }else if  picker.tag == 3 {
+                guard let selectedCountry = txtcountry.text, !selectedCountry.isEmpty else {
+                    print("Please select a country first")
+                    return
+                }
+    
+                guard let selectedState = txtstate.text, !selectedState.isEmpty else {
+                    print("Please select a state first")
+                    return
+                }
+    
+                let selectedCity = Arrcities[selectedState]?[picker.selectedRow(inComponent: 0)] ?? ""
+    
+                txtcity.text = selectedCity
+                txtcity.resignFirstResponder()
+    
+                if selectedCity.isEmpty {
+                    print("Please select a city")
+                }
+            }
+            self.picker.removeFromSuperview()
+            self.toolBar.removeFromSuperview()
+    
+        }
+    
+        @objc
+        func CancelBtnClick(){
+            if picker.tag == 1{
+                self.txtcountry.resignFirstResponder()
+            }else  if picker.tag == 2{
+                self.txtstate.resignFirstResponder()
+            }else if picker.tag == 3{
+                self.txtcity.resignFirstResponder()
+            }
+            self.picker.removeFromSuperview()
+            self.toolBar.removeFromSuperview()
+        }
+    
+    }
+    
+
 
 // Mark:- Date Picker
 
@@ -693,8 +742,8 @@ extension EditprofileViewController{
         
         
         let toolbar = UIToolbar(frame:  CGRect(x: 0, y: 0, width: self.view.frame.width, height: 44))
-        let cancelbtn = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.cancelBtnClick))
-        let donebtn = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneBtnClick))
+        let cancelbtn = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.cancelBtnclick))
+        let donebtn = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneBtnclick))
         let flexibleBtn = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let resetbtn = UIBarButtonItem(title: "Reset", style: .done, target: self, action: #selector(self.resetbtn))
         toolbar.setItems([cancelbtn,flexibleBtn,resetbtn,flexibleBtn,donebtn], animated: true)
@@ -705,12 +754,12 @@ extension EditprofileViewController{
         
     }
     @objc
-    func cancelBtnClick(){
+    func cancelBtnclick(){
         txtdateofbirth.resignFirstResponder()
     }
     
     @objc
-    func doneBtnClick(){
+    func doneBtnclick(){
         if let datePicker = txtdateofbirth.inputView as? UIDatePicker{
             let dateformetter = DateFormatter()
             dateformetter.dateStyle = .medium

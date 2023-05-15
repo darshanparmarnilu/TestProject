@@ -97,11 +97,15 @@ class changepassViewController: UIViewController {
                 if(self.txtnewpass.text == self.txtconfirmpass.text) {
                     print("Password Updated")
                     DatabaseManager.shared.updatepass(strPass: self.txtconfirmpass.text!, strID:self.u_Id)
-                    let navigate = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-                    navigate.modalPresentationStyle = .overFullScreen
-                    navigate.hidesBottomBarWhenPushed = true
-                    self.navigationController?.pushViewController(navigate, animated: true)
-                    self.dismiss(animated: true)
+//                    let navigate = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+//                    navigate.modalPresentationStyle = .overFullScreen
+//                    navigate.hidesBottomBarWhenPushed = true
+//                    self.navigationController?.pushViewController(navigate, animated: true)
+                    
+                    
+                    viewAlert(withTitle: "Done", message: "Password Updated")
+                  //  self.dismiss(animated: true)
+                    
                     
                     //{
                     //                  self.mainview.makeToast("Password Updated", duration: 10.00, position: .bottom)
@@ -125,17 +129,28 @@ class changepassViewController: UIViewController {
         }))
         self.present(alert, animated: true, completion: nil)
     }
-    func AltMesg(strMsgAlert:String,strtitle:String){
-        let alert = UIAlertController(title: strtitle, message: strMsgAlert, preferredStyle: .alert)
+    func viewAlert(withTitle title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-            NSLog("The \"OK\" alert occured.")
-                                let navigate = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-                                navigate.modalPresentationStyle = .overFullScreen
-                                navigate.hidesBottomBarWhenPushed = true
-                                self.navigationController?.pushViewController(navigate, animated: true)
+            DispatchQueue.main.async {
+                let navigate = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+                navigate.modalPresentationStyle = .overFullScreen
+                navigate.hidesBottomBarWhenPushed = true
+                
+                self.dismiss(animated: true) {
+                    self.navigationController?.pushViewController(navigate, animated: true)
+                }
+            }
+            
+            NSLog("The \"OK\" alert occurred.")
         }))
-        self.present(alert, animated: true, completion: nil)
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
+
+
 }
 
 

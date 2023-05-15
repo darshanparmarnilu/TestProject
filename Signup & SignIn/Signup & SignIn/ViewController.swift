@@ -16,23 +16,8 @@ class ViewController: UIViewController {
     var checkbtn:Bool! = false
     var txtEmail:UITextField!
     var email = ""
-    
-<<<<<<< Updated upstream
-    
 
-    /*
-     Commit your changes: If you want to keep the modifications you made to the file mentioned in the error message, you can commit those changes before applying the stash. In SourceTree, select the file(s) you modified, stage them, and then commit the changes. Once the changes are committed, you can try applying the stash again.
-     */
-=======
-// Hello Darshan
-//This Change For Stash
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
     
-
-=======
-    
->>>>>>> Stashed changes
     // MARK :- IBOutlet
     //@IBOutlet var lbldonot: UILabel!
     //@IBOutlet var lblremember: UILabel!

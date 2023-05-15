@@ -29,7 +29,7 @@ class GalaryViewController: UIViewController {
         let obj1 = GalleryData(strTitile: "Recents", images: ["image101","image102","image103","image104"])
         let obj2 = GalleryData(strTitile: "Download", images: ["image105","image106","image107","image108"])
         let obj3 = GalleryData(strTitile: "Favourite", images: ["image109","image110","image111","image112","image107","image108"])
-        let obj4 = GalleryData(strTitile: "Camera", images: ["image105","image106","image107","image108"])
+        let obj4 = GalleryData(strTitile: "Camera", images: ["image107","image106","image105","image108"])
         
         self.arrGallery.append(obj)
         self.arrGallery.append(obj1)
@@ -38,6 +38,7 @@ class GalaryViewController: UIViewController {
         self.arrGallery.append(obj4)
 
     }
+    
 
 }
 
@@ -50,7 +51,7 @@ extension GalaryViewController:UICollectionViewDelegate,UICollectionViewDataSour
         let cell = self.collectionview.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! GalaryCollectionViewCell
         
         let obj = self.arrGallery[indexPath.row]
-        cell.image.image = UIImage(named: obj.arrImages.randomElement() ?? "image1")
+        cell.image.image = UIImage(named: "\(obj.arrImages[0])")
         cell.lblimgname.text = obj.strTitile
         cell.lblimgcount.text =  "\(obj.arrImages.count)"
         return cell

@@ -32,6 +32,7 @@ class MenuBarViewController: UIViewController {
         image.layer.borderColor = UIColor.black.cgColor
         
         
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         getData()
@@ -67,13 +68,22 @@ class MenuBarViewController: UIViewController {
     }
     
     @IBAction func share(_ sender: UIButton) {
-        let shareText = "Check out this cool app!"
-          let shareURL = URL(string: "https://www.example.com")!
-
-          let activityViewController = UIActivityViewController(activityItems: [shareText, shareURL], applicationActivities: nil)
-
-          // Present the share sheet
-          self.present(activityViewController, animated: true, completion: nil)
+        
+//        let shareText = "Check out this cool app!"
+//          let shareURL = URL(string: "https://www.example.com")!
+//
+//          let activityViewController = UIActivityViewController(activityItems: [shareText, shareURL], applicationActivities: nil)
+//
+//          // Present the share sheet
+//          self.present(activityViewController, animated: true, completion: nil)
+        
+        if let name = URL(string: "https://itunes.apple.com/us/app/myapp/idxxxxxxxx?ls=1&mt=8"), !name.absoluteString.isEmpty {
+          let objectsToShare = [name]
+          let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+          self.present(activityVC, animated: true, completion: nil)
+        } else {
+          // show alert for not available
+        }
     }
     
     @IBAction func ContactUs(_ sender: UIButton) {
@@ -91,6 +101,8 @@ class MenuBarViewController: UIViewController {
                 let webUrl = URL(string: "https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=\(recipientEmail)&su=\(urlEncodedSubject)&body=\(urlEncodedBody)")!
                 UIApplication.shared.open(webUrl, options: [:], completionHandler: nil)
             }
+        
+      
     }
     
     @IBAction func logout(_ sender: UIButton) {

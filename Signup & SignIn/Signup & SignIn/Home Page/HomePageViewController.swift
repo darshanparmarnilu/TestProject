@@ -22,6 +22,7 @@ class HomePageViewController: UIViewController, UINavigationControllerDelegate, 
         super.viewDidLoad()
         subView.alpha = 0
         
+       
         
         let obj1 = HomeCellImage(arrImages: ["image1","image3","image6","image4","image5","image2"], strUserName: "Rocky", strLocation: "Mumbai",strUserImg: "IMG_0437",strLike: false,strBookmark: false,currentPageNo: 0)
         let obj2 = HomeCellImage(arrImages: ["image101","image102","image103","image104"], strUserName: "Badshah", strLocation: "Delhi",strUserImg: "IMG_0441",strLike: false,strBookmark: false,currentPageNo: 0)
@@ -47,6 +48,9 @@ class HomePageViewController: UIViewController, UINavigationControllerDelegate, 
         self.ArrImg.append(obj10)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.subView.alpha = 0
+    }
     
     @IBAction func menu(_ sender: UIButton) {
         
@@ -106,8 +110,10 @@ extension HomePageViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableview.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! HometableViewCell
+
         cell.selectionStyle = .none
         let obj = self.ArrImg[indexPath.row]
+
         cell.collactionview.delegate = self
         cell.collactionview.dataSource = self
         cell.collactionview.tag = indexPath.row
@@ -121,18 +127,24 @@ extension HomePageViewController:UITableViewDelegate,UITableViewDataSource{
         cell.page.numberOfPages = obj.arrImages.count
         cell.btnlike.tag = indexPath.row
         cell.btnsave.tag = indexPath.row
-//        if obj.strLike == true {
-//            cell.btnlike.setImage(UIImage(named: "heart (1)"), for: .normal)
-//        }else {
-//            cell.btnlike.setImage(UIImage(named: "heart"), for: .selected)
-//        }
-//        if obj.strBookmark == true{
-//            cell.btnsave.setImage(UIImage(named: "bookmark"), for: .normal)
-//        }else{
-//            cell.btnsave.setImage(UIImage(named: "save-instagram"), for: .selected)
-//        }
+        
+        
+        obj.currentPageNo = cell.collactionview.tag
+        
+
         return cell
     }
+
+    
+    
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.subView.alpha = 0
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        subView.alpha = 0
+    }
+    
 }
 extension UIViewController {
     
@@ -167,13 +179,21 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "collection", for: indexPath) as! homeCollectionViewCell
         let obj = self.ArrImg[collectionView.tag]
+
+       // cell.image.image = UIImage(named: obj.arrImages[obj.currentPageNo])
         cell.image.image = UIImage(named: obj.arrImages[indexPath.item])
+
+        
         
         return cell
     }
+   
+     
+
+    
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         //self.page?.currentPage = indexPath.item
-        
+
         guard let cellTbl = self.tableview.cellForRow(at: IndexPath(row: collectionView.tag, section: 0)) as? HometableViewCell else {
             return
         }
@@ -181,7 +201,11 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         cellTbl.page.currentPage = indexPath.item
     }
     
+   
+
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
         let witdh = scrollView.frame.width - (scrollView.contentInset.left*2)
         let index = scrollView.contentOffset.x / witdh
         let roundedIndex = round(index)
@@ -192,6 +216,9 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
     }
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         //page.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.subView.alpha = 0
     }
     
 }

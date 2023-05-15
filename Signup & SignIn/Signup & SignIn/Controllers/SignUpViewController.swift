@@ -20,7 +20,7 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
     
     var ArrStates = ["India":["Gujarat","Rajasthan","Punjab"],
                      "United States of America":["California","Florida","Hawaii"],
-                     "United Kingdom":["England"," Scotland","Northern Ireland"]]
+                     "United Kingdom":["England","Scotland","Northern Ireland"]]
     
     var Arrcities = ["Gujarat":["Ahemdabad","Surat","Baroda","Gandhinagar","Modasa"],
                      "Rajasthan":["Jaipur","Udaipur","Jodhpur","Jaisalmer","Bikaner"],
@@ -322,8 +322,6 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
     }
     
     
-    
-    
     @IBAction func btncreateaccount(_ sender:UIButton) {
         if(txtfirst.text == ""){
             Alertmsg(strMsgAlert: "Please Enter First Name",strtitle: "Alert")
@@ -501,33 +499,6 @@ extension SignUpViewController{
         
         self.present(alert, animated: true, completion: nil)
     }
-    
-    
-//     func saveImage(completion:@escaping (Bool,String)->()){
-//         if  let image = profileimage.image {
-//             let imageName = "img" + "\(Date().timeIntervalSince1970)" + ".png"
-//                let document = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-//                print(document)
-//
-//                let imageUrl = document.appendingPathComponent(imageName,isDirectory: true)
-//
-//                print(imageUrl.path)
-//
-//                if !FileManager.default.fileExists(atPath: imageUrl.path){
-//                    do{
-//                        try image.pngData()!.write(to: imageUrl)
-//                        print("Image Added Successfully")
-//                        completion(true, imageUrl.path)
-//                    }catch{
-//                        print("Image Not Added")
-//                        completion(false, "")
-//                    }
-//                }else {
-//                    completion(false, "")
-//                }
-//         }
-//    }
-    
     
     func saveImage(completion:@escaping (Bool,String)->()){
              if  let image = profileimage.image {

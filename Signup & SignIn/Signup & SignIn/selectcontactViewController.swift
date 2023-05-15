@@ -89,6 +89,9 @@ class selectcontactViewController: UIViewController {
         
         self.CountUser.text = String(self.arrContact.count) + " "+"Contacts"
     }
+    override func viewWillAppear(_ animated: Bool) {
+        container.alpha = 0
+    }
     
     @IBAction func backVC(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -145,6 +148,12 @@ extension selectcontactViewController:UITableViewDelegate,UITableViewDataSource{
         headerView.textLabel?.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
         headerView.textLabel?.font = UIFont(name: "Inter-Medium", size: 22)
         headerView.addSubview(titleLabel)
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.container.alpha = 0
+    }
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.container.alpha = 0
     }
  
 }

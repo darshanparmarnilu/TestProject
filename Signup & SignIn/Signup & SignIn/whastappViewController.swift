@@ -84,6 +84,9 @@ class whastappViewController: UIViewController {
         segment.setTitleTextAttributes(deselectedAttributes, for: .normal)
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        self.container.alpha = 0
+    }
     
     @IBAction func segment(_ sender: UISegmentedControl) {
         
@@ -131,79 +134,83 @@ class whastappViewController: UIViewController {
         self.container.alpha = 0
     }
     @IBAction func stackShow(_ sender: UIButton) {
-     
-//                guard let cell = self.tableview.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as? contactTableViewCell else {
-//                    return
-//                }
-//                let obj = self.ArrContacts[sender.tag]
-//                if selectedindex == sender.tag {
-//                    if self.isCollapce == false{
-////                        cell.btnshow.isSelected = obj.ShowStack
-////                        cell.btnshow.setImage(UIImage(named: "show"), for: .normal)
-//                        sender.isSelected = false
-//                        sender.setImage(UIImage(named: "show"), for: .normal)
-//                        self.isCollapce = true
-//                    }else{
-//                        self.isCollapce = false
-////                        cell.btnshow.isSelected = true
-////                        cell.btnshow.setImage(UIImage(named: "hide"), for: .selected)
-//                        sender.isSelected = true
-//                        sender.setImage(UIImage(named: "hide"), for: .selected)
-//                    }
-//
-//                }else{
-//                    self.isCollapce = true
-//        //            cell.showbtn.isSelected = true
-//                }
-//                self.selectedindex = sender.tag
-////                tableview.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: .automatic)
-//
+        //
+        //
+        //                guard self.tableview.cellForRow(at: IndexPath(row: sender.tag, section: 0)) is contactTableViewCell else {
+        //                                        return
+        //                                    }
+        //
+        //                let obj = self.ArrContacts[sender.tag]
+        //                self.selectedindex = sender.tag
+        //                if selectedindex == sender.tag {
+        //
+        //
+        //                        if obj.ShowStack == true {
+        //                            obj.ShowStack = false
+        //                            sender.isSelected = false
+        //                            self.isCollapce = false
+        //                            //sender.setImage(UIImage(named: "heart"), for: .selected)
+        //                        }else {
+        //                            obj.ShowStack = true
+        //                            sender.isSelected = true
+        //                            self.isCollapce = true
+        //                            // sender.setImage(UIImage(named: "heart (1)"), for: .normal)
+        //                        }
+        //
+        //                    if self.lastSelectedIndex != -1 {
+        //                        guard let lastSelectedCell = self.tableview.cellForRow(at: IndexPath(row: self.lastSelectedIndex, section: 0)) as? contactTableViewCell else  {
+        //                            return
+        //                        }
+        //                        lastSelectedCell.btnshow.isSelected = false
+        //                        let lastObj = self.ArrContacts[self.lastSelectedIndex]
+        //                        lastObj.ShowStack = false
+        //                        self.lastSelectedIndex = sender.tag
+        //                    }else {
+        //                        self.lastSelectedIndex = sender.tag
+        //                    }
+        //
+        //                    }else{
+        //                        self.isCollapce = false
+        //                        sender.isSelected = false
+        //                    }
+        //
+        //                    tableview.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: .automatic)
+        //
+        //                    }
         
         
+        guard let cell = tableview.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as? contactTableViewCell else {
+            return
+        }
         
+        let obj = ArrContacts[sender.tag]
+        selectedindex = sender.tag
         
-        guard self.tableview.cellForRow(at: IndexPath(row: sender.tag, section: 0)) is contactTableViewCell else {
-                                return
-                            }
-        
-        let obj = self.ArrContacts[sender.tag]
-        self.selectedindex = sender.tag
-        if selectedindex == sender.tag {
+        if obj.ShowStack {
+            obj.ShowStack = false
+            sender.isSelected = false
+            isCollapce = false
+            lastSelectedIndex = -1
+        } else {
+            for contact in ArrContacts {
+                contact.ShowStack = false
+            }
             
-                
-                if obj.ShowStack == true {
-                    obj.ShowStack = false
-                    sender.isSelected = false
-                    self.isCollapce = false
-                    //sender.setImage(UIImage(named: "heart"), for: .selected)
-                }else {
-                    obj.ShowStack = true
-                    sender.isSelected = true
-                    self.isCollapce = true
-                    // sender.setImage(UIImage(named: "heart (1)"), for: .normal)
-                }
+            obj.ShowStack = true
+            sender.isSelected = true
+            isCollapce = true
             
-            if self.lastSelectedIndex != -1 {
-                guard let lastSelectedCell = self.tableview.cellForRow(at: IndexPath(row: self.lastSelectedIndex, section: 0)) as? contactTableViewCell else  {
-                    return
-                }
+            if lastSelectedIndex != -1, let lastSelectedCell = tableview.cellForRow(at: IndexPath(row: lastSelectedIndex, section: 0)) as? contactTableViewCell {
                 lastSelectedCell.btnshow.isSelected = false
-                let lastObj = self.ArrContacts[self.lastSelectedIndex]
+                let lastObj = ArrContacts[lastSelectedIndex]
                 lastObj.ShowStack = false
-                self.lastSelectedIndex = sender.tag
-            }else {
-                self.lastSelectedIndex = sender.tag
             }
-                
-            }else{
-                self.isCollapce = false
-                sender.isSelected = false
-            }
-           
-            tableview.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: .automatic)
+            
+            lastSelectedIndex = sender.tag
+        }
         
-            }
-
+        tableview.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: .automatic)
+    }
         
     }
 
@@ -259,56 +266,84 @@ extension whastappViewController:UITableViewDelegate,UITableViewDataSource{
         }
     }
     
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let cell = tableView.cellForRow(at: indexPath) as! contactTableViewCell
+//        tableview.deselectRow(at: indexPath, animated: true)
+//        self.container.alpha = 0
+//        let obj = self.ArrContacts[indexPath.row]
+//        self.selectedindex = indexPath.row
+//        if selectedindex == indexPath.row {
+//            guard self.tableview.cellForRow(at: IndexPath(row: tableview.tag, section: 0)) is contactTableViewCell else {
+//                                    return
+//                                }
+//
+//                if obj.ShowStack == true {
+//                    obj.ShowStack = false
+//                    cell.btnshow.isSelected = false
+//                    self.isCollapce = false
+//                    //sender.setImage(UIImage(named: "heart"), for: .selected)
+//                }else {
+//                    obj.ShowStack = true
+//                    cell.btnshow.isSelected = true
+//                    self.isCollapce = true
+//                    // sender.setImage(UIImage(named: "heart (1)"), for: .normal)
+//                }
+//
+//            if self.lastSelectedIndex != -1 {
+//                guard let lastSelectedCell = self.tableview.cellForRow(at: IndexPath(row: self.lastSelectedIndex, section: 0)) as? contactTableViewCell else  {
+//                    return
+//                }
+//                lastSelectedCell.btnshow.isSelected = false
+//                let lastObj = self.ArrContacts[self.lastSelectedIndex]
+//                lastObj.ShowStack = false
+//                self.lastSelectedIndex = indexPath.row
+//            }else {
+//                self.lastSelectedIndex = indexPath.row
+//            }
+//
+//            }else{
+//                self.isCollapce = false
+//                cell.btnshow.isSelected = false
+//            }
+//
+//            tableview.reloadRows(at: [indexPath], with: .automatic)
+//        }
+//    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+//        self.container.alpha = 0
+//    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! contactTableViewCell
-        tableview.deselectRow(at: indexPath, animated: true)
-        let obj = self.ArrContacts[indexPath.row]
-        self.selectedindex = indexPath.row
-        if selectedindex == indexPath.row {
-            //                       if self.isCollapce == false {
-            //                           cell.btnshow.isSelected = false
-            //                          // cell.btnshow.setImage(UIImage(named: "StraightTraingle"), for: .normal)
-            //                           self.isCollapce = true
-            //                       }else{
-            //                           self.isCollapce = false
-            //                           cell.btnshow.isSelected = true
-            //                          // cell.btnshow.setImage(UIImage(named: "ReverseTraingle"), for: .normal)
-            //                       }
-            
-            guard self.tableview.cellForRow(at: IndexPath(row: tableview.tag, section: 0)) is contactTableViewCell else {
-                                    return
-                                }
-                
-                if obj.ShowStack == true {
-                    obj.ShowStack = false
-                    cell.btnshow.isSelected = false
-                    self.isCollapce = false
-                    //sender.setImage(UIImage(named: "heart"), for: .selected)
-                }else {
-                    obj.ShowStack = true
-                    cell.btnshow.isSelected = true
-                    self.isCollapce = true
-                    // sender.setImage(UIImage(named: "heart (1)"), for: .normal)
-                }
-            
-            if self.lastSelectedIndex != -1 {
-                guard let lastSelectedCell = self.tableview.cellForRow(at: IndexPath(row: self.lastSelectedIndex, section: 0)) as? contactTableViewCell else  {
-                    return
-                }
-                lastSelectedCell.btnshow.isSelected = false
-                let lastObj = self.ArrContacts[self.lastSelectedIndex]
-                lastObj.ShowStack = false
-                self.lastSelectedIndex = indexPath.row
-            }else {
-                self.lastSelectedIndex = indexPath.row
-            }
-                
-            }else{
-                self.isCollapce = false
-                cell.btnshow.isSelected = false
-            }
-           
-            tableview.reloadRows(at: [indexPath], with: .automatic)
+        guard let cell = tableView.cellForRow(at: indexPath) as? contactTableViewCell else {
+            return
         }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        container.alpha = 0
+        
+        let obj = ArrContacts[indexPath.row]
+        selectedindex = indexPath.row
+        
+        if obj.ShowStack {
+            obj.ShowStack = false
+            cell.btnshow.isSelected = false
+            isCollapce = false
+            lastSelectedIndex = -1
+        } else {
+            for contact in ArrContacts {
+                contact.ShowStack = false
+            }
+            
+            obj.ShowStack = true
+            cell.btnshow.isSelected = true
+            isCollapce = true
+            lastSelectedIndex = indexPath.row
+        }
+        
+        tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+        func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+            self.container.alpha = 0
+        }
+
     }
 

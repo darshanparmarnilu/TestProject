@@ -36,6 +36,7 @@ class RecentViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.container.alpha = 0
         collactionview.reloadData()
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -52,6 +53,7 @@ class RecentViewController: UIViewController {
         
     }
     @IBAction func previewimage(_ sender: UIButton) {
+        self.container.alpha = 0
 //        if currentIndex == 0 {
 //                return
 //            btnprev.isEnabled = false
@@ -78,7 +80,7 @@ class RecentViewController: UIViewController {
     }
     
     @IBAction func nextimage(_ sender: UIButton) {
-        
+        self.container.alpha = 0
 //        if currentIndex == ArrImg.count - 1 {
 //            btnnext.isEnabled = false
 //                return
@@ -138,6 +140,12 @@ extension RecentViewController:UICollectionViewDelegate,UICollectionViewDataSour
            btnprev.isEnabled = currentIndex > 0
 
        }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.container.alpha = 0
+    }
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.container.alpha = 0
+    }
     
 }
 extension RecentViewController: UICollectionViewDelegateFlowLayout{
