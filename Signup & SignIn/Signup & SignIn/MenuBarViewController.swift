@@ -6,10 +6,9 @@
 //
 
 import UIKit
+import MessageUI
 
-
-class MenuBarViewController: UIViewController {
-    
+class MenuBarViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
     var user_id = ""
     
@@ -18,10 +17,9 @@ class MenuBarViewController: UIViewController {
     @IBOutlet var image: UIImageView!
     @IBOutlet var logout: UIButton!
     @IBOutlet var leadingConstraint: NSLayoutConstraint!
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //leadingConstraint.constant = -293
         
         self.view.backgroundColor = .clear
         logout.layer.masksToBounds = true
@@ -30,116 +28,110 @@ class MenuBarViewController: UIViewController {
         image.layer.cornerRadius = 45
         image.layer.borderWidth = 1
         image.layer.borderColor = UIColor.black.cgColor
-        
-        
-        
     }
     override func viewWillAppear(_ animated: Bool) {
         getData()
     }
-    
     @IBAction func EditProfile(_ sender: UIButton) {
         let edit = self.storyboard?.instantiateViewController(withIdentifier: "EditprofileViewController") as! EditprofileViewController
         edit.modalPresentationStyle = .overFullScreen
         edit.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(edit, animated: false)
-        
     }
-    
     @IBAction func ChangePass(_ sender: UIButton) {
-
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//                let viewController = storyboard.instantiateViewController(withIdentifier: "changepassViewController") as! changepassViewController
-//                viewController.modalPresentationStyle = .overCurrentContext
-//                viewController.modalTransitionStyle = .crossDissolve
-//                viewController.u_Id = self.user_id
-//                self.present(viewController, animated: true, completion: nil)
-//        }
-//        self.dismiss(animated: true)
-//        self.delegateChangePass?.changePassword?()
-        
         let controller = self.storyboard?.instantiateViewController(withIdentifier: "changepassViewController") as! changepassViewController
+        controller.delegate = self
         controller.modalPresentationStyle = .overFullScreen
         controller.hidesBottomBarWhenPushed = true
         controller.u_Id = self.user_id
         self.present(controller, animated: true)
-        
+    }
+    @IBAction func share(_ sender: UIButton) {
+        if let name = URL(string: "https://itunes.apple.com/us/app/myapp/idxxxxxxxx?ls=1&mt=8"), !name.absoluteString.isEmpty {
+            let objectsToShare = [name]
+            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+            self.present(activityVC, animated: true, completion: nil)
+        } else {
+            // show alert for not available
+        }
+    }
+    @IBAction func ContactUs(_ sender: UIButton) {
+        contactUs()
     }
     
-    @IBAction func share(_ sender: UIButton) {
-        
-//        let shareText = "Check out this cool app!"
-//          let shareURL = URL(string: "https://www.example.com")!
-//
-//          let activityViewController = UIActivityViewController(activityItems: [shareText, shareURL], applicationActivities: nil)
-//
-//          // Present the share sheet
-//          self.present(activityViewController, animated: true, completion: nil)
-        
-        if let name = URL(string: "https://itunes.apple.com/us/app/myapp/idxxxxxxxx?ls=1&mt=8"), !name.absoluteString.isEmpty {
-          let objectsToShare = [name]
-          let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-          self.present(activityVC, animated: true, completion: nil)
+    func contactUs() {
+        let email = "darshanparmar.nilu@gmail.com" // insert your email here
+        let subject = "your subject goes here"
+        let bodyText = "your body text goes here"
+        // https://developer.apple.com/documentation/messageui/mfmailcomposeviewcontroller
+        if MFMailComposeViewController.canSendMail() {
+            let mailComposerVC = MFMailComposeViewController()
+            mailComposerVC.mailComposeDelegate = self as? MFMailComposeViewControllerDelegate
+            mailComposerVC.setToRecipients([email])
+            mailComposerVC.setSubject(subject)
+            mailComposerVC.setMessageBody(bodyText, isHTML: false)
+            self.present(mailComposerVC, animated: true, completion: nil)
         } else {
-          // show alert for not available
+            print("Device not configured to send emails, trying with share ...")
+            let coded = "mailto:\(email)?subject=\(subject)&body=\(bodyText)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            if let emailURL = URL(string: coded!) {
+                if #available(iOS 10.0, *) {
+                    if UIApplication.shared.canOpenURL(emailURL) {
+                        UIApplication.shared.open(emailURL, options: [:], completionHandler: { (result) in
+                            if !result {
+                                print("Unable to send email.")
+                            }
+                        })
+                    }
+                }
+                else {
+                    UIApplication.shared.openURL(emailURL as URL)
+                }
+            }
         }
     }
     
-    @IBAction func ContactUs(_ sender: UIButton) {
-        let recipientEmail = "contact@example.com"
-            let subject = "Contact Us"
-            let body = "Please enter your message here"
-            let urlEncodedSubject = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-            let urlEncodedBody = body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-            let urlString = "googlegmail:///co?to=\(recipientEmail)&subject=\(urlEncodedSubject)&body=\(urlEncodedBody)"
-            let gmailUrl = URL(string: urlString)!
-            if UIApplication.shared.canOpenURL(gmailUrl) {
-                UIApplication.shared.open(gmailUrl, options: [:], completionHandler: nil)
-            } else {
-                // Gmail app is not installed, open Gmail website in Safari instead
-                let webUrl = URL(string: "https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=\(recipientEmail)&su=\(urlEncodedSubject)&body=\(urlEncodedBody)")!
-                UIApplication.shared.open(webUrl, options: [:], completionHandler: nil)
-            }
-        
-      
-    }
-    
     @IBAction func logout(_ sender: UIButton) {
+        
         let user_defaults = UserDefaults.standard
         user_defaults.removeObject(forKey: "username")
         user_defaults.removeObject(forKey: "password")
         user_defaults.set(false, forKey: "rememberMe")
-        //            self.navigationController?.popViewController(animated: true)
         let navigate = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
         navigate.modalPresentationStyle = .overFullScreen
         navigate.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(navigate, animated: true)
-        
     }
     
     func getData(){
         getDataFromDefaults {success , id, firstname, lastname, email, password, mobileno,aboutme,userImage,userDateofBirth,userBirthTime,userCountry,userState,userCity,userGender  in
             if success == true{
-               
                 self.user_id = id
                 self.lblUserName.text = firstname
                 self.lblMobileNo.text = mobileno
-                
-                // For Progile Image
-                
                 let urlString = userImage
                 if let url = URL(string: urlString) {
-                  print(url)
-                                    
-                let destPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-                let fullDestPath = NSURL(fileURLWithPath: destPath).appendingPathComponent(url.lastPathComponent)
-                let fullDestPathString = fullDestPath!.path
-                self.image.image = UIImage(contentsOfFile: fullDestPathString)
+                    print(url)
+                    let destPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+                    let fullDestPath = NSURL(fileURLWithPath: destPath).appendingPathComponent(url.lastPathComponent)
+                    let fullDestPathString = fullDestPath!.path
+                    self.image.image = UIImage(contentsOfFile: fullDestPathString)
                 } else {
                     print("Invalid URL")
-                     }
+                }
             }
         }
+    }
+}
+
+extension MenuBarViewController:Push{
+    func pushVC() {
+        DispatchQueue.main.async {
+            self.tabBarController?.tabBar .isHidden = true
+        }
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        vc.modalPresentationStyle = .overFullScreen
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: false)
     }
 }

@@ -12,7 +12,6 @@ import Toast_Swift
 
 class EditprofileViewController: UIViewController {
     
-    
     // MARK:- IBOutlets
     
     @IBOutlet var btnfemale: UIButton!
@@ -73,7 +72,7 @@ class EditprofileViewController: UIViewController {
                      "Florida":["Miame","Orlando","Tampa","Florida City","Destin"],
                      "Hawaii":["Honolulu","Hilo","Hawi","Lahaina","Kailua"],
                      
-                     "England":["Manchester","City of London","Manchester","Liverpool"],
+                     "England":["Manchester","City of London","Bangor","Liverpool","Colchester"],
                      "Scotland":["Edinburgh","Glasgow","Inverness","Aberdeen","Dunfermline"],
                      "Northern Ireland":["Belfast","Derry","Newry","Armagh","Newtownabbey"]]
     
@@ -94,8 +93,6 @@ class EditprofileViewController: UIViewController {
         
         self.hideKeyboard()
         
-        //self.tabBarController?.tabBar.isHidden = true
-        // self.tabBarController?.tabBar.layer.zPosition = -1
         txtfirst.delegate = self
         txtlast.delegate = self
         txtmobile.delegate = self
@@ -148,8 +145,6 @@ class EditprofileViewController: UIViewController {
         txtemail.isUserInteractionEnabled = false
         txtemail.textColor = .darkGray
         
-        
-        
         txtfirst.underlinedtext()
         txtlast.underlinedtext()
         txtemail.underlinedtext()
@@ -173,12 +168,10 @@ class EditprofileViewController: UIViewController {
     }
     @objc func imageTapped(tapGestureRecognizer:UITapGestureRecognizer){
         actionSheet()
-        //openGalary()
         print("Image Taped")
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
         self.getData()
     }
     
@@ -194,19 +187,10 @@ class EditprofileViewController: UIViewController {
                 self.txtmobile.text = mobileno
                 self.txtabout.text = aboutme
                 self.user_id = id
-                //self.image_path = userImage
                 let urlString = userImage
-                //                if let url = URL(string: urlString) {
-                //                    print(url)
-                //                    self.profileImage.image = UIImage(contentsOfFile: urlString)
-                //                } else {
-                //                    print("Invalid URL")
-                //                }
                 if let url = URL(string: urlString) {
                     print(url)
-                    
                     let destPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-                    
                     let fullDestPath = NSURL(fileURLWithPath: destPath).appendingPathComponent(url.lastPathComponent)
                     self.userProfileImageName = url.lastPathComponent
                     let fullDestPathString = fullDestPath!.path
@@ -220,7 +204,6 @@ class EditprofileViewController: UIViewController {
                 self.txtstate.text = userState
                 self.txtcity.text = userCity
                 self.gender = userGender
-                
                 self.strSelectedCountry = userCountry
                 self.strSelectedStates = userState
                 self.strSelectedCity = userCity
@@ -242,24 +225,26 @@ class EditprofileViewController: UIViewController {
                     self.btnfemale.setImage(UIImage(named: "select"), for: UIControl.State.normal)
                     self.btnmale.setImage(UIImage(named: "unselect"), for: UIControl.State.normal)
                 }
-                
             }
         }
     }
     
-    // Mark:- Button Action
     
+    @IBAction func CameraOpen(_ sender: UIButton) {
+        actionSheet()
+        print("Image Taped")
+    }
+    
+    // Mark:- Button Action
     
     @IBAction func btnmale(_ sender: UIButton) {
         gender = "Male"
-        
         if(maleBtnSelect == false){
             sender.setImage(UIImage(named: "select"), for: UIControl.State.normal)
             btnfemale.setImage(UIImage(named: "unselect"), for: UIControl.State.normal)
         }
         maleBtnSelect = true
         femalebtnSelect = false
-        
     }
     
     @IBAction func btnfemale(_ sender: UIButton) {
@@ -295,7 +280,6 @@ class EditprofileViewController: UIViewController {
     }
     
     @IBAction func update(_ sender: UIButton) {
-        
         
         if(txtfirst.text == ""){
             Alertmsg(strMsgAlert: "Please Enter First Name",strtitle: "Alert")
@@ -340,25 +324,17 @@ class EditprofileViewController: UIViewController {
                             print("Error")
                         }
                     })
-                    
                 }else {
                     self.Alertmsg(strMsgAlert: "Please try agin!",strtitle: "Alert")
                 }
             }
         }
-        // self.viewWillAppear(true)
         self.Alertmsgback()
-        //self.navigationController?.popViewController(animated: true)
     }
-    
-    
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
-    
 }
-
-
 
 // MARK:- Extention
 
@@ -375,6 +351,7 @@ extension UITextField{
 }
 
 extension EditprofileViewController{
+    
     func Alertmsg(strMsgAlert:String,strtitle:String){
         let alert = UIAlertController(title: strtitle, message: strMsgAlert, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
@@ -416,34 +393,7 @@ extension EditprofileViewController{
             }
         }
     }
-    
 }
-
-
-//extension EditprofileViewController:UINavigationControllerDelegate,UIImagePickerControllerDelegate{
-//
-//    func openGalary(){
-//        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
-//            let picker = UIImagePickerController()
-//            picker.delegate = self
-//            picker.sourceType = .savedPhotosAlbum
-//            present(picker, animated: true)
-//        }
-//    }
-//
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        if let img = info[.originalImage] as? UIImage{
-//            profileImage.image = img
-//            self.imageSelected = true
-//        }
-//        dismiss(animated: true)
-//    }
-//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-//        picker.dismiss(animated: true, completion: nil)
-//    }
-//}
-
-
 extension EditprofileViewController:UITextFieldDelegate{
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.tag == 1{
@@ -459,7 +409,6 @@ extension EditprofileViewController:UITextFieldDelegate{
         }else if textField.tag == 5{
             self.openpicker(tag: 3)
         }
-        
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -482,14 +431,26 @@ extension EditprofileViewController:UITextFieldDelegate{
             currentString.replacingCharacters(in: range, with: string) as NSString
             return newString.length <= maxLength
         }
-        return true
+        
+        if textField.tag == 1{
+            return false
+        }else if textField.tag == 2{
+            return false
+        }else if textField.tag == 3{
+            return false
+        }else if textField.tag == 4{
+            return false
+        }else if textField.tag == 5{
+            return false
+        }else{
+            return true
+        }
         
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-    
 }
 
 extension EditprofileViewController:UIPickerViewDelegate,UIPickerViewDataSource{
@@ -508,7 +469,6 @@ extension EditprofileViewController:UIPickerViewDelegate,UIPickerViewDataSource{
         {
             return 0
         }
-        
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -533,9 +493,8 @@ extension EditprofileViewController:UIPickerViewDelegate,UIPickerViewDataSource{
         }else if  pickerView.tag == 3 {
             self.strSelectedCity = self.arrSelectedCity[row]
         }else {
-            
+            // Nothing
         }
-        
     }
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         if pickerView.tag == 1 {
@@ -545,7 +504,7 @@ extension EditprofileViewController:UIPickerViewDelegate,UIPickerViewDataSource{
         }else if  pickerView.tag == 3 {
             return NSAttributedString(string: arrSelectedCity[row], attributes: [NSAttributedString.Key.foregroundColor : UIColor.black])
         }else {
-            
+            // Nothing
         }
         return nil
     }
@@ -554,39 +513,7 @@ extension EditprofileViewController:UIPickerViewDelegate,UIPickerViewDataSource{
 // Mark:- Open Picker
 
 extension EditprofileViewController{
-    // Country Picker
-    //    func openpicker(tag:Int){
-    //        picker = UIPickerView.init(frame:CGRect(x: 0.0, y: self.view.frame.height - 200, width: self.view.frame.width, height: 300) )
-    //        picker.delegate = self
-    //        picker.tag = tag
-    //        picker.dataSource = self
-    //        picker.backgroundColor = UIColor.white
-    //        picker.setValue(UIColor.black, forKey: "textColor")
-    //
-    //        picker.autoresizingMask = .flexibleWidth
-    //        picker.contentMode = .center
-    //
-    //        //self.view.addSubview(picker)
-    //        //txtdateofbirth.inputView = picker
-    //
-    //        txtcountry.inputView = picker
-    //        txtstate.inputView = picker
-    //        txtcity.inputView = picker
-    //
-    //        toolBar = UIToolbar.init(frame: CGRect(x: 0.0, y: UIScreen.main.bounds.size.height - 250, width: UIScreen.main.bounds.size.width, height: 50))
-    //        let flexibleBtn = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-    //        let cancelBtn = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.CancelBtnClick))
-    //        let doneBtn = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.DonebtnClick))
-    //        toolBar.barStyle = .blackTranslucent
-    //        toolBar.setItems([cancelBtn,flexibleBtn,flexibleBtn,flexibleBtn,doneBtn], animated: true)
-    //        //txtcountry.inputAccessoryView = toolBar
-    //        //self.view.addSubview(toolBar)
-    //
-    //        txtcountry.inputAccessoryView = toolBar
-    //        txtstate.inputAccessoryView = toolBar
-    //        txtcity.inputAccessoryView = toolBar
-    //    }
-    //
+    
     func openpicker(tag: Int) {
         picker = UIPickerView(frame: CGRect(x: 0.0, y: self.view.frame.height - 200, width: self.view.frame.width, height: 300))
         picker.delegate = self
@@ -594,10 +521,8 @@ extension EditprofileViewController{
         picker.dataSource = self
         picker.backgroundColor = UIColor.white
         picker.setValue(UIColor.black, forKey: "textColor")
-        
         picker.autoresizingMask = .flexibleWidth
         picker.contentMode = .center
-        
         txtcountry.inputView = picker
         txtstate.inputView = picker
         txtcity.inputView = picker
@@ -608,24 +533,21 @@ extension EditprofileViewController{
         let doneBtn = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.DonebtnClick))
         toolBar.barStyle = .blackTranslucent
         toolBar.setItems([cancelBtn, flexibleBtn, flexibleBtn, flexibleBtn, doneBtn], animated: true)
-        
         txtcountry.inputAccessoryView = toolBar
         txtstate.inputAccessoryView = toolBar
         txtcity.inputAccessoryView = toolBar
         
-        // Update picker selection based on text field values
         if tag == 1, let selectedCountry = txtcountry.text, !selectedCountry.isEmpty {
             if let countryIndex = ArrCountry.firstIndex(of: selectedCountry) {
                 picker.selectRow(countryIndex, inComponent: 0, animated: false)
             }
-        } else if tag == 2, let selectedState = txtstate.text, !selectedState.isEmpty {
-            if let stateIndex = ArrStates.keys.firstIndex(where: { $0 == selectedState }) {
-                let row = ArrStates.keys.distance(from: ArrStates.keys.startIndex, to: stateIndex)
-                picker.selectRow(row, inComponent: 0, animated: false)
+        }else if tag == 2, let selectedCountry = txtcountry.text, !selectedCountry.isEmpty,let selectedState = txtstate.text, !selectedState.isEmpty {
+            if let stateIndex = ArrStates[selectedCountry]?.firstIndex(of: selectedState) {
+                picker.selectRow(stateIndex, inComponent: 0, animated: false)
             }
         }
-        else if tag == 3, let selectedCountry = txtcountry.text, !selectedCountry.isEmpty,
-                let selectedState = txtstate.text, !selectedState.isEmpty {
+            else if tag == 3, let selectedCountry = txtcountry.text, !selectedCountry.isEmpty,
+            let selectedState = txtstate.text, !selectedState.isEmpty {
             let selectedCity = txtcity.text ?? ""
             if let cityIndex = Arrcities[selectedState]?.firstIndex(of: selectedCity) {
                 picker.selectRow(cityIndex, inComponent: 0, animated: false)
@@ -633,91 +555,75 @@ extension EditprofileViewController{
         }
     }
     
-    
-        @objc
-        func DonebtnClick(){
-            if picker.tag == 1{
-                let selectedRow = picker.selectedRow(inComponent: 0) // Get the selected row in the picker's first component
-                let selectedCountry = ArrCountry[selectedRow] // Assuming ArrCountries is an array of country names
-    
-                if selectedCountry != txtcountry.text {
-                    txtcity.text = ""
-                    txtstate.text = ""
-                }
-    
-                txtcountry.text = selectedCountry
-                txtcountry.resignFirstResponder()
-    
-                if selectedCountry == "" {
-                    print("Please Select Country")
-                } else {
-                    if let arrST = ArrStates[selectedCountry] {
-                        self.arrSelectedStates = arrST
-                    }
-                }
-            }else if picker.tag == 2 {
-                guard let selectedCountry = txtcountry.text else {
-                    print("Please select a country first")
-                    return
-                }
-    
-                let selectedState = ArrStates[selectedCountry]?[picker.selectedRow(inComponent: 0)] ?? ""
-    
-                if selectedState != txtstate.text {
-                    txtcity.text = ""
-                }
-    
-                txtstate.text = selectedState
-                txtstate.resignFirstResponder()
-    
-                if selectedState.isEmpty {
-                    print("Please Select State")
-                } else {
-                    if let arrCT = Arrcities[selectedState] {
-                        self.arrSelectedCity = arrCT
-                    }
-                }
-            }else if  picker.tag == 3 {
-                guard let selectedCountry = txtcountry.text, !selectedCountry.isEmpty else {
-                    print("Please select a country first")
-                    return
-                }
-    
-                guard let selectedState = txtstate.text, !selectedState.isEmpty else {
-                    print("Please select a state first")
-                    return
-                }
-    
-                let selectedCity = Arrcities[selectedState]?[picker.selectedRow(inComponent: 0)] ?? ""
-    
-                txtcity.text = selectedCity
-                txtcity.resignFirstResponder()
-    
-                if selectedCity.isEmpty {
-                    print("Please select a city")
+    @objc func DonebtnClick(){
+        if picker.tag == 1{
+            let selectedRow = picker.selectedRow(inComponent: 0)
+            let selectedCountry = ArrCountry[selectedRow]
+            if selectedCountry != txtcountry.text {
+                txtcity.text = ""
+                txtstate.text = ""
+            }
+            txtcountry.text = selectedCountry
+            txtcountry.resignFirstResponder()
+            
+            if selectedCountry == "" {
+                print("Please Select Country")
+            } else {
+                if let arrST = ArrStates[selectedCountry] {
+                    self.arrSelectedStates = arrST
                 }
             }
-            self.picker.removeFromSuperview()
-            self.toolBar.removeFromSuperview()
-    
-        }
-    
-        @objc
-        func CancelBtnClick(){
-            if picker.tag == 1{
-                self.txtcountry.resignFirstResponder()
-            }else  if picker.tag == 2{
-                self.txtstate.resignFirstResponder()
-            }else if picker.tag == 3{
-                self.txtcity.resignFirstResponder()
+            
+        }else if picker.tag == 2{
+            guard let selectedCountry = txtcountry.text else {
+                print("Please select a country first")
+                return
             }
-            self.picker.removeFromSuperview()
-            self.toolBar.removeFromSuperview()
+            let selectedState = ArrStates[selectedCountry]?[picker.selectedRow(inComponent: 0)] ?? ""
+            if selectedState != txtstate.text {
+                txtcity.text = ""
+            }
+            txtstate.text = selectedState
+            txtstate.resignFirstResponder()
+            if selectedState.isEmpty {
+                print("Please Select State")
+            } else {
+                if let arrCT = Arrcities[selectedState] {
+                    self.arrSelectedCity = arrCT
+                }
+            }
+        }else if  picker.tag == 3 {
+            guard let selectedCountry = txtcountry.text, !selectedCountry.isEmpty else {
+                print("Please select a country first")
+                return
+            }
+            guard let selectedState = txtstate.text, !selectedState.isEmpty else {
+                print("Please select a state first")
+                return
+            }
+            let selectedCity = Arrcities[selectedState]?[picker.selectedRow(inComponent: 0)] ?? ""
+            txtcity.text = selectedCity
+            txtcity.resignFirstResponder()
+            if selectedCity.isEmpty {
+                print("Please select a city")
+            }
         }
-    
+        self.picker.removeFromSuperview()
+        self.toolBar.removeFromSuperview()
     }
     
-
+    @objc func CancelBtnClick(){
+        if picker.tag == 1{
+            self.txtcountry.resignFirstResponder()
+        }else  if picker.tag == 2{
+            self.txtstate.resignFirstResponder()
+        }else if picker.tag == 3{
+            self.txtcity.resignFirstResponder()
+        }
+        self.picker.removeFromSuperview()
+        self.toolBar.removeFromSuperview()
+    }
+}
 
 // Mark:- Date Picker
 
@@ -739,8 +645,6 @@ extension EditprofileViewController{
         let dateformrtter = DateFormatter()
         dateformrtter.dateStyle = .medium
         
-        
-        
         let toolbar = UIToolbar(frame:  CGRect(x: 0, y: 0, width: self.view.frame.width, height: 44))
         let cancelbtn = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.cancelBtnclick))
         let donebtn = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneBtnclick))
@@ -751,15 +655,11 @@ extension EditprofileViewController{
         if let index = UserDefaults.standard.value(forKey: "SelectedDate") as? Date{
             datePicker.date = index
         }
-        
     }
-    @objc
-    func cancelBtnclick(){
+    @objc func cancelBtnclick(){
         txtdateofbirth.resignFirstResponder()
     }
-    
-    @objc
-    func doneBtnclick(){
+    @objc func doneBtnclick(){
         if let datePicker = txtdateofbirth.inputView as? UIDatePicker{
             let dateformetter = DateFormatter()
             dateformetter.dateStyle = .medium
@@ -768,22 +668,15 @@ extension EditprofileViewController{
             txtdateofbirth.resignFirstResponder()
             let selecteddate = datePicker.date
             UserDefaults.standard.set(selecteddate, forKey: "SelectedDate")
-            //            UserDefaults.standard.set(txtdateofbirth.text, forKey: "Date")
-            
         }
     }
-    
     @objc func resetbtn(){
         txtdateofbirth.text = ""
     }
-    
-    @objc
-    func datePickerHandler(datePicker:UIDatePicker){
+    @objc func datePickerHandler(datePicker:UIDatePicker){
         print(datePicker.date)
-        
     }
 }
-
 
 // Time Picker
 
@@ -815,14 +708,11 @@ extension EditprofileViewController{
             datePicker.date = index
         }
     }
-    
-    @objc
-    func cancelbtnClick(){
+    @objc func cancelbtnClick(){
         txtbirthtime.resignFirstResponder()
     }
     
-    @objc
-    func donebtnClick(){
+    @objc func donebtnClick(){
         if let datePicker = txtbirthtime.inputView as? UIDatePicker{
             let formatter = DateFormatter()
             formatter.timeStyle = .short
@@ -836,11 +726,9 @@ extension EditprofileViewController{
         txtbirthtime.text = ""
     }
     
-    @objc
-    func DatePickerHandler(datePicker:UIDatePicker){
+    @objc func DatePickerHandler(datePicker:UIDatePicker){
         print(datePicker.date)
     }
-    
 }
 
 extension EditprofileViewController{
@@ -876,7 +764,6 @@ extension EditprofileViewController{
         self.present(alert, animated: true,completion: nil)
     }
 }
-
 extension EditprofileViewController:UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
@@ -890,45 +777,3 @@ extension EditprofileViewController:UIImagePickerControllerDelegate,UINavigation
         self.dismiss(animated: true,completion: nil )
     }
 }
-
-
-
-//extension EditprofileViewController{
-//    func setupTextView() {
-//        if txtabout.text != ""{
-//            txtabout.text = "About Me"
-//            txtabout.textColor = UIColor.lightGray
-//            txtabout.textAlignment = .center
-//            txtabout.delegate = self
-//           // txtaboutme.becomeFirstResponder()
-//        }else{
-//            // Data Show
-//        }
-//
-//    }
-//
-//    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-//        if text == "\n" {
-//            textView.textAlignment = .center
-//            textView.resignFirstResponder()
-//            return false
-//        }
-//        return true
-//    }
-//
-//    public func textViewDidBeginEditing(_ textView: UITextView) {
-//        if textView.text == "About Me" {
-//            textView.text = ""
-//            textView.textColor = UIColor.black
-//            textView.textAlignment = .center
-//        }
-//    }
-//
-//    public func textViewDidEndEditing(_ textView: UITextView) {
-//        if textView.text.isEmpty {
-//            textView.text = "About Me"
-//            textView.textColor = UIColor.lightGray
-//            textView.textAlignment = .center
-//        }
-//    }
-//}

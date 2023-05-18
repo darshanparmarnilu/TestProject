@@ -13,20 +13,15 @@ class WorkViewController: UIViewController {
     var SliderMaxvalue = 100
     
     var checkStar:Bool! = false
-
-    @IBOutlet var subView: UIView!
-   // var arrWork = ["Running","Push-Ups","Strecthing","Playing","Push-Ups","Strecthing","Playing"]
-   
-    //var arrColor = [UIColor.green,UIColor.red,UIColor.green,UIColor.purple,UIColor.red,UIColor.green,UIColor.purple]
-    @IBOutlet var tableview: UITableView!
     
+    @IBOutlet var subView: UIView!
+    @IBOutlet var tableview: UITableView!
     var ArrWorkOut:[WorkOut] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         subView.alpha = 0
-        
         
         let obj1 = WorkOut(arrColors: UIColor.red, WorkType: "Running", Switch: true, Slider: 10)
         let obj2 = WorkOut(arrColors: UIColor.orange, WorkType: "Push-Ups", Switch: false, Slider: 20)
@@ -55,15 +50,12 @@ class WorkViewController: UIViewController {
         tableview.delegate = self
         tableview.dataSource = self
         self.tableview.reloadData()
-        
-        
     }
     override func viewWillAppear(_ animated: Bool) {
         self.subView.alpha = 0
     }
-   
-    
     @IBAction func menushow(_ sender: UIButton) {
+        subView.alpha = 0
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "SideMenuNavigationController") as! SideMenuNavigationController
         if UIDevice.current.userInterfaceIdiom == .pad{
             vc.settings.menuWidth = self.view.frame.width - 200
@@ -75,20 +67,17 @@ class WorkViewController: UIViewController {
         vc.leftSide = true
         present(vc, animated: true, completion: nil)
     }
-    
     @IBAction func slider(_ sender: UISlider) {
         
         guard let cell = self.tableview.cellForRow(at: IndexPath(row: Int(sender.tag), section: 0)) as? WorkTableViewCell else {
             return
         }
         cell.lbl0.text = " \(Int(sender.value.rounded()))"
-      //  cell.progressbar.progress = cell.slider.value.rounded()
         cell.progressbar.progress = sender.value / 100
         cell.ratio.text = "\(Int(sender.value.rounded())) /\(SliderMaxvalue)"
         cell.subview.alpha = CGFloat(sender.value / 100)
         let obj = self.ArrWorkOut[sender.tag]
         obj.Slider = Int(sender.value.rounded())
-        
     }
     @IBAction func actSwitch(_ sender: UISwitch) {
         guard let cell = self.tableview.cellForRow(at: IndexPath(row: Int(sender.tag), section: 0)) as? WorkTableViewCell else {
@@ -97,72 +86,53 @@ class WorkViewController: UIViewController {
         let obj = self.ArrWorkOut[sender.tag]
         if obj.Switch == true{
             obj.Switch = false
-           // obj.Slider = false
-            
             obj.Slider = Int(cell.slider.value)
             cell.slider.isEnabled = false
-            cell.ratingBtn1.isEnabled = false
-            cell.ratingBtn2.isEnabled = false
-            cell.ratingBtn3.isEnabled = false
+            cell.ratingBtn1.isUserInteractionEnabled = false
+            cell.ratingBtn2.isUserInteractionEnabled = false
+            cell.ratingBtn3.isUserInteractionEnabled = false
             sender.isOn = false
         }else{
             obj.Switch = true
             sender.isOn = true
             cell.slider.isEnabled = true
-            cell.ratingBtn1.isEnabled = true
-            cell.ratingBtn2.isEnabled = true
-            cell.ratingBtn3.isEnabled = true
+            cell.ratingBtn1.isUserInteractionEnabled = true
+            cell.ratingBtn2.isUserInteractionEnabled = true
+            cell.ratingBtn3.isUserInteractionEnabled = true
             obj.Slider = Int(cell.slider.value)
-            //obj.Slider = true
         }
     }
     @IBAction func optionbutton(_ sender: UIButton) {
         subView.alpha = 1
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-            super.touchesEnded(touches, with: event)
-            self.subView.alpha = 0
-        }
+        super.touchesEnded(touches, with: event)
+        self.subView.alpha = 0
+    }
     @IBAction func Rating(_ sender: UIButton) {
-        let obj = self.ArrWorkOut[sender.tag]
-        if sender.tag == 1{
-            sender.isSelected = !sender.isSelected
-        }else if sender.tag == 2{
-            sender.isSelected = !sender.isSelected
-        }else if sender.tag == 3{
-            sender.isSelected = !sender.isSelected
-        }
+        sender.isSelected = !sender.isSelected
     }
 }
-
 extension WorkViewController: UITableViewDelegate,UITableViewDataSource{
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ArrWorkOut.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       let cell = self.tableview.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! WorkTableViewCell
+        let cell = self.tableview.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! WorkTableViewCell
         cell.selectionStyle = .none
         let obj = self.ArrWorkOut[indexPath.row]
         cell.subview.backgroundColor = obj.arrColors
         cell.lblwork.text = obj.WorkType
         cell.btnSwitch.isOn = obj.Switch
-       // print("row value " + "\(indexPath.row)")
-       // print("switch :- " + "\(obj.Switch)")
         cell.slider.value = Float(Int(obj.Slider))
         cell.btnSwitch.tag = indexPath.row
         cell.slider.tag = indexPath.row
-        //cell.progressbar.tag = indexPath.row
-        //cell.subview.tag = indexPath.row
         cell.lbl0.tag = indexPath.row
         cell.lbl100.tag = indexPath.row
         cell.ratio.tag = indexPath.row
-//        cell.progressbar.progress = Float(Int(obj.Slider!))
-//        cell.subview.alpha = CGFloat(Int(obj.Slider!) / 100)
         cell.progressbar.progress = Float(cell.slider.value / 100)
         cell.subview.alpha = CGFloat(cell.slider.value / 100)
         cell.lbl0.text = "\(Int(cell.slider.value))"
-       // cell.ratio.text = "\(cell.slider.value) /\(SliderMaxvalue)"
         cell.ratio.text = "\(Int(cell.slider.value)) /\(SliderMaxvalue)"
         
         if cell.btnSwitch.isOn == false{
@@ -184,5 +154,4 @@ extension WorkViewController: UITableViewDelegate,UITableViewDataSource{
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.subView.alpha = 0
     }
-    
 }

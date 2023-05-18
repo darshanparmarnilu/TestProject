@@ -9,7 +9,6 @@ import UIKit
 import Toast_Swift
 class homeCollectionViewCell: UICollectionViewCell {
     @IBOutlet var image: UIImageView!
-    
     override func layoutSubviews() {
            super.layoutSubviews()
            image.frame = contentView.bounds

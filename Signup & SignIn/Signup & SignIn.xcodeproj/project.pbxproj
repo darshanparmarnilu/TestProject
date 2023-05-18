@@ -15,7 +15,6 @@
 		1867C22D29D15D7A006451D0 /* forupdatepassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867C22C29D15D7A006451D0 /* forupdatepassViewController.swift */; };
 		1868943929C2E551009C7811 /* utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1868943829C2E54E009C7811 /* utility.swift */; };
 		18699E8329E7DDE800A56DDB /* contactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18699E8229E7DDE800A56DDB /* contactTableViewCell.swift */; };
-		18699EEA29E8082B00A56DDB /* albamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18699EE929E8082B00A56DDB /* albamViewController.swift */; };
 		18699EEE29E81D1B00A56DDB /* selectcontactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18699EED29E81D1B00A56DDB /* selectcontactViewController.swift */; };
 		18699EF029E8391B00A56DDB /* selectcontactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18699EEF29E8391B00A56DDB /* selectcontactTableViewCell.swift */; };
 		186AA1DF29B99D6900CC3A00 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AA1DE29B99D6900CC3A00 /* SignUpViewController.swift */; };
@@ -34,7 +33,6 @@
 		187749A229BB0C000068A237 /* EditprofileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187749A129BB0C000068A237 /* EditprofileViewController.swift */; };
 		187749A429BB3B4C0068A237 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187749A329BB3B4C0068A237 /* DatabaseManager.swift */; };
 		1879CB9529E559BB000935D2 /* MenuBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1879CB9429E559BB000935D2 /* MenuBarViewController.swift */; };
-		1880681629EEC287004D6B48 /* ContainerHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1880681529EEC287004D6B48 /* ContainerHomeVC.swift */; };
 		1883FCF929E957FE00219937 /* ContactData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1883FCF829E957FE00219937 /* ContactData.swift */; };
 		1897932629B713EF00B411C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1897932529B713EF00B411C3 /* AppDelegate.swift */; };
 		1897932829B713EF00B411C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1897932729B713EF00B411C3 /* SceneDelegate.swift */; };
@@ -70,8 +68,6 @@
 		18EBD71829ED19E7008E64E6 /* GalaryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EBD71729ED19E7008E64E6 /* GalaryCollectionViewCell.swift */; };
 		18EBD71A29ED4C0B008E64E6 /* RecentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EBD71929ED4C0B008E64E6 /* RecentViewController.swift */; };
 		18F683E329FA78B600BD7C4E /* WorkOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F683E229FA78B600BD7C4E /* WorkOut.swift */; };
-		18FA410F29CD9C1A009F92CE /* HomeCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA410D29CD9C1A009F92CE /* HomeCellTableViewCell.swift */; };
-		18FA411029CD9C1A009F92CE /* HomeCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FA410E29CD9C1A009F92CE /* HomeCellTableViewCell.xib */; };
 		18FA4C3E29BA158000989D2C /* UserDetail.db in Resources */ = {isa = PBXBuildFile; fileRef = 18FA4C3D29BA158000989D2C /* UserDetail.db */; };
 		18FC75F329F8F5DC006223C6 /* HomeCellImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FC75F229F8F5DC006223C6 /* HomeCellImage.swift */; };
 		A381D6DA2A011FF2005D48C7 /* WSContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A381D6D92A011FF2005D48C7 /* WSContacts.swift */; };
@@ -111,7 +107,6 @@
 		1867C22C29D15D7A006451D0 /* forupdatepassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = forupdatepassViewController.swift; sourceTree = "<group>"; };
 		1868943829C2E54E009C7811 /* utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utility.swift; sourceTree = "<group>"; };
 		18699E8229E7DDE800A56DDB /* contactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactTableViewCell.swift; sourceTree = "<group>"; };
-		18699EE929E8082B00A56DDB /* albamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = albamViewController.swift; sourceTree = "<group>"; };
 		18699EED29E81D1B00A56DDB /* selectcontactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = selectcontactViewController.swift; sourceTree = "<group>"; };
 		18699EEF29E8391B00A56DDB /* selectcontactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = selectcontactTableViewCell.swift; sourceTree = "<group>"; };
 		186AA1DE29B99D6900CC3A00 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -130,7 +125,6 @@
 		187749A129BB0C000068A237 /* EditprofileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditprofileViewController.swift; sourceTree = "<group>"; };
 		187749A329BB3B4C0068A237 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		1879CB9429E559BB000935D2 /* MenuBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarViewController.swift; sourceTree = "<group>"; };
-		1880681529EEC287004D6B48 /* ContainerHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerHomeVC.swift; sourceTree = "<group>"; };
 		1883FCF829E957FE00219937 /* ContactData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactData.swift; sourceTree = "<group>"; };
 		1897932229B713EF00B411C3 /* Signup & SignIn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Signup & SignIn.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1897932529B713EF00B411C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -168,8 +162,6 @@
 		18EBD71729ED19E7008E64E6 /* GalaryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalaryCollectionViewCell.swift; sourceTree = "<group>"; };
 		18EBD71929ED4C0B008E64E6 /* RecentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentViewController.swift; sourceTree = "<group>"; };
 		18F683E229FA78B600BD7C4E /* WorkOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOut.swift; sourceTree = "<group>"; };
-		18FA410D29CD9C1A009F92CE /* HomeCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCellTableViewCell.swift; sourceTree = "<group>"; };
-		18FA410E29CD9C1A009F92CE /* HomeCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCellTableViewCell.xib; sourceTree = "<group>"; };
 		18FA4C3D29BA158000989D2C /* UserDetail.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = UserDetail.db; sourceTree = "<group>"; };
 		18FC75F229F8F5DC006223C6 /* HomeCellImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCellImage.swift; sourceTree = "<group>"; };
 		1AAFF10FCB1CC239F4448E92 /* Pods-Signup & SignIn.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Signup & SignIn.release.xcconfig"; path = "Target Support Files/Pods-Signup & SignIn/Pods-Signup & SignIn.release.xcconfig"; sourceTree = "<group>"; };
@@ -237,18 +229,8 @@
 				1858815A29CAE3FB00EE2D92 /* HomePageViewController.swift */,
 				18EB86CA29D2B1FD00DA4D2F /* HometableViewCell.swift */,
 				18EB86CC29D2B21600DA4D2F /* homeCollectionViewCell.swift */,
-				182B3D8829E5267F0034770A /* Other */,
 			);
 			path = "Home Page";
-			sourceTree = "<group>";
-		};
-		182B3D8829E5267F0034770A /* Other */ = {
-			isa = PBXGroup;
-			children = (
-				18FA410E29CD9C1A009F92CE /* HomeCellTableViewCell.xib */,
-				18FA410D29CD9C1A009F92CE /* HomeCellTableViewCell.swift */,
-			);
-			path = Other;
 			sourceTree = "<group>";
 		};
 		186B8CE129C9816D002D3FD1 /* Images */ = {
@@ -301,7 +283,6 @@
 				1897936729B73B5F00B411C3 /* Resources */,
 				182B3D8729E526320034770A /* Home Page */,
 				1897932B29B713EF00B411C3 /* Main.storyboard */,
-				A3EFAE652A0385670044D9BC /* TabbarViewController.swift */,
 				1897932E29B713F400B411C3 /* Assets.xcassets */,
 				1897933029B713F400B411C3 /* LaunchScreen.storyboard */,
 				1897933329B713F400B411C3 /* Info.plist */,
@@ -310,13 +291,11 @@
 				18A8102529E6D73E0089DBF8 /* WorkViewController.swift */,
 				181B1BD729E7CCE6000A5FB5 /* whastappViewController.swift */,
 				18699E8229E7DDE800A56DDB /* contactTableViewCell.swift */,
-				18699EE929E8082B00A56DDB /* albamViewController.swift */,
 				18699EED29E81D1B00A56DDB /* selectcontactViewController.swift */,
 				18699EEF29E8391B00A56DDB /* selectcontactTableViewCell.swift */,
 				18EBD71129ED1259008E64E6 /* GalaryViewController.swift */,
 				18EBD71729ED19E7008E64E6 /* GalaryCollectionViewCell.swift */,
 				18EBD71929ED4C0B008E64E6 /* RecentViewController.swift */,
-				1880681529EEC287004D6B48 /* ContainerHomeVC.swift */,
 				183AAC7029FFB61600BB377E /* AlbamCollectionViewCell.swift */,
 			);
 			path = "Signup & SignIn";
@@ -366,6 +345,7 @@
 				187749A129BB0C000068A237 /* EditprofileViewController.swift */,
 				186AA1E029B9DADC00CC3A00 /* profileViewController.swift */,
 				18733EE629C8266000054D4A /* changepassViewController.swift */,
+				A3EFAE652A0385670044D9BC /* TabbarViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -549,7 +529,6 @@
 				1897938429B73B7700B411C3 /* Inter-V.ttf in Resources */,
 				1897938F29B73B7700B411C3 /* Inter-BoldItalic.otf in Resources */,
 				1897938229B73B7700B411C3 /* Inter-Thin.otf in Resources */,
-				18FA411029CD9C1A009F92CE /* HomeCellTableViewCell.xib in Resources */,
 				186B8CF429C981C7002D3FD1 /* plant.png in Resources */,
 				186B8CF129C981C7002D3FD1 /* train.png in Resources */,
 				186B8CEE29C981C7002D3FD1 /* bus.png in Resources */,
@@ -618,7 +597,6 @@
 				18699EF029E8391B00A56DDB /* selectcontactTableViewCell.swift in Sources */,
 				181B1BD829E7CCE6000A5FB5 /* whastappViewController.swift in Sources */,
 				187749A229BB0C000068A237 /* EditprofileViewController.swift in Sources */,
-				1880681629EEC287004D6B48 /* ContainerHomeVC.swift in Sources */,
 				18EBD71A29ED4C0B008E64E6 /* RecentViewController.swift in Sources */,
 				A3F6F50C2A0CB73700D142D4 /* IQInvocation.swift in Sources */,
 				A3F6F5092A0CB73600D142D4 /* IQBarButtonItem.swift in Sources */,
@@ -633,7 +611,6 @@
 				A3F6F5072A0CB73600D142D4 /* IQPreviousNextView.swift in Sources */,
 				A3F6F5142A0CB73700D142D4 /* IQKeyboardManager+OrientationNotification.swift in Sources */,
 				A3F6F50D2A0CB73700D142D4 /* IQKeyboardManager+UIKeyboardNotification.swift in Sources */,
-				18699EEA29E8082B00A56DDB /* albamViewController.swift in Sources */,
 				A3F6F5172A0CB73700D142D4 /* IQUIViewController+Additions.swift in Sources */,
 				1868943929C2E551009C7811 /* utility.swift in Sources */,
 				1883FCF929E957FE00219937 /* ContactData.swift in Sources */,
@@ -653,7 +630,6 @@
 				A381D6DA2A011FF2005D48C7 /* WSContacts.swift in Sources */,
 				A3F6F5162A0CB73700D142D4 /* IQUIScrollView+Additions.swift in Sources */,
 				1858815B29CAE3FB00EE2D92 /* HomePageViewController.swift in Sources */,
-				18FA410F29CD9C1A009F92CE /* HomeCellTableViewCell.swift in Sources */,
 				183AAC7129FFB61600BB377E /* AlbamCollectionViewCell.swift in Sources */,
 				18A8102629E6D73E0089DBF8 /* WorkViewController.swift in Sources */,
 				18F683E329FA78B600BD7C4E /* WorkOut.swift in Sources */,

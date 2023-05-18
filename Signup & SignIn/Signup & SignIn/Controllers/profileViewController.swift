@@ -10,12 +10,11 @@ import Toast_Swift
 import SideMenu
 
 class profileViewController: UIViewController {
-
+    
     // MARK :- IBOutlet
     
     
     @IBOutlet var txtdateofbirth: UITextField!
-    
     @IBOutlet var txtgender: UITextField!
     @IBOutlet var txtcity: UITextField!
     @IBOutlet var txtstate: UITextField!
@@ -28,13 +27,10 @@ class profileViewController: UIViewController {
     @IBOutlet var lblbirthtime: UILabel!
     @IBOutlet var lbldateofbirth: UILabel!
     @IBOutlet var profileimg: UIImageView!
-   // @IBOutlet var btnlogout: UIButton!
-   // @IBOutlet var lbledit: UILabel!
     @IBOutlet var subview: UIView!
     @IBOutlet var lblprofile: UILabel!
     @IBOutlet var txtaboutme: UITextField!
     @IBOutlet var txtmobile: UITextField!
-   
     @IBOutlet var txtemail: UITextField!
     @IBOutlet var txtlast: UITextField!
     @IBOutlet var txtfirst: UITextField!
@@ -47,13 +43,11 @@ class profileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
-// MARK :- User Intraction
+        // MARK :- User Intraction
         
         profileimg.isUserInteractionEnabled = false
         profileimg.layer.masksToBounds = true
-        profileimg.layer.cornerRadius = 56
+        profileimg.layer.cornerRadius = 40
         
         self.txtfirst.isUserInteractionEnabled = false
         self.txtlast.isUserInteractionEnabled = false
@@ -89,7 +83,6 @@ class profileViewController: UIViewController {
         txtfirst.underlined()
         txtlast.underlined()
         txtemail.underlined()
-        
         txtmobile.underlined()
         txtaboutme.underlined()
         txtdateofbirth.underlined()
@@ -112,18 +105,13 @@ class profileViewController: UIViewController {
         txtcity.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
         txtgender.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
         
-       // btnlogout.layer.masksToBounds = true
-       // btnlogout.layer.cornerRadius = 20
-        
         self.reloadInputViews()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.getData()
     }
-
     @IBAction func Menu(_ sender: UIButton) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "SideMenuNavigationController") as! SideMenuNavigationController
         if UIDevice.current.userInterfaceIdiom == .pad{
@@ -135,59 +123,47 @@ class profileViewController: UIViewController {
         vc.settings.statusBarEndAlpha = 0
         vc.leftSide = true
         present(vc, animated: true, completion: nil)
-
     }
-    
     // MARK:- Get user Data from userDefaults
     func getData() {
-        
         getDataFromDefaults { success, id, firstname, lastname, email, password, mobileno, aboutme, userImage,userDateofBirth,userBirthTime,userCountry,userState,userCity,userGender     in
             if success == true {
                 self.txtfirst.text = firstname
                 self.txtlast.text = lastname
                 self.txtemail.text = email
-                // self.txtpass.text = password
                 self.txtmobile.text = mobileno
                 self.txtaboutme.text = aboutme
-               // self.profileimg.image = UIImage(data: userImage)
                 let urlString = userImage
-//                if let url = URL(string: urlString) {
-//                    print(url)
-//                    self.profileimg.image = UIImage(contentsOfFile: urlString)
-//                } else {
-//                    print("Invalid URL")
-//                }
                 if let url = URL(string: urlString) {
-                  print(url)
-                                    
-                let destPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-                let fullDestPath = NSURL(fileURLWithPath: destPath).appendingPathComponent(url.lastPathComponent)
-                let fullDestPathString = fullDestPath!.path
-                self.profileimg.image = UIImage(contentsOfFile: fullDestPathString)
+                    print(url)
+                    let destPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+                    let fullDestPath = NSURL(fileURLWithPath: destPath).appendingPathComponent(url.lastPathComponent)
+                    let fullDestPathString = fullDestPath!.path
+                    self.profileimg.image = UIImage(contentsOfFile: fullDestPathString)
                 } else {
                     print("Invalid URL")
-                     }
+                }
                 self.txtdateofbirth.text = userDateofBirth
                 self.txtbirthtime.text = userBirthTime
                 self.txtcountry.text = userCountry
                 self.txtstate.text = userState
                 self.txtcity.text = userCity
                 self.txtgender.text = userGender
-                 }else {
-                            //No data found
-                        }
-                    }
-                }
+            }else {
+                //No data found
+            }
+        }
+    }
 }
 
 extension UITextField{
     func underlined(){
-            let border = CALayer()
-            let width = CGFloat(1.0)
+        let border = CALayer()
+        let width = CGFloat(1.0)
         border.borderColor = UIColor.black.cgColor
         border.frame = CGRect(x: 0, y: self.frame.size.height-width, width:  self.frame.size.width*3, height: self.frame.size.height)
-            border.borderWidth = width
-            self.layer.addSublayer(border)
-            self.layer.masksToBounds = true
-        }
+        border.borderWidth = width
+        self.layer.addSublayer(border)
+        self.layer.masksToBounds = true
+    }
 }

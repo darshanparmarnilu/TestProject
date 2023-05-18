@@ -12,7 +12,7 @@ import MobileCoreServices
 import Toast_Swift
 
 class SignUpViewController: UIViewController, UITextViewDelegate {
-
+    
     var arrData = ["bus.png","like.png","nearest.png","plane.png","plant.png","save.png","special.png","train.png","trending.png","win.png"]
     var imgArr = [URL]()
     
@@ -30,7 +30,7 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
                      "Florida":["Miame","Orlando","Tampa","Florida City","Destin"],
                      "Hawaii":["Honolulu","Hilo","Hawi","Lahaina","Kailua"],
                      
-                     "England":["Manchester","City of London","Manchester","Liverpool"],
+                     "England":["Manchester","City of London","Bangor","Liverpool","Colchester"],
                      "Scotland":["Edinburgh","Glasgow","Inverness","Aberdeen","Dunfermline"],
                      "Northern Ireland":["Belfast","Derry","Newry","Armagh","Newtownabbey"]]
     
@@ -49,7 +49,8 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
     
     var arrSelectedStates : [String] = []
     var arrSelectedCity : [String] = []
-// MARK:- IBOutlet
+    
+    // MARK:- IBOutlet
     
     @IBOutlet var btncity: UIButton!
     @IBOutlet var btnstate: UIButton!
@@ -77,7 +78,7 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
     
     var imageSelecetd = false
     
-// MARK:- View Did Load Call one Time When Method is Load
+    // MARK:- View Did Load Call one Time When Method is Load
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,11 +91,6 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
             self.arrSelectedCity = arrCt
         }
         
-        
-        
-        
-        
-     //   saveImage()
         txtfirst.delegate = self
         txtlast.delegate = self
         txtmobile.delegate = self
@@ -129,7 +125,6 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
         
         lblsignup.font = UIFont(name: "Inter-Medium", size: 30)
         lblsignup.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
-        
         
         txtfirst.layer.masksToBounds = true
         txtfirst.layer.cornerRadius = 20
@@ -210,7 +205,6 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
         txtcity.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
         txtcity.font = UIFont(name:"Inter-Medium", size: 22)
         
-        
         btncreate.layer.masksToBounds = true
         btncreate.layer.cornerRadius = 20
         btncreate.layer.borderColor = UIColor.black.cgColor
@@ -227,58 +221,24 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
         self.setupTextView()
     }
     
-// MARK:- Functions Place Holder For About Me
-
+    // MARK:- Functions Place Holder For About Me
+    
     @objc func imageTapped(tapGestureRecognizer:UITapGestureRecognizer){
-       actionSheet()
-        // openGalary()
+        actionSheet()
         print("Image Taped")
     }
-    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         self.picker.removeFromSuperview()
         self.toolBar.removeFromSuperview()
     }
-    
-    
-    
-//    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-//        if (text == "\n"){
-//            textView.textAlignment = .center
-//            textView.resignFirstResponder()
-//            return false
-//        }
-//        return true
-//    }
-//
-//    public func textViewDidBeginEditing(_ textView: UITextView) {
-//        if(textView.text == "About Me"){
-//            textView.text = ""
-//            textView.textColor = UIColor.black
-//            textView.textAlignment = .center
-//            textView.reloadInputViews()
-//        }
-//        textView.becomeFirstResponder()
-//    }
-//    public func textViewDidEndEditing(_ textView: UITextView) {
-//        if (textView.text == ""){
-//            textView.text = "About Me"
-//            textView.textColor = UIColor.lightGray
-//            textView.textAlignment = .center
-//            textView.reloadInputViews()
-//        }
-//        textView.resignFirstResponder()
-//    }
-    
     func setupTextView() {
         txtaboutme.text = "About Me"
         txtaboutme.textColor = UIColor.lightGray
         txtaboutme.textAlignment = .center
         txtaboutme.delegate = self
-       // txtaboutme.becomeFirstResponder()
     }
-
+    
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             textView.textAlignment = .center
@@ -287,7 +247,7 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
         }
         return true
     }
-
+    
     public func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == "About Me" {
             textView.text = ""
@@ -295,7 +255,7 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
             textView.textAlignment = .center
         }
     }
-
+    
     public func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = "About Me"
@@ -306,21 +266,12 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
     
     // MARK:- Button Action
     
-   
     @IBAction func camera(_ sender: UIButton) {
         self.actionSheet()
-        
-//        let imagePicker = UIImagePickerController()
-//           imagePicker.sourceType = .camera
-//           imagePicker.allowsEditing = false
-//        imagePicker.delegate = self
-//           present(imagePicker, animated: true, completion: nil)
     }
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
-        
     }
-    
     
     @IBAction func btncreateaccount(_ sender:UIButton) {
         if(txtfirst.text == ""){
@@ -333,8 +284,8 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
             Alertmsg(strMsgAlert: "Please Enter Password",strtitle: "Alert")
         }else if(txtmobile.text == ""){
             Alertmsg(strMsgAlert: "Please Enter Mobile No",strtitle: "Alert")
-        }else if(txtaboutme.text == ""){
-            Alertmsg(strMsgAlert: "Please Fill About Me Detial",strtitle: "Alert")
+        }else if(txtaboutme.text == "About Me"){
+            Alertmsg(strMsgAlert: "Please Tell About Your Self",strtitle: "Alert")
         }else if(txtdateofbirth.text == ""){
             Alertmsg(strMsgAlert: "Please Enter Date Of Birth",strtitle: "Alert")
         }else if(txtbirthtime.text == ""){
@@ -346,7 +297,9 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
         }else if(txtcity.text == ""){
             Alertmsg(strMsgAlert: "Please Enter City",strtitle: "Alert")
         }else if(gender == ""){
-            Alertmsg(strMsgAlert: "Please Enter Gender",strtitle: "Alert")
+            Alertmsg(strMsgAlert: "Please Select Gender",strtitle: "Alert")
+        }else if(txtaboutme.text == ""){
+            Alertmsg(strMsgAlert: "Please Tell About Your Self",strtitle: "Alert")
         }else if(txtfirst.text?.firstnamevalid) == false{
             Alertmsg(strMsgAlert: " Enter Valid First Name",strtitle: "Alert")
         }else if(txtlast.text?.lastnamevalid) == false{
@@ -394,7 +347,6 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
     @IBAction func country(_ sender: UIButton) {
         self.openpicker(tag: 1)
     }
-    
     @IBAction func state(_ sender: UIButton) {
         if txtcountry.text == ""{
             self.Alertmsg(strMsgAlert: "Please Select First Country", strtitle: "Alert")
@@ -414,7 +366,7 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func Male(_ sender: UIButton) {
-         gender = "Male"
+        gender = "Male"
         if(maleBtnSelect == false){
             sender.setImage(UIImage(named: "select"), for: UIControl.State.normal)
             btnfemale.setImage(UIImage(named: "unselect"), for: UIControl.State.normal)
@@ -424,7 +376,7 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func female(_ sender: UIButton) {
-       gender = "Female"
+        gender = "Female"
         if(femalebtnSelect == false){
             sender.setImage(UIImage(named: "select"), for: UIControl.State.normal)
             btnmale.setImage(UIImage(named: "unselect"), for: UIControl.State.normal)
@@ -432,8 +384,6 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
         maleBtnSelect = false
         femalebtnSelect = true
     }
-    
-    
 }
 
 // MARK:- Extention
@@ -451,33 +401,30 @@ extension String{
     }
     var firstnamevalid:Bool{
         let firstRehex = "^[a-zA-Z0-9].{0,98}[a-zA-Z0-9]$"
-       // let firstRehex = "^(([^ ]?)(^[a-zA-Z0-9].*[a-zA-Z]$)([^ ]?))$"
+        // let firstRehex = "^(([^ ]?)(^[a-zA-Z0-9].*[a-zA-Z]$)([^ ]?))$"
         let firstTest = NSPredicate(format: "SELF MATCHES %@", firstRehex)
         return firstTest.evaluate(with: self)
     }
     var lastnamevalid:Bool{
         let lastRehex = "^[a-zA-Z0-9].{0,98}[a-zA-Z0-9]$"
-      //  let lastRehex = "^(([^ ]?)(^[a-zA-Z0-9].*[a-zA-Z]$)([^ ]?))$"
+        //  let lastRehex = "^(([^ ]?)(^[a-zA-Z0-9].*[a-zA-Z]$)([^ ]?))$"
         let lastText = NSPredicate(format: "SELF MATCHES %@", lastRehex)
         return lastText.evaluate(with: self)
     }
     var phonevalid:Bool{
-//        let phoneRegex = "^[0-9+]{0,1}+[0-9]{10,13}$"
+        //        let phoneRegex = "^[0-9+]{0,1}+[0-9]{10,13}$"
         let phoneRegex = "[0-9]{10}$"
         let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
         return phoneTest.evaluate(with: self)
     }
     var aboutmevalid:Bool{
-       // let aboutRehex = "^(([^ ]?)(^[a-zA-Z0-9].*[a-zA-Z]$)([^ ]?))$"
+        // let aboutRehex = "^(([^ ]?)(^[a-zA-Z0-9].*[a-zA-Z]$)([^ ]?))$"
         //let aboutRehex = "[A-Z,a-z, ,]{50}$"
         let aboutRehex = "^[a-zA-Z0-9].{0,98}[a-zA-Z0-9]$"
         let aboutText = NSPredicate(format: "SELF MATCHES %@", aboutRehex)
         return aboutText.evaluate(with: self)
     }
-
 }
-
-
 extension SignUpViewController{
     
     //Alert messsage
@@ -501,28 +448,28 @@ extension SignUpViewController{
     }
     
     func saveImage(completion:@escaping (Bool,String)->()){
-             if  let image = profileimage.image {
-                 let imageName = "img" + "\(Date().timeIntervalSince1970)" + ".png"
-                 let destPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-                 let fileManager = FileManager.default
-                 let fullDestPath = NSURL(fileURLWithPath: destPath).appendingPathComponent(imageName)
-                 
-                 let fullDestPathString = fullDestPath!.path
-                    
-                    if !FileManager.default.fileExists(atPath: fullDestPath!.path){
-                        do{
-                            try image.pngData()!.write(to: fullDestPath!)
-                            print("Image Added Successfully")
-                            completion(true, fullDestPathString)
-                        }catch{
-                            print("Image Not Added")
-                            completion(false, "")
-                        }
-                    }else {
-                        completion(false, "")
-                    }
-             }
+        if  let image = profileimage.image {
+            let imageName = "img" + "\(Date().timeIntervalSince1970)" + ".png"
+            let destPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+            let fileManager = FileManager.default
+            let fullDestPath = NSURL(fileURLWithPath: destPath).appendingPathComponent(imageName)
+            
+            let fullDestPathString = fullDestPath!.path
+            
+            if !FileManager.default.fileExists(atPath: fullDestPath!.path){
+                do{
+                    try image.pngData()!.write(to: fullDestPath!)
+                    print("Image Added Successfully")
+                    completion(true, fullDestPathString)
+                }catch{
+                    print("Image Not Added")
+                    completion(false, "")
+                }
+            }else {
+                completion(false, "")
+            }
         }
+    }
     
     @objc func onDoneButtonTapped() {
         toolBar.removeFromSuperview()
@@ -530,37 +477,6 @@ extension SignUpViewController{
     }
     
 }
-
-
-
-// Open Galary
-
-//extension SignUpViewController:UINavigationControllerDelegate,UIImagePickerControllerDelegate{
-//
-//    func openGalary(){
-//        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
-//            let picker = UIImagePickerController()
-//            picker.delegate = self
-//            picker.sourceType = .savedPhotosAlbum
-//            present(picker, animated: true)
-//        }
-//    }
-//
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        if let img = info[.originalImage] as? UIImage{
-//            profileimage.image = img
-//            self.imageSelecetd = true
-//        }
-//        dismiss(animated: true)
-//    }
-//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-//        picker.dismiss(animated: true, completion: nil)
-//    }
-//}
-
-// Open Date And Time Picker
-
-
 extension SignUpViewController:UITextFieldDelegate{
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.tag == 6{
@@ -572,28 +488,22 @@ extension SignUpViewController:UITextFieldDelegate{
         else if textField.tag == 8{
             self.openpicker(tag: 1)
         }else if textField.tag == 9{
-//            if arrSelectedStates == []{
             if txtcountry.text == ""{
                 self.Alertmsg(strMsgAlert: "Please Select First Country", strtitle: "Alert")
             }else{
                 self.openpicker(tag: 2)
             }
         }else if textField.tag == 10{
-//            if arrSelectedCity == []{
-            
             if txtcountry.text == "" && txtstate.text == ""{
                 self.Alertmsg(strMsgAlert: "Please Select First Country And State", strtitle: "Alert")
-//            }else if strSelectedCountry == ""{
             }else if txtstate.text == ""{
                 Alertmsg(strMsgAlert: "Please Select State", strtitle: "Alert")
             }else{
                 self.openpicker(tag: 3)
-                
             }
-            
         }
-        
     }
+    
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == txtpass{
@@ -621,8 +531,21 @@ extension SignUpViewController:UITextFieldDelegate{
             currentString.replacingCharacters(in: range, with: string) as NSString
             return newString.length <= maxLength
         }
-        return true
+        if textField.tag == 6{
+            return false
+        }else if textField.tag == 7{
+            return false
+        }else if textField.tag == 8{
+            return false
+        }else if textField.tag == 9{
+            return false
+        }else if textField.tag == 10{
+            return false
+        }else{
+            return true
+        }
     }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -648,12 +571,12 @@ extension SignUpViewController{
         txtdateofbirth.inputView = datePicker
         
         let choosenDate = datePicker.date
-
+        
         let dateformrtter = DateFormatter()
         
         dateformrtter.dateStyle = .medium
         
-          
+        
         let toolbar = UIToolbar(frame:  CGRect(x: 0, y: 0, width: self.view.frame.width, height: 44))
         let cancelbtn = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.cancelBtnClick))
         let donebtn = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneBtnClick))
@@ -661,9 +584,6 @@ extension SignUpViewController{
         let resetbtn = UIBarButtonItem(title: "Reset", style: .done, target: self, action: #selector(self.resetbtn))
         toolbar.setItems([cancelbtn,flexibleBtn,resetbtn,flexibleBtn,donebtn], animated: true)
         txtdateofbirth.inputAccessoryView = toolbar
-//        if let index = UserDefaults.standard.value(forKey: "SelectedDate") as? Date{
-//            datePicker.date = index
-//        }
     }
     @objc
     func cancelBtnClick(){
@@ -678,21 +598,16 @@ extension SignUpViewController{
             print(datePicker.date)
             txtdateofbirth.text = dateformetter.string(from: datePicker.date)
             txtdateofbirth.resignFirstResponder()
-//            let selecteddate = datePicker.date
-//            UserDefaults.standard.set(selecteddate, forKey: "SelectedDate")
         }
     }
-    
     @objc func resetbtn(){
         txtdateofbirth.text = ""
     }
-    
     @objc
     func datePickerHandler(datePicker:UIDatePicker){
         print(datePicker.date)
     }
 }
-
 
 // Time Picker
 
@@ -712,7 +627,7 @@ extension SignUpViewController{
         
         let dateformrtter = DateFormatter()
         dateformrtter.dateStyle = .medium
-          
+        
         let toolbar = UIToolbar(frame:  CGRect(x: 0, y: 0, width: self.view.frame.width, height: 44))
         let cancelBtn = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.cancelbtnClick))
         let doneBtn = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.donebtnClick))
@@ -720,9 +635,6 @@ extension SignUpViewController{
         let resetBtn = UIBarButtonItem(title: "Reset", style: .done, target: self, action: #selector(self.resetBtn))
         toolbar.setItems([cancelBtn,flexibleBtn,resetBtn,flexibleBtn,doneBtn], animated: true)
         txtbirthtime.inputAccessoryView = toolbar
-//        if let index = UserDefaults.standard.value(forKey: "Time") as? Date{
-//            datePicker.date = index
-//        }
     }
     
     @objc
@@ -734,10 +646,8 @@ extension SignUpViewController{
     func donebtnClick(){
         if let datePicker = txtbirthtime.inputView as? UIDatePicker{
             let formatter = DateFormatter()
-                formatter.timeStyle = .short
+            formatter.timeStyle = .short
             txtbirthtime.text = formatter.string(from: datePicker.date)
-//            let selected = datePicker.date
-//            UserDefaults.standard.set(datePicker.date, forKey: "Time")
             txtbirthtime.resignFirstResponder()
         }
     }
@@ -749,17 +659,15 @@ extension SignUpViewController{
     func DatePickerHandler(datePicker:UIDatePicker){
         print(datePicker.date)
     }
-   
 }
 
 // Mark PickerView Delegets
 
 extension SignUpViewController:UIPickerViewDelegate,UIPickerViewDataSource{
-
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView.tag == 1 {
             return ArrCountry.count
@@ -771,9 +679,7 @@ extension SignUpViewController:UIPickerViewDelegate,UIPickerViewDataSource{
         {
             return 0
         }
-
     }
-
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         if pickerView.tag == 1 {
@@ -787,19 +693,18 @@ extension SignUpViewController:UIPickerViewDelegate,UIPickerViewDataSource{
         }
         return nil
     }
-
-        func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-            if pickerView.tag == 1 {
-                self.strSelectedCountry = self.ArrCountry[row]
-            } else if pickerView.tag == 2 {
-                self.strSelectedStates = self.arrSelectedStates[row]
-            }else if  pickerView.tag == 3 {
-                self.strSelectedCity = self.arrSelectedCity[row]
-            }else {
-                
-            }
-            
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView.tag == 1 {
+            self.strSelectedCountry = self.ArrCountry[row]
+        } else if pickerView.tag == 2 {
+            self.strSelectedStates = self.arrSelectedStates[row]
+        }else if  pickerView.tag == 3 {
+            self.strSelectedCity = self.arrSelectedCity[row]
+        }else {
+            // Nothing
         }
+    }
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         if pickerView.tag == 1 {
             return NSAttributedString(string: ArrCountry[row], attributes: [NSAttributedString.Key.foregroundColor : UIColor.black])
@@ -808,15 +713,16 @@ extension SignUpViewController:UIPickerViewDelegate,UIPickerViewDataSource{
         }else if  pickerView.tag == 3 {
             return NSAttributedString(string: arrSelectedCity[row], attributes: [NSAttributedString.Key.foregroundColor : UIColor.black])
         }else {
-            
+            // Nothing
         }
         return nil
     }
 }
 
+// Open Country,State,City Picker
 
 extension SignUpViewController{
-    // Country Picker
+    
     func openpicker(tag:Int){
         picker = UIPickerView.init(frame:CGRect(x: 0.0, y: self.view.frame.height - 200, width: self.view.frame.width, height: 300) )
         picker.delegate = self
@@ -837,17 +743,11 @@ extension SignUpViewController{
         let doneBtn = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.DonebtnClick))
         toolBar.barStyle = .blackTranslucent
         toolBar.setItems([cancelBtn,flexibleBtn,flexibleBtn,flexibleBtn,doneBtn], animated: true)
-        //txtcountry.inputAccessoryView = toolBar
-        
-       //self.view.addSubview(toolBar)
         txtcountry.inputAccessoryView = toolBar
         txtstate.inputAccessoryView = toolBar
         txtcity.inputAccessoryView = toolBar
-        
     }
-    
-    @objc
-    func DonebtnClick(){
+    @objc func DonebtnClick(){
         if picker.tag == 1{
             
             let selectedRow = picker.selectedRow(inComponent: 0) // Get the selected row in the picker's first component
@@ -857,10 +757,8 @@ extension SignUpViewController{
                 txtcity.text = ""
                 txtstate.text = ""
             }
-            
             txtcountry.text = selectedCountry
             txtcountry.resignFirstResponder()
-            
             if selectedCountry == "" {
                 print("Please Select Country")
             } else {
@@ -873,13 +771,11 @@ extension SignUpViewController{
                 print("Please select a country first")
                 return
             }
-            
             let selectedState = ArrStates[selectedCountry]?[picker.selectedRow(inComponent: 0)] ?? ""
             
             if selectedState != txtstate.text {
                 txtcity.text = ""
             }
-            
             txtstate.text = selectedState
             txtstate.resignFirstResponder()
             
@@ -892,43 +788,36 @@ extension SignUpViewController{
             }
         }else if  picker.tag == 3 {
             guard let selectedCountry = txtcountry.text, !selectedCountry.isEmpty else {
-                    print("Please select a country first")
-                    return
-                }
-                
-                guard let selectedState = txtstate.text, !selectedState.isEmpty else {
-                    print("Please select a state first")
-                    return
-                }
-                
-                let selectedCity = Arrcities[selectedState]?[picker.selectedRow(inComponent: 0)] ?? ""
-                
-                txtcity.text = selectedCity
-                txtcity.resignFirstResponder()
-                
-                if selectedCity.isEmpty {
-                    print("Please select a city")
-                }
+                print("Please select a country first")
+                return
+            }
+            guard let selectedState = txtstate.text, !selectedState.isEmpty else {
+                print("Please select a state first")
+                return
+            }
+            let selectedCity = Arrcities[selectedState]?[picker.selectedRow(inComponent: 0)] ?? ""
+            txtcity.text = selectedCity
+            txtcity.resignFirstResponder()
+            if selectedCity.isEmpty {
+                print("Please select a city")
+            }
         }
         self.picker.removeFromSuperview()
         self.toolBar.removeFromSuperview()
     }
-    
-        @objc func CancelBtnClick(){
-            if picker.tag == 1{
-                self.txtcountry.resignFirstResponder()
-            }else  if picker.tag == 2{
-                self.txtstate.resignFirstResponder()
-            }else if picker.tag == 3{
-                self.txtcity.resignFirstResponder()
-            }
-            self.resignFirstResponder()
-            self.picker.removeFromSuperview()
-            self.toolBar.removeFromSuperview()
+    @objc func CancelBtnClick(){
+        if picker.tag == 1{
+            self.txtcountry.resignFirstResponder()
+        }else  if picker.tag == 2{
+            self.txtstate.resignFirstResponder()
+        }else if picker.tag == 3{
+            self.txtcity.resignFirstResponder()
         }
-        
+        self.resignFirstResponder()
+        self.picker.removeFromSuperview()
+        self.toolBar.removeFromSuperview()
     }
-
+}
 extension SignUpViewController{
     func gallaryOpen(){
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
@@ -947,12 +836,6 @@ extension SignUpViewController{
             picker.mediaTypes = [kUTTypeImage as String]
             picker.present(picker, animated: true,completion: nil)
         }
-        
-//                let imagePicker = UIImagePickerController()
-//                   imagePicker.sourceType = .camera
-//                   imagePicker.allowsEditing = false
-//                imagePicker.delegate = self
-//                   present(imagePicker, animated: true, completion: nil)
     }
     func actionSheet(){
         let alert = UIAlertController(title: "Choose Image From", message: nil, preferredStyle: .actionSheet)
@@ -971,7 +854,6 @@ extension SignUpViewController{
 
 extension SignUpViewController:UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-
         if let img = info[.originalImage] as? UIImage{
             profileimage.image = img
             self.imageSelecetd = true

@@ -9,19 +9,21 @@ import UIKit
 
 
 class RecentViewController: UIViewController {
-
+    
+    var isScrolling = false
+    
     var ArrImg : [String] = []
+    var AlbamName = ""
+    var ImgCount = 0
+    var currentIndex = 0
     
     @IBOutlet weak var lblAlbam: UILabel!
     @IBOutlet var collactionview: UICollectionView!
     @IBOutlet var container: UIView!
-    var AlbamName = ""
-    var ImgCount = 0
-    var currentIndex = 0
     @IBOutlet var lblcount: UILabel!
     @IBOutlet var btnnext: UIButton!
     @IBOutlet var btnprev: UIButton!
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collactionview.delegate = self
@@ -29,9 +31,6 @@ class RecentViewController: UIViewController {
         self.ImgCount = ArrImg.count
         self.lblAlbam.text = AlbamName
         lblcount.text = "\(currentIndex+1)" + "/" + "\(ArrImg.count)"
-        
-       // imageview.contentMode = .scaleAspectFit
-       // imageview.image = UIImage(named:  ArrImg[0])
         container.alpha = 0
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -43,110 +42,69 @@ class RecentViewController: UIViewController {
         super.touchesEnded(touches, with: event)
         self.container.alpha = 0
     }
-
     @IBAction func showContainer(_ sender: UIButton) {
         container.alpha = 1
     }
     @IBAction func back(_ sender: UIButton) {
         self.dismiss(animated: true)
-       // self.navigationController?.popViewController(animated: true)
-        
     }
     @IBAction func previewimage(_ sender: UIButton) {
         self.container.alpha = 0
-//        if currentIndex == 0 {
-//                return
-//            btnprev.isEnabled = false
-//            }
-//        btnnext.isEnabled = true
-//            currentIndex = (currentIndex - 1) % ArrImg.count
-//            imageview.image =  UIImage(named:  ArrImg[currentIndex])//ArrImg[currentIndex]
-//
-//        if currentIndex < 0 {
-//        currentIndex = ArrImg.count - 1 // wrap around to the last image
-//            }
-//            updateImageView()
         
-        if currentIndex > 0 {
-                   
-                   currentIndex -= 1
-                   let visibleItems = collactionview.indexPathsForVisibleItems
-                   let currentItem = visibleItems[0]
-                   let previousItem = IndexPath(item: currentItem.item - 1, section: currentItem.section)
-
-                   collactionview.scrollToItem(at: previousItem, at: .right, animated: true)
-                   collactionview.reloadData()
-               }
-    }
-    
-    @IBAction func nextimage(_ sender: UIButton) {
-        self.container.alpha = 0
-//        if currentIndex == ArrImg.count - 1 {
-//            btnnext.isEnabled = false
-//                return
-//            }
-//        btnprev.isEnabled = true
-//            currentIndex = (currentIndex + 1) % ArrImg.count
-//            imageview.image = UIImage(named:  ArrImg[currentIndex])
-//
-//        if currentIndex >= ArrImg.count {
-//                currentIndex = 0 // wrap around to the first image
-//            }
-//            updateImageView()
-        
-        if currentIndex < ImgCount - 1 {
-            currentIndex += 1
-            let visibleItems = collactionview.indexPathsForVisibleItems
-            let currentItem = visibleItems[0]
-            let nextItem = IndexPath(item: currentItem.item + 1, section: currentItem.section)
-            
-            collactionview.scrollToItem(at: nextItem, at: .left, animated: true)
-            collactionview.reloadData()
+        let fastForwardCount = 1
+        let newIndex = max(currentIndex - fastForwardCount, 0)
+        if newIndex < currentIndex {
+            currentIndex = newIndex
+            let indexPath = IndexPath(item: currentIndex, section: 0)
+            collactionview.scrollToItem(at: indexPath, at: .left, animated: true)
+            lblcount.text = "\(currentIndex + 1)/\(ImgCount)"
+            btnnext.isEnabled = currentIndex < ImgCount - 1
+            btnprev.isEnabled = currentIndex > 0
         }
     }
-    
-//    func updateImageLabel() {
-//        lblcount.text = "\(currentIndex+1)" + "/" + "\(ArrImg.count)"
-//    }
-//    func updateImageView() {
-//            imageview.image = UIImage(named:  ArrImg[currentIndex])
-//            updateImageLabel()
-//    }
-    
-    
+    @IBAction func nextimage(_ sender: UIButton) {
+        self.container.alpha = 0
+        
+        let fastForwardCount = 1
+        let newIndex = min(currentIndex + fastForwardCount, ImgCount - 1)
+        if newIndex > currentIndex {
+            currentIndex = newIndex
+            let indexPath = IndexPath(item: currentIndex, section: 0)
+            collactionview.scrollToItem(at: indexPath, at: .left, animated: true)
+            lblcount.text = "\(currentIndex + 1)/\(ImgCount)"
+            btnnext.isEnabled = currentIndex < ImgCount - 1
+            btnprev.isEnabled = currentIndex > 0
+        }
+    }
 }
 
 extension RecentViewController:UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return ArrImg.count
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! AlbamCollectionViewCell
-               cell.imageView.image = UIImage(named: ArrImg[indexPath.row] )
-
+        cell.imageView.image = UIImage(named: ArrImg[indexPath.item] )
         lblcount.text = "\(currentIndex+1)" + "/" + "\(ArrImg.count)"
-               btnnext.isEnabled = currentIndex < ImgCount - 1
-               btnprev.isEnabled = currentIndex > 0
-               return cell
+        btnnext.isEnabled = currentIndex < ImgCount - 1
+        btnprev.isEnabled = currentIndex > 0
+        return cell
     }
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-           let visibleRect = CGRect(origin: collactionview.contentOffset, size: collactionview.bounds.size)
-           let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
-           guard let indexPath = collactionview.indexPathForItem(at: visiblePoint) else { return }
-           currentIndex = indexPath.row
-           lblcount.text = "\(currentIndex+1)" + "/" + "\(ArrImg.count)"
-           btnnext.isEnabled = currentIndex < ImgCount - 1
-           btnprev.isEnabled = currentIndex > 0
-
-       }
+        let visibleRect = CGRect(origin: collactionview.contentOffset, size: collactionview.bounds.size)
+        let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+        guard let indexPath = collactionview.indexPathForItem(at: visiblePoint) else { return }
+        currentIndex = indexPath.row
+        lblcount.text = "\(currentIndex+1)" + "/" + "\(ArrImg.count)"
+        btnnext.isEnabled = currentIndex < ImgCount - 1
+        btnprev.isEnabled = currentIndex > 0
+    }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.container.alpha = 0
     }
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.container.alpha = 0
     }
-    
 }
 extension RecentViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

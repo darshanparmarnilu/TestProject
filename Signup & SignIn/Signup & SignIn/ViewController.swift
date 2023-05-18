@@ -16,11 +16,10 @@ class ViewController: UIViewController {
     var checkbtn:Bool! = false
     var txtEmail:UITextField!
     var email = ""
-
+    
     
     // MARK :- IBOutlet
-    //@IBOutlet var lbldonot: UILabel!
-    //@IBOutlet var lblremember: UILabel!
+    
     @IBOutlet var lblsignin: UILabel!
     @IBOutlet var btnsignup: UIButton!
     @IBOutlet var btnlogin: UIButton!
@@ -32,7 +31,6 @@ class ViewController: UIViewController {
     // MARK :- viewlife cycle Methods viewDidload a method jyare view load thay tyare 1 var call thase
     override func viewDidLoad() {
         super.viewDidLoad()
-        //This is a Dharmesh comments
         
         txtemail.delegate = self
         txtpass.delegate = self
@@ -40,19 +38,17 @@ class ViewController: UIViewController {
         self.hideKeyboard()
         
         sendprofile()
-
+        
         self.view.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
         
         lblsignin.font = UIFont(name: "Inter-Medium", size: 30)
         lblsignin.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
-        
         
         txtemail.layer.masksToBounds = true
         txtemail.layer.cornerRadius = 20
         txtemail.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         txtemail.layer.borderWidth = 0.5
         txtemail.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
-        
         
         txtpass.layer.masksToBounds = true
         txtpass.layer.cornerRadius = 20
@@ -62,27 +58,9 @@ class ViewController: UIViewController {
         
         btnlogin.layer.masksToBounds = true
         btnlogin.layer.cornerRadius = 20
-        btnlogin.layer.borderColor = UIColor.black.cgColor
-        btnlogin.layer.borderWidth = 1
-        btnlogin.backgroundColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
-        
-        //btnlogin.titleLabel?.font =  UIFont(name: "Inter-Medium", size: 22)
-        
-        
-       // btnforword.titleLabel?.font = UIFont(name: "Inter-Medium", size: 17)
-       // btnforword.titleLabel?.textColor = UIColor(red: 0/256, green: 26/256, blue: 255/256, alpha: 1)
-        
-        //btnsignup.titleLabel?.font = UIFont(name: "Inter-Medium", size: 19)
-        //btnsignup.titleLabel?.textColor = UIColor(red: 0/256, green: 26/256, blue: 255/256, alpha: 1)
-        
-        //lblremember.textColor = UIColor(red: 0.5/256, green: 0.5/256, blue: 0.5/256, alpha: 0.5)
-        
-       // lbldonot.textColor = UIColor(red: 0.5/256, green: 0.5/256, blue: 0.5/256, alpha: 0.5)
-        //lbldonot.font = UIFont(name: "Inter-Medium", size: 19)
         
         btncheck.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
         
-       
         self.reloadInputViews()
     }
     
@@ -94,39 +72,28 @@ class ViewController: UIViewController {
     
     
     // MARK :- Button Action
-
+    
     @IBAction func forgotpass(_ sender: UIButton) {
         verifyEmail()
-           }
+    }
     
     @IBAction func checkbtn(_ sender: UIButton) {
         
         btncheck.isSelected = !btncheck.isSelected
-
+        
         let user_Defaults = UserDefaults.standard
         user_Defaults.set(btncheck.isSelected, forKey: "rememberMe")
         
-//        if (checkbtn == false){
-//            if let image = UIImage(named:"checking.png"){
-//                btncheck.setBackgroundImage(image, for: .normal)
-//            }
-//            checkbtn = true
-//        }else{
-//            if let image = UIImage(named: "unchecking.png"){
-//                btncheck.setBackgroundImage(image, for: .normal)
-//            }
-//            checkbtn = false
-//        }
         
     }
     
     @IBAction func login(_ sender: UIButton) {
         let result = DatabaseManager.shared.checkemail(email: txtemail.text!)
-         if(txtemail.text == ""){
+        if(txtemail.text == ""){
             Alert(strmessage: "Please Enter Email")
-         }else if(txtpass.text == ""){
-             Alert(strmessage: "Please Enter Password")
-         }
+        }else if(txtpass.text == ""){
+            Alert(strmessage: "Please Enter Password")
+        }
         else if(txtemail.text?.isValidEmail) == false {
             self.txtemail.text = ""
             self.txtpass.text = ""
@@ -142,20 +109,13 @@ class ViewController: UIViewController {
             Alert(strmessage: "Invalid Password...Try Again")
         }
         else{
-          let result = DatabaseManager.shared.login(email:txtemail.text!,pass:txtpass.text!)
+            let result = DatabaseManager.shared.login(email:txtemail.text!,pass:txtpass.text!)
             if result{
-//                            let nextVC = self.storyboard?.instantiateViewController(identifier: "profileViewController") as! profileViewController
-//                            self.navigationController?.pushViewController(nextVC, animated: true)
                 
-//                let myTabbar = self.storyboard?.instantiateViewController(withIdentifier: "myTabbar") as! UITabBarController
-//
-//                let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//
-//                appDelegate.window?.rootViewController = myTabbar\
                 let myTabbar = self.storyboard?.instantiateViewController(withIdentifier: "myTabbar") as! UITabBarController
-
+                
                 if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                    let appDelegate = windowScene.delegate as? SceneDelegate {
+                   let appDelegate = windowScene.delegate as? SceneDelegate {
                     appDelegate.window?.rootViewController = myTabbar
                 }
                 
@@ -167,14 +127,13 @@ class ViewController: UIViewController {
             }
         }
     }
-
+    
     @IBAction func signup(_ sender: UIButton) {
         
         let detail:SignUpViewController = self.storyboard?.instantiateViewController(identifier: "SignUpViewController") as! SignUpViewController
-        
         self.navigationController?.pushViewController(detail, animated: true)
     }
-
+    
 }
 
 // MARK:- Extention
@@ -193,32 +152,24 @@ extension String{
 }
 
 extension ViewController{
- 
+    
     func Alert(strmessage:String){
         let alert = UIAlertController(title: "Alert", message: strmessage, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-        NSLog("The \"OK\" alert occured.")
+            NSLog("The \"OK\" alert occured.")
         }))
         self.present(alert, animated: true, completion: nil)
     }
     
-    // if Remember Me Button Is Selected Then Automatically Send On Profile Image
     
     func sendprofile(){
         let user_Defaults = UserDefaults.standard
-
-            if user_Defaults.bool(forKey: "rememberMe") {
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//                let homeVC = storyboard.instantiateViewController(withIdentifier: "profileViewController") as! profileViewController
-//                navigationController?.pushViewController(profileVC, animated: false)
-                
-                let myTabbar = self.storyboard?.instantiateViewController(withIdentifier: "myTabbar") as! TabbarViewController
-                navigationController?.pushViewController(myTabbar, animated: true)
-//                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-//                    let appDelegate = windowScene.delegate as? SceneDelegate {
-//                    appDelegate.window?.rootViewController = myTabbar
-//                }
-            }
+        
+        if user_Defaults.bool(forKey: "rememberMe") {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let myTabbar = self.storyboard?.instantiateViewController(withIdentifier: "myTabbar") as! TabbarViewController
+            navigationController?.pushViewController(myTabbar, animated: true)
+        }
     }
     
     func resetDefaults() {
@@ -243,13 +194,7 @@ extension ViewController{
                 self.Alert(strmessage: "Please Enter Email")
             }else if(txtemail.text?.isValidEmail) == false {
                 Alert(strmessage: "Invalid Email Formate, Try Again...")
-            }
-            //else if (testStr: (txtemail?.text!)! ) ==  false
-//            else if (isValidEmail:txtemail.text!) ==  false{
-//                self.createAlert(strAlert: "Please Enter Valid email")
-//            }
-            else
-            {
+            }else{
                 let loader = self.loader()
                 self.email = txtemail.text!
                 let result = DatabaseManager.shared.checkemail(email: txtemail.text!)
@@ -257,22 +202,16 @@ extension ViewController{
                 DispatchQueue.main.asyncAfter(deadline: .now() + 4.45){
                     self.stopLoad(loader: loader)
                 }
-               
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 5){
-                   
+                    
                     if result == true{
                         let animate = self.storyboard?.instantiateViewController(withIdentifier: "forupdatepassViewController") as! forupdatepassViewController
-                        //self.present(animate, animated: true, completion: nil)
                         self.present(animate, animated: true)
-//                        self.view.addSubview(animate.view)
-                       animate.emailID = self.email
-//                        animate.didMove(toParent: self)
-//                        self.addChild(animate)
+                        animate.emailID = self.email
                     }else{
                         self.Alert(strmessage: "Email Not Exist")
                     }
-                    
-                  //  self.stopLoad(loader: loader)
                 }
             }
         }
@@ -285,17 +224,11 @@ extension ViewController{
         alerBox.addAction(cancel)
         alerBox.addTextField { (textfield) in
             self.txtemail = textfield
-           
             self.txtemail?.placeholder = "Enter email"
-            //self.txtemail?.setBottomBorder(color: "#3EFE46")
         }
         self.present(alerBox, animated: true, completion: nil)
     }
-    
-    
 }
-
-
 extension ViewController{
     func loader()->UIAlertController{
         let alert = UIAlertController(title:"\t"+"\t"+"Fetching your email...", message: "\t"+"Please Wait...", preferredStyle: .alert)
@@ -313,9 +246,7 @@ extension ViewController{
         alert.view.addSubview(indicator)
         present(alert, animated: true, completion: nil)
         return alert
-        
     }
-    
     func stopLoad(loader:UIAlertController) {
         DispatchQueue.main.async {
             loader.dismiss(animated: true, completion: nil)
@@ -324,17 +255,8 @@ extension ViewController{
 }
 
 extension ViewController:UITextFieldDelegate{
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        if txtpass.text!.count >= 8{
-//        return false
-//        }else if txtemail.text!.count >= 16{
-//            return false
-//        }
-//        return true
-//    }
-    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
-                           replacementString string: String) -> Bool
+                   replacementString string: String) -> Bool
     {
         if textField == txtpass{
             let maxLength = 24
@@ -346,11 +268,9 @@ extension ViewController:UITextFieldDelegate{
             return true
         }
     }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-    
 }
 

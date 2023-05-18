@@ -6,9 +6,7 @@
 //
 
 import UIKit
-
 class GalaryCollectionViewCell: UICollectionViewCell {
-    
     @IBOutlet var lblimgcount: UILabel!
     @IBOutlet var lblimgname: UILabel!
     @IBOutlet var image: UIImageView!

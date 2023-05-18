@@ -9,7 +9,7 @@ import UIKit
 import Toast_Swift
 
 class forupdatepassViewController: UIViewController {
-
+    
     @IBOutlet var btnupdate: UIButton!
     @IBOutlet var txtconfirmpass: UITextField!
     @IBOutlet var txtnewpass: UITextField!
@@ -32,32 +32,12 @@ class forupdatepassViewController: UIViewController {
         txtconfirmpass.underline()
         txtnewpass.underline()
         
-//        txtnewpass.layer.masksToBounds = true
-//        txtnewpass.layer.cornerRadius = 16
-//        txtnewpass.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-//        txtnewpass.layer.borderWidth = 0.5
-//        txtnewpass.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
-//        txtnewpass.font = UIFont(name:"Inter-Medium", size: 20)
-//        txtnewpass.layer.borderWidth = 1
-//        txtnewpass.layer.borderColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1).cgColor
-//
-//        txtconfirmpass.layer.masksToBounds = true
-//        txtconfirmpass.layer.cornerRadius = 16
-//        txtconfirmpass.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-//        txtconfirmpass.layer.borderWidth = 0.5
-//        txtconfirmpass.backgroundColor = UIColor(red: 232/256, green: 232/256, blue: 232/256, alpha: 1)
-//        txtconfirmpass.font = UIFont(name:"Inter-Medium", size: 20)
-//        txtconfirmpass.layer.borderWidth = 1
-//        txtconfirmpass.layer.borderColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1).cgColor
-//
         btnupdate.layer.masksToBounds = true
         btnupdate.layer.cornerRadius = 18
         
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        //self.getData()
-        
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -67,56 +47,28 @@ class forupdatepassViewController: UIViewController {
     
     
     @IBAction func update(_ sender: UIButton) {
-        
-       // print("update")
         let loader = self.loader()
         DispatchQueue.main.asyncAfter(deadline: .now() + 4.45){
             self.stopLoad(loader: loader)
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 5){ [self] in
             if(txtnewpass.text == "" || txtconfirmpass.text == ""){
-                //self.dismiss(animated: true,completion: nil)
-//                self.dismiss(animated: true)
-               viewAlert(withTitle: "Alert ", message: "Please Enter Valid Password ")
-               
-//                self.Alertmsg(strMsgAlert: "Please Enter Valid Password ", strtitle: "Alert")
-                
+                viewAlert(withTitle: "Alert ", message: "Please Enter Valid Password ")
             }else if self.txtnewpass.text?.passvalid == false{
-                self.dismiss(animated: true)
-//                self.Alertmsg(strMsgAlert: "Please Enter Valid New Password Like [0-9a-zA-Z!@#$%^&*()] ", strtitle: "Alert")
-                    viewAlert(withTitle:"Alert" , message: "Please Enter Valid New Password Like [0-9a-zA-Z!@#$%^&*()] ")
-               
+                viewAlert(withTitle:"Alert" , message: "Please Enter Valid New Password Like [0-9a-zA-Z!@#$%^&*()] ")
             }else if self.txtconfirmpass.text?.passvalid == false{
-                self.dismiss(animated: true)
-//                self.Alertmsg(strMsgAlert: "Please Enter Valid Confirm Password Like [0-9a-zA-Z!@#$%^&*()] ", strtitle: "Alert")
                 viewAlert(withTitle:"Alert" , message: "Please Enter Valid Confirm Password Like [0-9a-zA-Z!@#$%^&*()] ")
             }
-           else if (self.txtnewpass.text! == self.txtconfirmpass.text!){
-               
-                    DatabaseManager.shared.updateforpass(strEmail: self.emailID, strPass:self.txtconfirmpass.text! )
-               
-                    //self.dismiss(animated: true, completion: nil)
-              // self.dismiss(animated: true)
-               
-               //self.Alertmsg(strMsgAlert: "Password Updated", strtitle: "Done")
-               viewAlert(withTitle: "Done", message: "Password Updated")
-                
+            else if (self.txtnewpass.text! == self.txtconfirmpass.text!){
+                DatabaseManager.shared.updateforpass(strEmail: self.emailID, strPass:self.txtconfirmpass.text! )
+                showAlert(withTitle: "Done", message: "Password Updated")
             }else if(self.txtnewpass.text! != self.txtconfirmpass.text!){
-                
-                //self.dismiss(animated: true,completion: nil)
-               // self.dismiss(animated: true)
-               // self.Alertmsg(strMsgAlert: "Password Does Not Match", strtitle: "Alert")
                 viewAlert(withTitle: "Alert", message:"Password Does Not Match" )
                 print("Password Does Not Match")
             }
-            
-//            self.removeAanimation()
-            //self.stopLoad(loader: loader)
         }
     }
-
 }
-
 
 extension forupdatepassViewController {
     func dropShadow() {
@@ -126,16 +78,13 @@ extension forupdatepassViewController {
         subview.layer.shadowOffset = .zero
         subview.layer.shadowRadius = 5
         subview.layer.shouldRasterize = true
-//        layer.rasterizationScale = scale ? UIScreen.main.scale : 1
     }
     
     func addAanimation(){
-       
         self.subview.transform = CGAffineTransform(translationX: 0, y: self.subview.frame.height)
         UIView.animate(withDuration: 1,animations:{
             self.subview.transform = .identity
         })
-
     }
     
     func removeAanimation(){
@@ -147,14 +96,6 @@ extension forupdatepassViewController {
         }
     }
     
-//    func Pass_Alertmsg(strMsgAlert:String,strtitle:String){
-//        let alert = UIAlertController(title: strtitle, message: strMsgAlert, preferredStyle: .alert)
-//        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-//            NSLog("The \"OK\" alert occured.")
-//            //self.navigationController?.popViewController(animated: true)
-//        }))
-//    }
-    
     func Alertmsg(strMsgAlert:String,strtitle:String){
         let alert = UIAlertController(title: strtitle, message: strMsgAlert, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
@@ -163,6 +104,7 @@ extension forupdatepassViewController {
         self.present(alert, animated: true, completion: nil)
     }
 }
+
 extension forupdatepassViewController{
     func loader()->UIAlertController{
         let alert = UIAlertController(title: "\t"+"\t"+"Updating your data...", message: "\t"+"Please Wait..", preferredStyle: .alert)
@@ -173,33 +115,38 @@ extension forupdatepassViewController{
         alert.setValue(attributedString, forKey: "attributedTitle")
         let indicator = UIActivityIndicatorView(frame: CGRect(x: 25, y: 15, width: 50, height: 50))
         indicator.color = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
-//        indicator.backgroundColor = .darkGray
         indicator.hidesWhenStopped = true
         indicator.style = UIActivityIndicatorView.Style.large
         indicator.startAnimating()
         alert.view.addSubview(indicator)
         present(alert, animated: true, completion: nil)
         return alert
-        
     }
-    
     func stopLoad(loader:UIAlertController) {
         DispatchQueue.main.async {
-          loader.dismiss(animated: true, completion: nil)
+            loader.dismiss(animated: true, completion: nil)
         }
     }
     func viewAlert(withTitle title: String, message: String) {
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-                self.dismiss(animated: true)
-                NSLog("The \"OK\" alert occurred.")
-            }))
-            
-            DispatchQueue.main.async {
-                self.present(alert, animated: true, completion: nil)
-            }
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+            //self.dismiss(animated: true)
+            NSLog("The \"OK\" alert occurred.")
+        }))
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
         }
-    
+    }
+    func showAlert(withTitle title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+            self.dismiss(animated: true)
+            NSLog("The \"OK\" alert occurred.")
+        }))
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
 }
 extension forupdatepassViewController:UITextFieldDelegate{
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -226,7 +173,6 @@ extension UIViewController{
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
-    
     @objc func dismissKeyboard(){
         view.endEditing(true)
     }
