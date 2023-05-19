@@ -16,9 +16,7 @@ class ViewController: UIViewController {
     var checkbtn:Bool! = false
     var txtEmail:UITextField!
     var email = ""
-    
-    //Hello Darshan
-    
+    var rememberMeFlag = false
     
     // MARK :- IBOutlet
     
@@ -80,14 +78,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func checkbtn(_ sender: UIButton) {
-        
         btncheck.isSelected = !btncheck.isSelected
-        
-        let user_Defaults = UserDefaults.standard
-        user_Defaults.set(btncheck.isSelected, forKey: "rememberMe")
-        
-        
+       
     }
+    
     
     @IBAction func login(_ sender: UIButton) {
         let result = DatabaseManager.shared.checkemail(email: txtemail.text!)
@@ -120,8 +114,13 @@ class ViewController: UIViewController {
                    let appDelegate = windowScene.delegate as? SceneDelegate {
                     appDelegate.window?.rootViewController = myTabbar
                 }
-                
-                
+                if self.btncheck.isSelected == true {
+                    let user_Defaults = UserDefaults.standard
+                    user_Defaults.set(btncheck.isSelected, forKey: "rememberMe")
+                }else {
+                    let user_Defaults = UserDefaults.standard
+                    user_Defaults.set(btncheck.isSelected, forKey: "rememberMe")
+                }
             }else if result == false{
                 self.Alert(strmessage: "Incorrect Password...")
                 txtpass.text = ""
@@ -135,7 +134,6 @@ class ViewController: UIViewController {
         let detail:SignUpViewController = self.storyboard?.instantiateViewController(identifier: "SignUpViewController") as! SignUpViewController
         self.navigationController?.pushViewController(detail, animated: true)
     }
-    
 }
 
 // MARK:- Extention
@@ -163,10 +161,8 @@ extension ViewController{
         self.present(alert, animated: true, completion: nil)
     }
     
-    
     func sendprofile(){
         let user_Defaults = UserDefaults.standard
-        
         if user_Defaults.bool(forKey: "rememberMe") {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let myTabbar = self.storyboard?.instantiateViewController(withIdentifier: "myTabbar") as! TabbarViewController

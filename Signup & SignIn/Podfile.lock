@@ -3,12 +3,14 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+  - HCSStarRatingView (1.5)
   - SideMenu (6.4.9)
   - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
   - Cosmos (~> 23.0)
   - FMDB
+  - HCSStarRatingView (~> 1.5)
   - SideMenu (~> 6.4.8)
   - Toast-Swift (~> 5.0.1)
 
@@ -16,15 +18,17 @@ SPEC REPOS:
   trunk:
     - Cosmos
     - FMDB
+    - HCSStarRatingView
     - SideMenu
     - Toast-Swift
 
 SPEC CHECKSUMS:
   Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  HCSStarRatingView: 1d18f79654735514cd6f00e6d90e38cb6320dc31
   SideMenu: 8ef57a3cfc024a2d3fc1c036c7fe98537baec9e0
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: f4413c841fb9e857f87a177a540102b1a2441efc
+PODFILE CHECKSUM: d95eac8b4571f097ec769a1e910c890f3e3fb36d
 
-COCOAPODS: 1.12.0
+COCOAPODS: 1.8.4
