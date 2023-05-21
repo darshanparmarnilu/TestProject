@@ -64,6 +64,8 @@ class ViewController: UIViewController {
         self.reloadInputViews()
     }
     
+    // View Will Appear Method
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         txtemail.text = ""
@@ -71,17 +73,20 @@ class ViewController: UIViewController {
     }
     
     
-    // MARK :- Button Action
+    // MARK :- Forgot Password Action Button
     
     @IBAction func forgotpass(_ sender: UIButton) {
         verifyEmail()
     }
     
+    // RememberMe Action Button
+    
     @IBAction func checkbtn(_ sender: UIButton) {
         btncheck.isSelected = !btncheck.isSelected
-       
+        
     }
     
+    // Login Action Button
     
     @IBAction func login(_ sender: UIButton) {
         let result = DatabaseManager.shared.checkemail(email: txtemail.text!)
@@ -129,14 +134,15 @@ class ViewController: UIViewController {
         }
     }
     
+    // Sign Up Action Button
+    
     @IBAction func signup(_ sender: UIButton) {
-        
         let detail:SignUpViewController = self.storyboard?.instantiateViewController(identifier: "SignUpViewController") as! SignUpViewController
         self.navigationController?.pushViewController(detail, animated: true)
     }
 }
 
-// MARK:- Extention
+// MARK:- String Extention (TextField Validation)
 
 extension String{
     var isPasswordValid:Bool{
@@ -153,34 +159,7 @@ extension String{
 
 extension ViewController{
     
-    func Alert(strmessage:String){
-        let alert = UIAlertController(title: "Alert", message: strmessage, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-            NSLog("The \"OK\" alert occured.")
-        }))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    func sendprofile(){
-        let user_Defaults = UserDefaults.standard
-        if user_Defaults.bool(forKey: "rememberMe") {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let myTabbar = self.storyboard?.instantiateViewController(withIdentifier: "myTabbar") as! TabbarViewController
-            navigationController?.pushViewController(myTabbar, animated: true)
-        }
-    }
-    
-    func resetDefaults() {
-        let defaults = UserDefaults.standard
-        let dictionary = defaults.dictionaryRepresentation()
-        dictionary.keys.forEach { key in
-            defaults.removeObject(forKey: key)
-        }
-    }
-}
-
-extension ViewController{
-    
+    // Alert Control For Veriyft Email
     
     func verifyEmail(){
         let alerBox = UIAlertController(title: "Verify Your Email", message: "", preferredStyle: .alert)
@@ -213,11 +192,9 @@ extension ViewController{
                 }
             }
         }
-        
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
             print("Edit option cancel by user")
         }
-        
         alerBox.addAction(update)
         alerBox.addAction(cancel)
         alerBox.addTextField { (textfield) in
@@ -226,8 +203,9 @@ extension ViewController{
         }
         self.present(alerBox, animated: true, completion: nil)
     }
-}
-extension ViewController{
+    
+    // Loader For Forgot Password (Fetching Email)
+    
     func loader()->UIAlertController{
         let alert = UIAlertController(title:"\t"+"\t"+"Fetching your email...", message: "\t"+"Please Wait...", preferredStyle: .alert)
         alert.view.tintColor = UIColor.red
@@ -245,12 +223,36 @@ extension ViewController{
         present(alert, animated: true, completion: nil)
         return alert
     }
+    
     func stopLoad(loader:UIAlertController) {
         DispatchQueue.main.async {
             loader.dismiss(animated: true, completion: nil)
         }
     }
+    
+    // Alert Control Alert Message
+    
+    func Alert(strmessage:String){
+        let alert = UIAlertController(title: "Alert", message: strmessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+            NSLog("The \"OK\" alert occured.")
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    // Send Progile For HomePage
+    
+    func sendprofile(){
+        let user_Defaults = UserDefaults.standard
+        if user_Defaults.bool(forKey: "rememberMe") {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let myTabbar = self.storyboard?.instantiateViewController(withIdentifier: "myTabbar") as! TabbarViewController
+            navigationController?.pushViewController(myTabbar, animated: true)
+        }
+    }
 }
+
+// TextField Delegete For Character Range
 
 extension ViewController:UITextFieldDelegate{
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,

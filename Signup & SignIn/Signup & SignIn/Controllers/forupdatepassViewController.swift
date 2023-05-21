@@ -10,6 +10,8 @@ import Toast_Swift
 
 class forupdatepassViewController: UIViewController {
     
+    //IB-OutLets
+    
     @IBOutlet var btnupdate: UIButton!
     @IBOutlet var txtconfirmpass: UITextField!
     @IBOutlet var txtnewpass: UITextField!
@@ -17,6 +19,9 @@ class forupdatepassViewController: UIViewController {
     @IBOutlet var mainview: UIView!
     
     var emailID = ""
+    
+    // View DidLoad Function
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,15 +41,21 @@ class forupdatepassViewController: UIViewController {
         btnupdate.layer.cornerRadius = 18
         
     }
+    
+    // View Will Apper Method
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
     }
+    
+    // TouchEnded Event Dismis View
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         self.dismiss(animated: true)
     }
     
+    // Update Password Action Button
     
     @IBAction func update(_ sender: UIButton) {
         let loader = self.loader()
@@ -68,9 +79,9 @@ class forupdatepassViewController: UIViewController {
             }
         }
     }
-}
-
-extension forupdatepassViewController {
+    
+    // Shadow Funtion
+    
     func dropShadow() {
         subview.layer.masksToBounds = false
         subview.layer.shadowColor = UIColor.black.cgColor
@@ -80,12 +91,16 @@ extension forupdatepassViewController {
         subview.layer.shouldRasterize = true
     }
     
+    // Add Animation Function
+
     func addAanimation(){
         self.subview.transform = CGAffineTransform(translationX: 0, y: self.subview.frame.height)
         UIView.animate(withDuration: 1,animations:{
             self.subview.transform = .identity
         })
     }
+    
+    // Remove Animation Function
     
     func removeAanimation(){
         self.subview.transform = .identity
@@ -96,16 +111,8 @@ extension forupdatepassViewController {
         }
     }
     
-    func Alertmsg(strMsgAlert:String,strtitle:String){
-        let alert = UIAlertController(title: strtitle, message: strMsgAlert, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-            NSLog("The \"OK\" alert occured.")
-        }))
-        self.present(alert, animated: true, completion: nil)
-    }
-}
-
-extension forupdatepassViewController{
+    // Loader Function
+    
     func loader()->UIAlertController{
         let alert = UIAlertController(title: "\t"+"\t"+"Updating your data...", message: "\t"+"Please Wait..", preferredStyle: .alert)
         alert.view.tintColor = .red
@@ -122,11 +129,17 @@ extension forupdatepassViewController{
         present(alert, animated: true, completion: nil)
         return alert
     }
+    
+    // Stop Loader Function
+    
     func stopLoad(loader:UIAlertController) {
         DispatchQueue.main.async {
             loader.dismiss(animated: true, completion: nil)
         }
     }
+    
+    // Alert Function Without Dismiss
+    
     func viewAlert(withTitle title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
@@ -137,6 +150,9 @@ extension forupdatepassViewController{
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    // Alert Function With Dismiss
+    
     func showAlert(withTitle title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
@@ -148,6 +164,9 @@ extension forupdatepassViewController{
         }
     }
 }
+
+    // UITextField Delegate
+
 extension forupdatepassViewController:UITextFieldDelegate{
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == txtnewpass{
@@ -166,6 +185,8 @@ extension forupdatepassViewController:UITextFieldDelegate{
         return true
     }
 }
+
+    // UIView Controller Function
 
 extension UIViewController{
     func hideKeyboard(){

@@ -87,7 +87,7 @@ class EditprofileViewController: UIViewController {
     var arrSelectedCity : [String] = []
     
     // MARK:- View Did Load Call One Time When Method Is Load
-    
+    // View DidLoad Function
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -105,7 +105,7 @@ class EditprofileViewController: UIViewController {
         picker.dataSource = self
         txtabout.delegate = self
         
-        
+        // TapGesture For Profile Image
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         profileImage.addGestureRecognizer(tapGesture)
@@ -145,10 +145,11 @@ class EditprofileViewController: UIViewController {
         txtemail.isUserInteractionEnabled = false
         txtemail.textColor = .darkGray
         
+    // UnderLine
+        
         txtfirst.underlinedtext()
         txtlast.underlinedtext()
         txtemail.underlinedtext()
-        
         txtmobile.underlinedtext()
         txtabout.underlinedtext()
         txtdateofbirth.underlinedtext()
@@ -166,16 +167,22 @@ class EditprofileViewController: UIViewController {
             txtdateofbirth.text = Date
         }
     }
-    @objc func imageTapped(tapGestureRecognizer:UITapGestureRecognizer){
-        actionSheet()
-        print("Image Taped")
-    }
+    
+    // View Will Appear Function
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.getData()
     }
     
-    // Mark:- Get All Data
+    // Image Tap Action Sheet
+    
+    @objc func imageTapped(tapGestureRecognizer:UITapGestureRecognizer){
+        actionSheet()
+        print("Image Taped")
+    }
+
+    // Mark:- Get All Data Function
     
     func getData(){
         getDataFromDefaults {success , id, firstname, lastname, email, password, mobileno,aboutme,userImage,userDateofBirth,userBirthTime,userCountry,userState,userCity,userGender  in
@@ -229,13 +236,14 @@ class EditprofileViewController: UIViewController {
         }
     }
     
+    // Open Camera Action Button
     
     @IBAction func CameraOpen(_ sender: UIButton) {
         actionSheet()
         print("Image Taped")
     }
     
-    // Mark:- Button Action
+    // Mark:- Male Action Button
     
     @IBAction func btnmale(_ sender: UIButton) {
         gender = "Male"
@@ -247,6 +255,8 @@ class EditprofileViewController: UIViewController {
         femalebtnSelect = false
     }
     
+    // Female Action Button
+    
     @IBAction func btnfemale(_ sender: UIButton) {
         gender = "Female"
         if(femalebtnSelect == false){
@@ -257,9 +267,13 @@ class EditprofileViewController: UIViewController {
         femalebtnSelect = true
     }
     
+    // Open Country Picker Action Sheet
+    
     @IBAction func country(_ sender: UIButton) {
         self.openpicker(tag: 1)
     }
+    
+    // Open State Picker Action Sheet
     
     @IBAction func state(_ sender: UIButton) {
         if txtcountry.text == ""{
@@ -268,6 +282,8 @@ class EditprofileViewController: UIViewController {
             openpicker(tag: 2)
         }
     }
+    
+    // Open State Picker Action Sheet
     
     @IBAction func city(_ sender: UIButton) {
         if txtcountry.text == "" && txtstate.text == ""{
@@ -278,6 +294,8 @@ class EditprofileViewController: UIViewController {
             self.openpicker(tag: 3)
         }
     }
+    
+    // Update Data Action Button
     
     @IBAction func update(_ sender: UIButton) {
         
@@ -331,12 +349,15 @@ class EditprofileViewController: UIViewController {
         }
         self.Alertmsgback()
     }
+    
+    // Back Action Button For Pop View Controller
+    
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
 }
 
-// MARK:- Extention
+    // MARK:- TextField Extention Under Line Function
 
 extension UITextField{
     func underlinedtext(){
@@ -350,7 +371,11 @@ extension UITextField{
     }
 }
 
+        // Extention
+
 extension EditprofileViewController{
+    
+    // Alert Controller For TextField
     
     func Alertmsg(strMsgAlert:String,strtitle:String){
         let alert = UIAlertController(title: strtitle, message: strMsgAlert, preferredStyle: .alert)
@@ -359,6 +384,8 @@ extension EditprofileViewController{
         }))
         self.present(alert, animated: true, completion: nil)
     }
+    
+    // Allert Controller For Update Button
     
     func Alertmsgback(){
         let alert = UIAlertController(title: "Done", message: "Data Successfully Updated", preferredStyle: .alert)
@@ -369,7 +396,7 @@ extension EditprofileViewController{
         self.present(alert, animated: true, completion: nil)
     }
     
-    // Save Image
+    // Save Image Path In Database
     
     func saveImage(completion:@escaping (Bool,String)->()){
         if  let image = profileImage.image {
@@ -393,8 +420,55 @@ extension EditprofileViewController{
             }
         }
     }
+    
+    // Open Galary Function
+    
+    func gallaryOpen(){
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+            let picker = UIImagePickerController()
+            picker.allowsEditing = true
+            picker.delegate  = self
+            picker.sourceType = .photoLibrary
+            self.present(picker, animated: true,completion: nil)
+        }
+    }
+    
+    // Open Camera Function
+    
+    func camareaOpen(){
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+            let picker = UIImagePickerController()
+            picker.allowsEditing = true
+            picker.sourceType = .camera
+            picker.mediaTypes = [kUTTypeImage as String]
+            picker.present(picker, animated: true,completion: nil)
+        }
+    }
+    
+    // Action Sheet For Gallary And Camera
+    
+    func actionSheet(){
+        let alert = UIAlertController(title: "Choose Image From", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Gallary", style: .default,handler: {(handler) in
+            self.gallaryOpen()
+        }))
+        alert.addAction(UIAlertAction(title: "Camera", style: .default,handler: {(handler) in
+            self.camareaOpen()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default,handler: {(handler) in
+            self.dismiss(animated: true)
+        }))
+        self.present(alert, animated: true,completion: nil)
+    }
+    
 }
+
+    // UI TextField Delegate
+
 extension EditprofileViewController:UITextFieldDelegate{
+    
+    // TextField Did Begin Editing Delegate
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.tag == 1{
             self.OpenDatepickker()
@@ -410,6 +484,8 @@ extension EditprofileViewController:UITextFieldDelegate{
             self.openpicker(tag: 3)
         }
     }
+    
+    // Set The Range of Characters In TextField
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == txtfirst{
@@ -447,11 +523,16 @@ extension EditprofileViewController:UITextFieldDelegate{
         }
         
     }
+    
+        // Should Return Delegate
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
 }
+
+// Picker View Delegate
 
 extension EditprofileViewController:UIPickerViewDelegate,UIPickerViewDataSource{
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -510,7 +591,7 @@ extension EditprofileViewController:UIPickerViewDelegate,UIPickerViewDataSource{
     }
 }
 
-// Mark:- Open Picker
+// Mark:- Open Picker For Country, State And City
 
 extension EditprofileViewController{
     
@@ -554,6 +635,8 @@ extension EditprofileViewController{
             }
         }
     }
+    
+    // Done Button Event
     
     @objc func DonebtnClick(){
         if picker.tag == 1{
@@ -612,6 +695,8 @@ extension EditprofileViewController{
         self.toolBar.removeFromSuperview()
     }
     
+    // Cancel Button Event
+    
     @objc func CancelBtnClick(){
         if picker.tag == 1{
             self.txtcountry.resignFirstResponder()
@@ -625,7 +710,7 @@ extension EditprofileViewController{
     }
 }
 
-// Mark:- Date Picker
+// Mark:- Open Date Picker
 
 extension EditprofileViewController{
     func OpenDatepickker(){
@@ -656,9 +741,15 @@ extension EditprofileViewController{
             datePicker.date = index
         }
     }
+    
+    // Cancel Button Event
+    
     @objc func cancelBtnclick(){
         txtdateofbirth.resignFirstResponder()
     }
+    
+    // Done Button Event
+    
     @objc func doneBtnclick(){
         if let datePicker = txtdateofbirth.inputView as? UIDatePicker{
             let dateformetter = DateFormatter()
@@ -670,6 +761,9 @@ extension EditprofileViewController{
             UserDefaults.standard.set(selecteddate, forKey: "SelectedDate")
         }
     }
+    
+    // Reset Button Event
+    
     @objc func resetbtn(){
         txtdateofbirth.text = ""
     }
@@ -678,7 +772,7 @@ extension EditprofileViewController{
     }
 }
 
-// Time Picker
+    // Open Time Picker
 
 extension EditprofileViewController{
     func OpenTimepickker(){
@@ -708,9 +802,14 @@ extension EditprofileViewController{
             datePicker.date = index
         }
     }
+    
+    // Cancel Button Event
+    
     @objc func cancelbtnClick(){
         txtbirthtime.resignFirstResponder()
     }
+    
+    // Done Button Event
     
     @objc func donebtnClick(){
         if let datePicker = txtbirthtime.inputView as? UIDatePicker{
@@ -722,6 +821,9 @@ extension EditprofileViewController{
             txtbirthtime.resignFirstResponder()
         }
     }
+    
+    // Reset Button Event
+    
     @objc func resetBtn(){
         txtbirthtime.text = ""
     }
@@ -731,39 +833,8 @@ extension EditprofileViewController{
     }
 }
 
-extension EditprofileViewController{
-    func gallaryOpen(){
-        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
-            let picker = UIImagePickerController()
-            picker.allowsEditing = true
-            picker.delegate  = self
-            picker.sourceType = .photoLibrary
-            self.present(picker, animated: true,completion: nil)
-        }
-    }
-    func camareaOpen(){
-        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
-            let picker = UIImagePickerController()
-            picker.allowsEditing = true
-            picker.sourceType = .camera
-            picker.mediaTypes = [kUTTypeImage as String]
-            picker.present(picker, animated: true,completion: nil)
-        }
-    }
-    func actionSheet(){
-        let alert = UIAlertController(title: "Choose Image From", message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Gallary", style: .default,handler: {(handler) in
-            self.gallaryOpen()
-        }))
-        alert.addAction(UIAlertAction(title: "Camera", style: .default,handler: {(handler) in
-            self.camareaOpen()
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default,handler: {(handler) in
-            self.dismiss(animated: true)
-        }))
-        self.present(alert, animated: true,completion: nil)
-    }
-}
+//  Picker View Delegate
+
 extension EditprofileViewController:UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         

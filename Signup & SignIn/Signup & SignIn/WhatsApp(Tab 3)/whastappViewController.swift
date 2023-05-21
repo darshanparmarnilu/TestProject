@@ -19,12 +19,17 @@ class whastappViewController: UIViewController {
     var ArrContacts:[WSContacts] = []
     var lastSelectedIndex = -1
     
+    // IB-Outlets
+    
     @IBOutlet var container: UIView!
     @IBOutlet var btnFloting: UIButton!
     @IBOutlet var lbltitle: UILabel!
     @IBOutlet var Galaryview: UIView!
     @IBOutlet var tableview: UITableView!
     @IBOutlet var segment: UISegmentedControl!
+    
+    // View DidLoad Function
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,16 +72,28 @@ class whastappViewController: UIViewController {
         ]
         segment.setTitleTextAttributes(deselectedAttributes, for: .normal)
     }
-    @objc func hideMenu(){
-        container.alpha = 0
-    }
+    
+    // View Will Appear Function
+    
     override func viewWillAppear(_ animated: Bool) {
         self.container.alpha = 0
         NotificationCenter.default.addObserver(self, selector: #selector(dismissSideMenu), name: NSNotification.Name("HideMenu"), object: nil)
     }
+    
+    // Hide Menu Function
+    
+    @objc func hideMenu(){
+        container.alpha = 0
+    }
+    
+    // Dismiss MeSide Menu Function
+    
     @objc func dismissSideMenu() {
         container.alpha = 0
     }
+    
+    // Segment Control Action
+    
     @IBAction func segment(_ sender: UISegmentedControl) {
         if segment.selectedSegmentIndex == 1{
             UIView.animate(withDuration: 0.5, animations: {
@@ -92,6 +109,9 @@ class whastappViewController: UIViewController {
             })
         }
     }
+    
+    // Side Menu Action Button
+    
     @IBAction func sidemenu(_ sender: UIButton) {
         container.alpha = 0
         
@@ -107,6 +127,8 @@ class whastappViewController: UIViewController {
         present(vc, animated: true, completion: nil)
     }
     
+    // Search Action Button
+    
     @IBAction func SearchContact(_ sender: UIButton) {
         let Navigate = self.storyboard?.instantiateViewController(withIdentifier: "selectcontactViewController") as! selectcontactViewController
         Navigate.modalPresentationStyle = .overFullScreen
@@ -114,13 +136,21 @@ class whastappViewController: UIViewController {
         self.navigationController?.pushViewController(Navigate, animated: true)
     }
     
+    // Show Menu Container Action Button
+    
     @IBAction func showcontainer(_ sender: UIButton) {
         container.alpha = 1
     }
+    
+    // Touch Event
+    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         self.container.alpha = 0
     }
+    
+    // Stack Show Action Button
+    
     @IBAction func stackShow(_ sender: UIButton) {
         guard self.tableview.cellForRow(at: IndexPath(row: Int(sender.tag), section: 0)) is contactTableViewCell else{
             return
@@ -143,7 +173,6 @@ class whastappViewController: UIViewController {
             self.isCollapce = true
         }
         
-        
         //this for cell button collspan btn new code
         for i in 0..<ArrContacts.count {
             ArrContacts[i].ShowStack = (i == sender.tag)
@@ -152,6 +181,9 @@ class whastappViewController: UIViewController {
         tableview.reloadData()
     }
 }
+
+    // Tableview Delegate
+
 extension whastappViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ArrContacts.count

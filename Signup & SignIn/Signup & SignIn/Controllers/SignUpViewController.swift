@@ -11,7 +11,7 @@ import UIKit
 import MobileCoreServices
 import Toast_Swift
 
-class SignUpViewController: UIViewController, UITextViewDelegate {
+class SignUpViewController: UIViewController {
     
     var arrData = ["bus.png","like.png","nearest.png","plane.png","plant.png","save.png","special.png","train.png","trending.png","win.png"]
     var imgArr = [URL]()
@@ -217,61 +217,45 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
         btnsignin.titleLabel?.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
         btnsignin.reloadInputViews()
     }
+    
+    // View Will Appear Method
+    
     override func viewWillAppear(_ animated: Bool) {
         self.setupTextView()
     }
     
     // MARK:- Functions Place Holder For About Me
     
+    // Profile Image Action Sheet
+    
     @objc func imageTapped(tapGestureRecognizer:UITapGestureRecognizer){
         actionSheet()
         print("Image Taped")
     }
+    
+    // Screen TouchEnded Function (For Remove From Super View)
+    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         self.picker.removeFromSuperview()
         self.toolBar.removeFromSuperview()
     }
-    func setupTextView() {
-        txtaboutme.text = "About Me"
-        txtaboutme.textColor = UIColor.lightGray
-        txtaboutme.textAlignment = .center
-        txtaboutme.delegate = self
-    }
-    
-    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == "\n" {
-            textView.textAlignment = .center
-            textView.resignFirstResponder()
-            return false
-        }
-        return true
-    }
-    
-    public func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == "About Me" {
-            textView.text = ""
-            textView.textColor = UIColor.black
-            textView.textAlignment = .center
-        }
-    }
-    
-    public func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            textView.text = "About Me"
-            textView.textColor = UIColor.lightGray
-            textView.textAlignment = .center
-        }
-    }
     
     // MARK:- Button Action
+    
+    // Open Camera Action Sheet
     
     @IBAction func camera(_ sender: UIButton) {
         self.actionSheet()
     }
+    
+    // Back Button Action Sheet For Pop to login Page
+    
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    // Action For Create New Account
     
     @IBAction func btncreateaccount(_ sender:UIButton) {
         if(txtfirst.text == ""){
@@ -340,13 +324,21 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
             }
         }
     }
+    
+    // Sign-Up Back View Controller
+    
     @IBAction func btnsignup(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
     
+    // Country Picker Open Action Sheet
+    
     @IBAction func country(_ sender: UIButton) {
         self.openpicker(tag: 1)
     }
+    
+    // State Picker Open Sheet Action Sheet
+    
     @IBAction func state(_ sender: UIButton) {
         if txtcountry.text == ""{
             self.Alertmsg(strMsgAlert: "Please Select First Country", strtitle: "Alert")
@@ -354,6 +346,8 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
             self.openpicker(tag: 2)
         }
     }
+    
+    // City Picker Open Action Sheet
     
     @IBAction func city(_ sender: UIButton) {
         if txtcountry.text == "" && txtstate.text == ""{
@@ -365,6 +359,8 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
         }
     }
     
+    // Male Action Button
+    
     @IBAction func Male(_ sender: UIButton) {
         gender = "Male"
         if(maleBtnSelect == false){
@@ -374,6 +370,8 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
         maleBtnSelect = true
         femalebtnSelect = false
     }
+    
+    // Female Action Button
     
     @IBAction func female(_ sender: UIButton) {
         gender = "Female"
@@ -386,7 +384,7 @@ class SignUpViewController: UIViewController, UITextViewDelegate {
     }
 }
 
-// MARK:- Extention
+// MARK:- Extention For String(TextField Validation)
 
 extension String{
     var passvalid:Bool{
@@ -418,13 +416,14 @@ extension String{
         return phoneTest.evaluate(with: self)
     }
     var aboutmevalid:Bool{
-        // let aboutRehex = "^(([^ ]?)(^[a-zA-Z0-9].*[a-zA-Z]$)([^ ]?))$"
-        //let aboutRehex = "[A-Z,a-z, ,]{50}$"
         let aboutRehex = "^[a-zA-Z0-9].{0,98}[a-zA-Z0-9]$"
         let aboutText = NSPredicate(format: "SELF MATCHES %@", aboutRehex)
         return aboutText.evaluate(with: self)
     }
 }
+
+
+
 extension SignUpViewController{
     
     //Alert messsage
@@ -437,6 +436,8 @@ extension SignUpViewController{
         self.present(alert, animated: true, completion: nil)
     }
     
+    // Alert Message For Email Valiation
+    
     func Email_Alertmsg(strMsgAlert:String,strtitle:String){
         let alert = UIAlertController(title: strtitle, message: strMsgAlert, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
@@ -446,6 +447,8 @@ extension SignUpViewController{
         
         self.present(alert, animated: true, completion: nil)
     }
+    
+    // Save Image Path in The Database
     
     func saveImage(completion:@escaping (Bool,String)->()){
         if  let image = profileimage.image {
@@ -471,13 +474,21 @@ extension SignUpViewController{
         }
     }
     
+    // Done Button Tap (Remove From Super View)
+    
     @objc func onDoneButtonTapped() {
         toolBar.removeFromSuperview()
         picker.removeFromSuperview()
     }
     
 }
+
+    //  Text Field Delegate
+
 extension SignUpViewController:UITextFieldDelegate{
+    
+    // TextField DidSelect Delegete
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.tag == 6{
             self.OpenDatepickker()
@@ -504,6 +515,7 @@ extension SignUpViewController:UITextFieldDelegate{
         }
     }
     
+    // TextField Delegate For Set The Range
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == txtpass{
@@ -552,7 +564,7 @@ extension SignUpViewController:UITextFieldDelegate{
     }
 }
 
-// Mark:- Date Picker
+// Mark:- Open Date Picker
 
 extension SignUpViewController{
     
@@ -585,10 +597,15 @@ extension SignUpViewController{
         toolbar.setItems([cancelbtn,flexibleBtn,resetbtn,flexibleBtn,donebtn], animated: true)
         txtdateofbirth.inputAccessoryView = toolbar
     }
+    
+    // Cancel Button Event
+    
     @objc
     func cancelBtnClick(){
         txtdateofbirth.resignFirstResponder()
     }
+    
+    // Done Button Event
     
     @objc
     func doneBtnClick(){
@@ -600,6 +617,9 @@ extension SignUpViewController{
             txtdateofbirth.resignFirstResponder()
         }
     }
+    
+    // Reset Button Event
+    
     @objc func resetbtn(){
         txtdateofbirth.text = ""
     }
@@ -609,7 +629,7 @@ extension SignUpViewController{
     }
 }
 
-// Time Picker
+    // Open Time Picker
 
 extension SignUpViewController{
     func OpenTimepickker(){
@@ -637,10 +657,14 @@ extension SignUpViewController{
         txtbirthtime.inputAccessoryView = toolbar
     }
     
+    // Cancel Button Event
+    
     @objc
     func cancelbtnClick(){
         txtbirthtime.resignFirstResponder()
     }
+    
+    // Done Button Event
     
     @objc
     func donebtnClick(){
@@ -661,7 +685,7 @@ extension SignUpViewController{
     }
 }
 
-// Mark PickerView Delegets
+// Mark PickerView Delegates
 
 extension SignUpViewController:UIPickerViewDelegate,UIPickerViewDataSource{
     
@@ -719,7 +743,7 @@ extension SignUpViewController:UIPickerViewDelegate,UIPickerViewDataSource{
     }
 }
 
-// Open Country,State,City Picker
+    // Open Country,State,City Picker Function
 
 extension SignUpViewController{
     
@@ -747,6 +771,9 @@ extension SignUpViewController{
         txtstate.inputAccessoryView = toolBar
         txtcity.inputAccessoryView = toolBar
     }
+    
+    // Done Button Click Event
+    
     @objc func DonebtnClick(){
         if picker.tag == 1{
             
@@ -805,6 +832,9 @@ extension SignUpViewController{
         self.picker.removeFromSuperview()
         self.toolBar.removeFromSuperview()
     }
+    
+    // Cancel Button Click Event
+    
     @objc func CancelBtnClick(){
         if picker.tag == 1{
             self.txtcountry.resignFirstResponder()
@@ -818,7 +848,13 @@ extension SignUpViewController{
         self.toolBar.removeFromSuperview()
     }
 }
+
+// Extention For SignUp Controller(Functions )
+
 extension SignUpViewController{
+    
+    //Open Gallery Function
+    
     func gallaryOpen(){
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
             let picker = UIImagePickerController()
@@ -828,6 +864,9 @@ extension SignUpViewController{
             self.present(picker, animated: true,completion: nil)
         }
     }
+    
+    // Open Camera Function
+    
     func camareaOpen(){
         if UIImagePickerController.isSourceTypeAvailable(.camera){
             let picker = UIImagePickerController()
@@ -837,6 +876,9 @@ extension SignUpViewController{
             picker.present(picker, animated: true,completion: nil)
         }
     }
+    
+    // Open Acton Sheet Open Galary And Camera
+    
     func actionSheet(){
         let alert = UIAlertController(title: "Choose Image From", message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Gallary", style: .default,handler: {(handler) in
@@ -852,6 +894,8 @@ extension SignUpViewController{
     }
 }
 
+// Image Picker Contoller Delegate
+
 extension SignUpViewController:UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let img = info[.originalImage] as? UIImage{
@@ -862,5 +906,42 @@ extension SignUpViewController:UIImagePickerControllerDelegate,UINavigationContr
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true,completion: nil )
+    }
+}
+
+// TextView Delegete For About Me Placeholder
+
+extension SignUpViewController:UITextViewDelegate{
+    
+    func setupTextView() {
+        txtaboutme.text = "About Me"
+        txtaboutme.textColor = UIColor.lightGray
+        txtaboutme.textAlignment = .center
+        txtaboutme.delegate = self
+    }
+    
+    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.textAlignment = .center
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+    
+    public func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == "About Me" {
+            textView.text = ""
+            textView.textColor = UIColor.black
+            textView.textAlignment = .center
+        }
+    }
+    
+    public func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "About Me"
+            textView.textColor = UIColor.lightGray
+            textView.textAlignment = .center
+        }
     }
 }

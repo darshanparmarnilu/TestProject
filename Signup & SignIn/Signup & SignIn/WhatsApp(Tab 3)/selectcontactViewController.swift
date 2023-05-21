@@ -9,6 +9,9 @@ import UIKit
 
 class selectcontactViewController: UIViewController {
     var searching : Bool!
+    
+    // IB - Outlets
+    
     @IBOutlet var btnsearch: UIButton!
     @IBOutlet var CountUser: UILabel!
     @IBOutlet var container: UIView!
@@ -20,6 +23,9 @@ class selectcontactViewController: UIViewController {
     
     var arrContact : [ContactData] = []
     var arrContactData : [ContactData] = []
+    
+    // View Did Load Function
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,12 +74,21 @@ class selectcontactViewController: UIViewController {
         
         self.CountUser.text = String(self.arrContact.count) + " "+"Contacts"
     }
+    
+    // View Will Appear Function
+    
     override func viewWillAppear(_ animated: Bool) {
         container.alpha = 0
     }
+    
+    // Back Action Button
+    
     @IBAction func backVC(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    // Back Button For Search View
+    
     @IBAction func back(_ sender: Any) {
         searchview.alpha = 0
         container.alpha = 0
@@ -81,17 +96,28 @@ class selectcontactViewController: UIViewController {
         arrContact = arrContactData
         tableview.reloadData()
     }
+    
+    // Search Action Button
+    
     @IBAction func search(_ sender: Any) {
         searchview.alpha = 1
     }
+    
+    // Show Menu Container Action Button
+    
     @IBAction func showcontainer(_ sender: UIButton) {
         container.alpha = 1
     }
+    
+    // Touch Event
+    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         self.container.alpha = 0
     }
 }
+
+    // UI Table View Delegate
 
 extension selectcontactViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -123,6 +149,8 @@ extension selectcontactViewController:UITableViewDelegate,UITableViewDataSource{
         self.container.alpha = 0
     }
 }
+
+    // Search Bar Delegate
 
 extension selectcontactViewController:UISearchBarDelegate{
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

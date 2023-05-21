@@ -1,5 +1,5 @@
 //
-//  contactTableViewCell.swift
+//  selectcontactTableViewCell.swift
 //  Signup & SignIn
 //
 //  Created by Mac Mini on 13/04/23.
@@ -7,24 +7,18 @@
 
 import UIKit
 
-class contactTableViewCell: UITableViewCell {
+class selectcontactTableViewCell: UITableViewCell {
     
-    @IBOutlet var stack: UIStackView!
-    @IBOutlet var calldetial: UIButton!
-    @IBOutlet var videocall: UIButton!
-    @IBOutlet var audiocall: UIButton!
-    @IBOutlet var btnshow: UIButton!
+    // IB-Outlets
+    
     @IBOutlet var lblnumber: UILabel!
     @IBOutlet var lblname: UILabel!
-    @IBOutlet var lbltime: UILabel!
     @IBOutlet var contactimage: UIImageView!
-    
     override func awakeFromNib() {
+        
         super.awakeFromNib()
-        btnshow.isSelected = false
-        stack.isHidden = false
         contactimage.layer.masksToBounds = true
-        contactimage.layer.cornerRadius = 28
+        contactimage.layer.cornerRadius = contactimage.frame.height/2
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

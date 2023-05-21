@@ -12,10 +12,16 @@ import SideMenu
 class HomePageViewController: UIViewController, UINavigationControllerDelegate, CAAnimationDelegate {
     
     var isSelected = 0
+    
+    // IB-OutLets
+    
     @IBOutlet var subView: UIView!
     @IBOutlet var tableview: UITableView!
     @IBOutlet var subview: UIView!
+    
     var ArrImg : [HomeCellImage] = []
+    
+    // View Did Load Function
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,9 +48,15 @@ class HomePageViewController: UIViewController, UINavigationControllerDelegate, 
         self.ArrImg.append(obj9)
         self.ArrImg.append(obj10)
     }
+    
+    // View Will Appear Function
+    
     override func viewWillAppear(_ animated: Bool) {
         self.subView.alpha = 0
     }
+    
+    // Open Menu Action Button
+    
     @IBAction func menu(_ sender: UIButton) {
         subView.alpha = 0
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "SideMenuNavigationController") as! SideMenuNavigationController
@@ -58,6 +70,9 @@ class HomePageViewController: UIViewController, UINavigationControllerDelegate, 
         vc.leftSide = true
         present(vc, animated: true, completion: nil)
     }
+    
+    // Save Action Button
+    
     @IBAction func btnsave(_ sender: UIButton) {
         let obj = self.ArrImg[sender.tag]
         if obj.strBookmark == true{
@@ -68,6 +83,9 @@ class HomePageViewController: UIViewController, UINavigationControllerDelegate, 
             sender.isSelected  = true
         }
     }
+    
+    //Like Action Button
+    
     @IBAction func likebtn(_ sender: UIButton) {
         let obj = self.ArrImg[sender.tag]
         if obj.strLike == true {
@@ -78,14 +96,23 @@ class HomePageViewController: UIViewController, UINavigationControllerDelegate, 
             sender.isSelected = true
         }
     }
+    
+    // Display Menu Opton Action Button
+    
     @IBAction func DisplayOption(_ sender: UIButton) {
         self.subView.alpha = 1
     }
+    
+    // Touch Event
+    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         self.subView.alpha = 0
     }
 }
+
+    // TableView Delegate
+
 extension HomePageViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.ArrImg.count
@@ -115,7 +142,13 @@ extension HomePageViewController:UITableViewDelegate,UITableViewDataSource{
         subView.alpha = 0
     }
 }
+
+// Extention
+
 extension UIViewController {
+    
+    // Present Detail Function
+    
     func presentDetail(_ viewControllerToPresent: UIViewController) {
         let transition = CATransition()
         transition.duration = 0.25
@@ -124,6 +157,9 @@ extension UIViewController {
         self.view.window!.layer.add(transition, forKey: kCATransition)
         present(viewControllerToPresent, animated: false)
     }
+    
+    // Dismiss Detail Function
+    
     func dismissDetail() {
         let transition = CATransition()
         transition.duration = 0.25
@@ -133,6 +169,8 @@ extension UIViewController {
         dismiss(animated: false)
     }
 }
+
+    // Collaction View Delegate
 
 extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -160,6 +198,9 @@ extension HomePageViewController:UICollectionViewDelegate,UICollectionViewDataSo
         self.subView.alpha = 0
     }
 }
+
+    //Collaction View Delegate Flow Layout
+
 extension HomePageViewController:UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = collectionView.frame.size

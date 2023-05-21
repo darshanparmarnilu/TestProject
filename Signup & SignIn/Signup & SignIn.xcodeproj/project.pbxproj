@@ -72,6 +72,21 @@
 		18FC75F329F8F5DC006223C6 /* HomeCellImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FC75F229F8F5DC006223C6 /* HomeCellImage.swift */; };
 		A381D6DA2A011FF2005D48C7 /* WSContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A381D6D92A011FF2005D48C7 /* WSContacts.swift */; };
 		A3C0305B2A051863006F23F2 /* CustomSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C0305A2A051863006F23F2 /* CustomSegment.swift */; };
+		A3D062B32A17823E0085E22F /* StarFillMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D062A12A17823E0085E22F /* StarFillMode.swift */; };
+		A3D062B42A17823E0085E22F /* StarLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D062A22A17823E0085E22F /* StarLayer.swift */; };
+		A3D062B52A17823E0085E22F /* CosmosAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D062A32A17823E0085E22F /* CosmosAccessibility.swift */; };
+		A3D062B62A17823E0085E22F /* CosmosText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D062A52A17823E0085E22F /* CosmosText.swift */; };
+		A3D062B72A17823E0085E22F /* CosmosDefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D062A62A17823E0085E22F /* CosmosDefaultSettings.swift */; };
+		A3D062B82A17823E0085E22F /* CosmosSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D062A72A17823E0085E22F /* CosmosSize.swift */; };
+		A3D062B92A17823E0085E22F /* CosmosLayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D062A82A17823E0085E22F /* CosmosLayers.swift */; };
+		A3D062BA2A17823E0085E22F /* CosmosLocalizedRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D062A92A17823E0085E22F /* CosmosLocalizedRating.swift */; };
+		A3D062BB2A17823E0085E22F /* CosmosLayerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D062AA2A17823E0085E22F /* CosmosLayerHelper.swift */; };
+		A3D062BC2A17823E0085E22F /* CosmosTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D062AB2A17823E0085E22F /* CosmosTouch.swift */; };
+		A3D062BD2A17823E0085E22F /* CosmosRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D062AC2A17823E0085E22F /* CosmosRating.swift */; };
+		A3D062BE2A17823E0085E22F /* CosmosSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D062AD2A17823E0085E22F /* CosmosSettings.swift */; };
+		A3D062BF2A17823E0085E22F /* CosmosTouchTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D062AF2A17823E0085E22F /* CosmosTouchTarget.swift */; };
+		A3D062C02A17823E0085E22F /* RightToLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D062B02A17823E0085E22F /* RightToLeft.swift */; };
+		A3D062C22A17823E0085E22F /* CosmosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D062B22A17823E0085E22F /* CosmosView.swift */; };
 		A3EFAE662A0385670044D9BC /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EFAE652A0385670044D9BC /* TabbarViewController.swift */; };
 		A3F6F5052A0CB73600D142D4 /* IQTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F6F4EA2A0CB73600D142D4 /* IQTextView.swift */; };
 		A3F6F5062A0CB73600D142D4 /* IQKeyboardManager+Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F6F4EB2A0CB73600D142D4 /* IQKeyboardManager+Internal.swift */; };
@@ -168,6 +183,23 @@
 		76B3488CB0096B73A4207D36 /* Pods-Signup & SignIn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Signup & SignIn.debug.xcconfig"; path = "Target Support Files/Pods-Signup & SignIn/Pods-Signup & SignIn.debug.xcconfig"; sourceTree = "<group>"; };
 		A381D6D92A011FF2005D48C7 /* WSContacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSContacts.swift; sourceTree = "<group>"; };
 		A3C0305A2A051863006F23F2 /* CustomSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegment.swift; sourceTree = "<group>"; };
+		A3D062A12A17823E0085E22F /* StarFillMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarFillMode.swift; sourceTree = "<group>"; };
+		A3D062A22A17823E0085E22F /* StarLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarLayer.swift; sourceTree = "<group>"; };
+		A3D062A32A17823E0085E22F /* CosmosAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosAccessibility.swift; sourceTree = "<group>"; };
+		A3D062A42A17823E0085E22F /* Cosmos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cosmos.h; sourceTree = "<group>"; };
+		A3D062A52A17823E0085E22F /* CosmosText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosText.swift; sourceTree = "<group>"; };
+		A3D062A62A17823E0085E22F /* CosmosDefaultSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosDefaultSettings.swift; sourceTree = "<group>"; };
+		A3D062A72A17823E0085E22F /* CosmosSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosSize.swift; sourceTree = "<group>"; };
+		A3D062A82A17823E0085E22F /* CosmosLayers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosLayers.swift; sourceTree = "<group>"; };
+		A3D062A92A17823E0085E22F /* CosmosLocalizedRating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosLocalizedRating.swift; sourceTree = "<group>"; };
+		A3D062AA2A17823E0085E22F /* CosmosLayerHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosLayerHelper.swift; sourceTree = "<group>"; };
+		A3D062AB2A17823E0085E22F /* CosmosTouch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosTouch.swift; sourceTree = "<group>"; };
+		A3D062AC2A17823E0085E22F /* CosmosRating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosRating.swift; sourceTree = "<group>"; };
+		A3D062AD2A17823E0085E22F /* CosmosSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosSettings.swift; sourceTree = "<group>"; };
+		A3D062AF2A17823E0085E22F /* CosmosTouchTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosTouchTarget.swift; sourceTree = "<group>"; };
+		A3D062B02A17823E0085E22F /* RightToLeft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightToLeft.swift; sourceTree = "<group>"; };
+		A3D062B12A17823E0085E22F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A3D062B22A17823E0085E22F /* CosmosView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosView.swift; sourceTree = "<group>"; };
 		A3EFAE652A0385670044D9BC /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
 		A3F6F4EA2A0CB73600D142D4 /* IQTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQTextView.swift; sourceTree = "<group>"; };
 		A3F6F4EB2A0CB73600D142D4 /* IQKeyboardManager+Internal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQKeyboardManager+Internal.swift"; sourceTree = "<group>"; };
@@ -216,21 +248,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		181B1BD629E7CCD1000A5FB5 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
-		182B3D8729E526320034770A /* Home Page */ = {
+		182B3D8729E526320034770A /* Home Page(Tab 1) */ = {
 			isa = PBXGroup;
 			children = (
 				1858815A29CAE3FB00EE2D92 /* HomePageViewController.swift */,
 				18EB86CA29D2B1FD00DA4D2F /* HometableViewCell.swift */,
 				18EB86CC29D2B21600DA4D2F /* homeCollectionViewCell.swift */,
 			);
-			path = "Home Page";
+			path = "Home Page(Tab 1)";
 			sourceTree = "<group>";
 		};
 		186B8CE129C9816D002D3FD1 /* Images */ = {
@@ -271,32 +296,24 @@
 		1897932429B713EF00B411C3 /* Signup & SignIn */ = {
 			isa = PBXGroup;
 			children = (
-				181B1BD629E7CCD1000A5FB5 /* New Group */,
 				1897932529B713EF00B411C3 /* AppDelegate.swift */,
 				1897932729B713EF00B411C3 /* SceneDelegate.swift */,
 				1897932929B713EF00B411C3 /* ViewController.swift */,
 				A3C0305A2A051863006F23F2 /* CustomSegment.swift */,
+				A3D062A02A17823E0085E22F /* Cosmos */,
 				18A8102229E6D6B50089DBF8 /* Model */,
 				18A8102129E6D6A70089DBF8 /* DatabaseManager */,
 				18A8102029E6D67E0089DBF8 /* Controllers */,
 				186B8CE129C9816D002D3FD1 /* Images */,
 				1897936729B73B5F00B411C3 /* Resources */,
-				182B3D8729E526320034770A /* Home Page */,
+				182B3D8729E526320034770A /* Home Page(Tab 1) */,
 				1897932B29B713EF00B411C3 /* Main.storyboard */,
 				1897932E29B713F400B411C3 /* Assets.xcassets */,
 				1897933029B713F400B411C3 /* LaunchScreen.storyboard */,
 				1897933329B713F400B411C3 /* Info.plist */,
-				1879CB9429E559BB000935D2 /* MenuBarViewController.swift */,
-				18A8102329E6D7290089DBF8 /* WorkTableViewCell.swift */,
-				18A8102529E6D73E0089DBF8 /* WorkViewController.swift */,
-				181B1BD729E7CCE6000A5FB5 /* whastappViewController.swift */,
-				18699E8229E7DDE800A56DDB /* contactTableViewCell.swift */,
-				18699EED29E81D1B00A56DDB /* selectcontactViewController.swift */,
-				18699EEF29E8391B00A56DDB /* selectcontactTableViewCell.swift */,
-				18EBD71129ED1259008E64E6 /* GalaryViewController.swift */,
-				18EBD71729ED19E7008E64E6 /* GalaryCollectionViewCell.swift */,
-				18EBD71929ED4C0B008E64E6 /* RecentViewController.swift */,
-				183AAC7029FFB61600BB377E /* AlbamCollectionViewCell.swift */,
+				A30B52DE2A1A5DEE0024AD45 /* Albums (Tab 3) */,
+				A30B52DD2A1A5D870024AD45 /* WhatsApp(Tab 3) */,
+				A30B52DC2A1A5D410024AD45 /* Home Workout(Tab 2) */,
 			);
 			path = "Signup & SignIn";
 			sourceTree = "<group>";
@@ -340,6 +357,7 @@
 		18A8102029E6D67E0089DBF8 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1879CB9429E559BB000935D2 /* MenuBarViewController.swift */,
 				186AA1DE29B99D6900CC3A00 /* SignUpViewController.swift */,
 				1867C22C29D15D7A006451D0 /* forupdatepassViewController.swift */,
 				187749A129BB0C000068A237 /* EditprofileViewController.swift */,
@@ -378,6 +396,69 @@
 				029526DD7EA9F20D1EF67224 /* Pods_Signup___SignIn.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A30B52DC2A1A5D410024AD45 /* Home Workout(Tab 2) */ = {
+			isa = PBXGroup;
+			children = (
+				18A8102329E6D7290089DBF8 /* WorkTableViewCell.swift */,
+				18A8102529E6D73E0089DBF8 /* WorkViewController.swift */,
+			);
+			path = "Home Workout(Tab 2)";
+			sourceTree = "<group>";
+		};
+		A30B52DD2A1A5D870024AD45 /* WhatsApp(Tab 3) */ = {
+			isa = PBXGroup;
+			children = (
+				181B1BD729E7CCE6000A5FB5 /* whastappViewController.swift */,
+				18699E8229E7DDE800A56DDB /* contactTableViewCell.swift */,
+				18699EED29E81D1B00A56DDB /* selectcontactViewController.swift */,
+				18699EEF29E8391B00A56DDB /* selectcontactTableViewCell.swift */,
+			);
+			path = "WhatsApp(Tab 3)";
+			sourceTree = "<group>";
+		};
+		A30B52DE2A1A5DEE0024AD45 /* Albums (Tab 3) */ = {
+			isa = PBXGroup;
+			children = (
+				18EBD71129ED1259008E64E6 /* GalaryViewController.swift */,
+				18EBD71729ED19E7008E64E6 /* GalaryCollectionViewCell.swift */,
+				18EBD71929ED4C0B008E64E6 /* RecentViewController.swift */,
+				183AAC7029FFB61600BB377E /* AlbamCollectionViewCell.swift */,
+			);
+			path = "Albums (Tab 3)";
+			sourceTree = "<group>";
+		};
+		A3D062A02A17823E0085E22F /* Cosmos */ = {
+			isa = PBXGroup;
+			children = (
+				A3D062A12A17823E0085E22F /* StarFillMode.swift */,
+				A3D062A22A17823E0085E22F /* StarLayer.swift */,
+				A3D062A32A17823E0085E22F /* CosmosAccessibility.swift */,
+				A3D062A42A17823E0085E22F /* Cosmos.h */,
+				A3D062A52A17823E0085E22F /* CosmosText.swift */,
+				A3D062A62A17823E0085E22F /* CosmosDefaultSettings.swift */,
+				A3D062A72A17823E0085E22F /* CosmosSize.swift */,
+				A3D062A82A17823E0085E22F /* CosmosLayers.swift */,
+				A3D062A92A17823E0085E22F /* CosmosLocalizedRating.swift */,
+				A3D062AA2A17823E0085E22F /* CosmosLayerHelper.swift */,
+				A3D062AB2A17823E0085E22F /* CosmosTouch.swift */,
+				A3D062AC2A17823E0085E22F /* CosmosRating.swift */,
+				A3D062AD2A17823E0085E22F /* CosmosSettings.swift */,
+				A3D062AE2A17823E0085E22F /* Helpers */,
+				A3D062B12A17823E0085E22F /* Info.plist */,
+				A3D062B22A17823E0085E22F /* CosmosView.swift */,
+			);
+			path = Cosmos;
+			sourceTree = "<group>";
+		};
+		A3D062AE2A17823E0085E22F /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				A3D062AF2A17823E0085E22F /* CosmosTouchTarget.swift */,
+				A3D062B02A17823E0085E22F /* RightToLeft.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		A3F6F4E82A0CB73600D142D4 /* IQKeyboardManagerSwift */ = {
@@ -592,12 +673,16 @@
 				1897932A29B713EF00B411C3 /* ViewController.swift in Sources */,
 				1897932629B713EF00B411C3 /* AppDelegate.swift in Sources */,
 				A3C0305B2A051863006F23F2 /* CustomSegment.swift in Sources */,
+				A3D062B32A17823E0085E22F /* StarFillMode.swift in Sources */,
 				A3F6F50E2A0CB73700D142D4 /* IQKeyboardManagerConstantsInternal.swift in Sources */,
 				A3EFAE662A0385670044D9BC /* TabbarViewController.swift in Sources */,
 				18699EF029E8391B00A56DDB /* selectcontactTableViewCell.swift in Sources */,
+				A3D062BF2A17823E0085E22F /* CosmosTouchTarget.swift in Sources */,
+				A3D062B72A17823E0085E22F /* CosmosDefaultSettings.swift in Sources */,
 				181B1BD829E7CCE6000A5FB5 /* whastappViewController.swift in Sources */,
 				187749A229BB0C000068A237 /* EditprofileViewController.swift in Sources */,
 				18EBD71A29ED4C0B008E64E6 /* RecentViewController.swift in Sources */,
+				A3D062BD2A17823E0085E22F /* CosmosRating.swift in Sources */,
 				A3F6F50C2A0CB73700D142D4 /* IQInvocation.swift in Sources */,
 				A3F6F5092A0CB73600D142D4 /* IQBarButtonItem.swift in Sources */,
 				A3F6F5132A0CB73700D142D4 /* IQKeyboardManager+Debug.swift in Sources */,
@@ -612,15 +697,23 @@
 				A3F6F5142A0CB73700D142D4 /* IQKeyboardManager+OrientationNotification.swift in Sources */,
 				A3F6F50D2A0CB73700D142D4 /* IQKeyboardManager+UIKeyboardNotification.swift in Sources */,
 				A3F6F5172A0CB73700D142D4 /* IQUIViewController+Additions.swift in Sources */,
+				A3D062BE2A17823E0085E22F /* CosmosSettings.swift in Sources */,
 				1868943929C2E551009C7811 /* utility.swift in Sources */,
 				1883FCF929E957FE00219937 /* ContactData.swift in Sources */,
 				186AA1E129B9DADD00CC3A00 /* profileViewController.swift in Sources */,
+				A3D062BB2A17823E0085E22F /* CosmosLayerHelper.swift in Sources */,
+				A3D062B52A17823E0085E22F /* CosmosAccessibility.swift in Sources */,
 				A3F6F5122A0CB73700D142D4 /* IQKeyboardManager.swift in Sources */,
+				A3D062B92A17823E0085E22F /* CosmosLayers.swift in Sources */,
 				A3F6F51A2A0CB73700D142D4 /* IQNSArray+Sort.swift in Sources */,
 				1897932829B713EF00B411C3 /* SceneDelegate.swift in Sources */,
 				A3F6F5052A0CB73600D142D4 /* IQTextView.swift in Sources */,
+				A3D062BC2A17823E0085E22F /* CosmosTouch.swift in Sources */,
+				A3D062BA2A17823E0085E22F /* CosmosLocalizedRating.swift in Sources */,
+				A3D062C22A17823E0085E22F /* CosmosView.swift in Sources */,
 				A3F6F50A2A0CB73600D142D4 /* IQToolbar.swift in Sources */,
 				18EB86CB29D2B1FD00DA4D2F /* HometableViewCell.swift in Sources */,
+				A3D062B62A17823E0085E22F /* CosmosText.swift in Sources */,
 				A3F6F50F2A0CB73700D142D4 /* IQKeyboardManagerConstants.swift in Sources */,
 				A3F6F5192A0CB73700D142D4 /* IQUIView+Hierarchy.swift in Sources */,
 				A3F6F5082A0CB73600D142D4 /* IQTitleBarButtonItem.swift in Sources */,
@@ -635,11 +728,14 @@
 				18F683E329FA78B600BD7C4E /* WorkOut.swift in Sources */,
 				187749A429BB3B4C0068A237 /* DatabaseManager.swift in Sources */,
 				A3F6F5152A0CB73700D142D4 /* IQKeyboardManager+Toolbar.swift in Sources */,
+				A3D062B82A17823E0085E22F /* CosmosSize.swift in Sources */,
 				18EBD71229ED125B008E64E6 /* GalaryViewController.swift in Sources */,
 				18EBD71829ED19E7008E64E6 /* GalaryCollectionViewCell.swift in Sources */,
+				A3D062B42A17823E0085E22F /* StarLayer.swift in Sources */,
 				18699E8329E7DDE800A56DDB /* contactTableViewCell.swift in Sources */,
 				A3F6F5112A0CB73700D142D4 /* IQKeyboardReturnKeyHandler.swift in Sources */,
 				A3F6F5182A0CB73700D142D4 /* IQUITextFieldView+Additions.swift in Sources */,
+				A3D062C02A17823E0085E22F /* RightToLeft.swift in Sources */,
 				18EB86CD29D2B21600DA4D2F /* homeCollectionViewCell.swift in Sources */,
 				A3F6F5062A0CB73600D142D4 /* IQKeyboardManager+Internal.swift in Sources */,
 				18699EEE29E81D1B00A56DDB /* selectcontactViewController.swift in Sources */,

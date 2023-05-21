@@ -9,16 +9,11 @@ import UIKit
 
 class GalaryViewController: UIViewController {
     
-    var ArrImg = [UIImage(imageLiteralResourceName: "image1"),
-                  UIImage(imageLiteralResourceName: "image2"),
-                  UIImage(imageLiteralResourceName: "image3"),
-                  UIImage(imageLiteralResourceName: "image4"),
-                  UIImage(imageLiteralResourceName: "image5")]
-    
-    var ArrCategory = ["All Image","Recents","Download","Favourite","Camera"]
     var NameAlbam = ""
     var arrGallery : [GalleryData] = []
     @IBOutlet var collectionview: UICollectionView!
+    
+    // View Did Load Function
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,10 +35,15 @@ class GalaryViewController: UIViewController {
         self.arrGallery.append(obj4)
         
     }
+    
+    // View Will Appear Fuction
+    
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.post(name: NSNotification.Name("HideMenu"), object: nil)
     }
 }
+
+// Collaction View Delegate
 
 extension GalaryViewController:UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -72,6 +72,8 @@ extension GalaryViewController:UICollectionViewDelegate,UICollectionViewDataSour
         NotificationCenter.default.post(name: NSNotification.Name("HideMenu"), object: nil)
     }
 }
+
+// Collaction View Delegate FlowLayout
 
 extension GalaryViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -15,9 +15,10 @@ protocol Push{
 }
 
 class changepassViewController: UIViewController {
-    //Mark:- IBOutlets
     
     var u_Id = ""
+    
+    //Mark:- IBOutlets
     
     @IBOutlet var mainview: UIView!
     @IBOutlet var subview: UIView!
@@ -31,6 +32,8 @@ class changepassViewController: UIViewController {
     @IBOutlet var cancelbtn: UIButton!
     
     var delegate:Push!          // Call The Protocol
+    
+    // View Did Load Function
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,12 +61,14 @@ class changepassViewController: UIViewController {
         txtnewpass.delegate = self
         txtconfirmpass.delegate = self
     }
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
+    
+    // Cancel Action Button
+    
     @IBAction func cancel(_ sender: UIButton) {
         self.dismiss(animated: true)
     }
+    
+    // Update Action Button
     
     @IBAction func update(_ sender: UIButton) {
         let result = DatabaseManager.shared.checkpass(password: self.txtoldpass.text!)
@@ -91,7 +96,7 @@ class changepassViewController: UIViewController {
         }
     }
     
-    // Alert Control Function
+    // Alert Control Function(For TextFiled Validation)
     
     func Alertmsg(strMsgAlert:String,strtitle:String){
         let alert = UIAlertController(title: strtitle, message: strMsgAlert, preferredStyle: .alert)
@@ -100,6 +105,8 @@ class changepassViewController: UIViewController {
         }))
         self.present(alert, animated: true, completion: nil)
     }
+    
+    // Alert Control Function (Update Successfull)
     
     func viewAlert(withTitle title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -121,6 +128,9 @@ class changepassViewController: UIViewController {
         }
     }
 }
+
+// TextField Validation
+
 extension UITextField{
     func underline(){
         let border = CALayer()
@@ -132,7 +142,13 @@ extension UITextField{
         self.layer.masksToBounds = true
     }
 }
+
+// Exention
+
 extension changepassViewController{
+    
+    // Loader Function
+    
     func loader()->UIAlertController{
         let alert = UIAlertController(title: "\t"+"\t"+"Updating your Password...", message: "\t"+"Please Wait..", preferredStyle: .alert)
         alert.view.tintColor = .red
@@ -149,13 +165,22 @@ extension changepassViewController{
         present(alert, animated: true, completion: nil)
         return alert
     }
+    
+    // Stop Loader Function
+    
     func stopLoad(loader:UIAlertController) {
         DispatchQueue.main.async {
             loader.dismiss(animated: true, completion: nil)
         }
     }
 }
+
+    // UI TextField Delegate
+
 extension changepassViewController:UITextFieldDelegate{
+    
+    // Set The Range Of Character
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == txtoldpass{
             let maxLength = 8

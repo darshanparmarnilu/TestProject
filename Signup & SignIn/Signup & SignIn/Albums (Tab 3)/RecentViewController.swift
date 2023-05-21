@@ -17,12 +17,16 @@ class RecentViewController: UIViewController {
     var ImgCount = 0
     var currentIndex = 0
     
+    // IB-Outlets
+    
     @IBOutlet weak var lblAlbam: UILabel!
     @IBOutlet var collactionview: UICollectionView!
     @IBOutlet var container: UIView!
     @IBOutlet var lblcount: UILabel!
     @IBOutlet var btnnext: UIButton!
     @IBOutlet var btnprev: UIButton!
+    
+    // View Did Load Function
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,21 +37,36 @@ class RecentViewController: UIViewController {
         lblcount.text = "\(currentIndex+1)" + "/" + "\(ArrImg.count)"
         container.alpha = 0
     }
+    
+    // View Will Appear Function
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.container.alpha = 0
         collactionview.reloadData()
     }
+    
+    // Touch Event
+    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         self.container.alpha = 0
     }
+    
+    // Show Menu Container Action Button
+    
     @IBAction func showContainer(_ sender: UIButton) {
         container.alpha = 1
     }
+    
+    // Back Action Button
+    
     @IBAction func back(_ sender: UIButton) {
         self.dismiss(animated: true)
     }
+    
+    // Image Back Action Button
+    
     @IBAction func previewimage(_ sender: UIButton) {
         self.container.alpha = 0
         
@@ -62,6 +81,9 @@ class RecentViewController: UIViewController {
             btnprev.isEnabled = currentIndex > 0
         }
     }
+    
+    // Image Next Action Button
+    
     @IBAction func nextimage(_ sender: UIButton) {
         self.container.alpha = 0
         
@@ -77,6 +99,8 @@ class RecentViewController: UIViewController {
         }
     }
 }
+
+// Collaction View Delegate
 
 extension RecentViewController:UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -106,6 +130,9 @@ extension RecentViewController:UICollectionViewDelegate,UICollectionViewDataSour
         self.container.alpha = 0
     }
 }
+
+// Collaction View Delegate FlowLayout
+
 extension RecentViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = collectionView.frame.size

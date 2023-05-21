@@ -12,11 +12,15 @@ class MenuBarViewController: UIViewController, MFMailComposeViewControllerDelega
     
     var user_id = ""
     
+    // IB-Outlets
+    
     @IBOutlet var lblMobileNo: UILabel!
     @IBOutlet var lblUserName: UILabel!
     @IBOutlet var image: UIImageView!
     @IBOutlet var logout: UIButton!
     @IBOutlet var leadingConstraint: NSLayoutConstraint!
+    
+    // View Did Load Function
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,15 +33,24 @@ class MenuBarViewController: UIViewController, MFMailComposeViewControllerDelega
         image.layer.borderWidth = 1
         image.layer.borderColor = UIColor.black.cgColor
     }
+    
+    // View Will Appear Function
+    
     override func viewWillAppear(_ animated: Bool) {
         getData()
     }
+    
+    // Edit Profile Action Button
+    
     @IBAction func EditProfile(_ sender: UIButton) {
         let edit = self.storyboard?.instantiateViewController(withIdentifier: "EditprofileViewController") as! EditprofileViewController
         edit.modalPresentationStyle = .overFullScreen
         edit.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(edit, animated: false)
     }
+    
+    // Change Pass Action Button
+    
     @IBAction func ChangePass(_ sender: UIButton) {
         let controller = self.storyboard?.instantiateViewController(withIdentifier: "changepassViewController") as! changepassViewController
         controller.delegate = self
@@ -46,6 +59,9 @@ class MenuBarViewController: UIViewController, MFMailComposeViewControllerDelega
         controller.u_Id = self.user_id
         self.present(controller, animated: true)
     }
+    
+    // Share Action Button
+    
     @IBAction func share(_ sender: UIButton) {
         if let name = URL(string: "https://itunes.apple.com/us/app/myapp/idxxxxxxxx?ls=1&mt=8"), !name.absoluteString.isEmpty {
             let objectsToShare = [name]
@@ -55,9 +71,14 @@ class MenuBarViewController: UIViewController, MFMailComposeViewControllerDelega
             // show alert for not available
         }
     }
+    
+    // Contact Us Action Button
+    
     @IBAction func ContactUs(_ sender: UIButton) {
         contactUs()
     }
+    
+    // Contact Us Function
     
     func contactUs() {
         let email = "darshanparmar.nilu@gmail.com" // insert your email here
@@ -91,6 +112,8 @@ class MenuBarViewController: UIViewController, MFMailComposeViewControllerDelega
         }
     }
     
+    // Log Out Action Button
+    
     @IBAction func logout(_ sender: UIButton) {
         
         let user_defaults = UserDefaults.standard
@@ -102,6 +125,8 @@ class MenuBarViewController: UIViewController, MFMailComposeViewControllerDelega
         navigate.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(navigate, animated: true)
     }
+    
+    // Get All Data From Database Function
     
     func getData(){
         getDataFromDefaults {success , id, firstname, lastname, email, password, mobileno,aboutme,userImage,userDateofBirth,userBirthTime,userCountry,userState,userCity,userGender  in
@@ -123,6 +148,8 @@ class MenuBarViewController: UIViewController, MFMailComposeViewControllerDelega
         }
     }
 }
+
+// Push Protocol For Push to Login Screen
 
 extension MenuBarViewController:Push{
     func pushVC() {

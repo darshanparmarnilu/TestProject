@@ -12,12 +12,14 @@ class WorkOut: NSObject {
     var WorkType:String!
     var Switch : Bool
     var Slider: Int!
+    var RatingView: Int!
     
-    init(arrColors:UIColor!,WorkType:String!,Switch: Bool,Slider:Int!) {
+    init(arrColors:UIColor!,WorkType:String!,Switch: Bool,Slider:Int!,RatingView:Int!) {
         self.arrColors = arrColors
         self.WorkType = WorkType
         self.Switch = Switch
         self.Slider = Slider
+        self.RatingView = RatingView
     }
 
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Cosmos
 
 class WorkTableViewCell: UITableViewCell {
     
@@ -13,10 +14,9 @@ class WorkTableViewCell: UITableViewCell {
     
     var checkStar:Bool! = false
     
-    @IBOutlet var stackrating: UIStackView!
-    @IBOutlet weak var ratingBtn3: UIButton!
-    @IBOutlet weak var ratingBtn2: UIButton!
-    @IBOutlet weak var ratingBtn1: UIButton!
+    // IB-Outlets
+    
+    @IBOutlet weak var RatingStar: CosmosView!
     @IBOutlet weak var presentView: UIView!
     @IBOutlet weak var backView: UIView!
     @IBOutlet var lbl100: UILabel!
@@ -27,6 +27,9 @@ class WorkTableViewCell: UITableViewCell {
     @IBOutlet var ratio: UILabel!
     @IBOutlet var slider: UISlider!
     @IBOutlet var lblwork: UILabel!
+    
+    // Function
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -39,8 +42,9 @@ class WorkTableViewCell: UITableViewCell {
         self.contentView.layer.masksToBounds = true
         self.contentView.layer.cornerRadius = 25
         
-        let thumbImage = UIImage(named: "Ellipse 4")?.resizeImage(to: CGSize(width: 20, height: 20))
+        let thumbImage = UIImage(named: "Ellipse 4")?.resizeImage(to: CGSize(width: 17, height: 17))
         slider.setThumbImage(thumbImage, for: .normal)
+        slider.setThumbImage(thumbImage, for: .highlighted)
         
         backView.layer.masksToBounds = true
         backView.layer.shadowColor = UIColor.black.cgColor
@@ -56,6 +60,9 @@ class WorkTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 }
+
+// Extention UIImage Resize Image
+
 extension UIImage{
     func resizeImage(to newSize: CGSize) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)

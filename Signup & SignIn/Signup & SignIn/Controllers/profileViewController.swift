@@ -13,7 +13,6 @@ class profileViewController: UIViewController {
     
     // MARK :- IBOutlet
     
-    
     @IBOutlet var txtdateofbirth: UITextField!
     @IBOutlet var txtgender: UITextField!
     @IBOutlet var txtcity: UITextField!
@@ -40,6 +39,9 @@ class profileViewController: UIViewController {
     @IBOutlet var lblemail: UILabel!
     @IBOutlet var lbllast: UILabel!
     @IBOutlet var lblfirst: UILabel!
+    
+    // View Did Load Function
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,11 +50,12 @@ class profileViewController: UIViewController {
         profileimg.isUserInteractionEnabled = false
         profileimg.layer.masksToBounds = true
         profileimg.layer.cornerRadius = 40
+        profileimg.layer.borderWidth = 2
+        profileimg.layer.borderColor = UIColor(red: 5/255, green: 28/255, blue: 107/255, alpha: 1).cgColor
         
         self.txtfirst.isUserInteractionEnabled = false
         self.txtlast.isUserInteractionEnabled = false
         self.txtemail.isUserInteractionEnabled = false
-        
         self.txtmobile.isUserInteractionEnabled = false
         self.txtaboutme.isUserInteractionEnabled = false
         self.txtdateofbirth.isUserInteractionEnabled = false
@@ -79,6 +82,8 @@ class profileViewController: UIViewController {
         lblstate.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
         lblcity.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
         lblgender.textColor = UIColor(red: 5/256, green: 28/256, blue: 107/256, alpha: 1)
+        
+    // UnderLine Function For TextField
         
         txtfirst.underlined()
         txtlast.underlined()
@@ -108,10 +113,15 @@ class profileViewController: UIViewController {
         self.reloadInputViews()
     }
     
+    // View Will Appear Function
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.getData()
     }
+    
+    // Open Menu Action Button
+    
     @IBAction func Menu(_ sender: UIButton) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "SideMenuNavigationController") as! SideMenuNavigationController
         if UIDevice.current.userInterfaceIdiom == .pad{
@@ -124,7 +134,9 @@ class profileViewController: UIViewController {
         vc.leftSide = true
         present(vc, animated: true, completion: nil)
     }
+    
     // MARK:- Get user Data from userDefaults
+    
     func getData() {
         getDataFromDefaults { success, id, firstname, lastname, email, password, mobileno, aboutme, userImage,userDateofBirth,userBirthTime,userCountry,userState,userCity,userGender     in
             if success == true {
@@ -155,6 +167,8 @@ class profileViewController: UIViewController {
         }
     }
 }
+
+// Text Filed Extention (UnderLine Funcrion)
 
 extension UITextField{
     func underlined(){

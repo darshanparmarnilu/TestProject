@@ -10,13 +10,14 @@ import Toast_Swift
 
 class HometableViewCell: UITableViewCell {
     
+    // IB-Outlets
+    
     @IBOutlet var collactionview: UICollectionView!
     @IBOutlet var lblLocation: UILabel!
     @IBOutlet var lblUserName: UILabel!
     @IBOutlet var userImg: UIImageView!
     @IBOutlet var btnsave: UIButton!
     @IBOutlet var btnlike: UIButton!
-    
     @IBOutlet var page: UIPageControl!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,6 +28,7 @@ class HometableViewCell: UITableViewCell {
         page?.hidesForSinglePage = true
         page?.currentPage = 0
     }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         self.selectionStyle = .none
